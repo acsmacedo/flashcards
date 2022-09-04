@@ -2,7 +2,7 @@
 
 [ApiController]
 [Route("[controller]")]
-public class UsersController : ControllerBase
+public class DirectoriesController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get()
