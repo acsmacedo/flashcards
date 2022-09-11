@@ -4,26 +4,40 @@ namespace FlashCards.Api.Core.Notifications;
 
 public class Notification
 {
+    public const int TitleMaxLength = 200;
     public const int MessageMaxLength = 1000;
 
-    public int NotificationID { get; private set; }
+    public int ID { get; private set; }
     public int UserID { get; private set; }
     public DateTime NotificationDate { get; private set; }
+    public DateTime? SentDate { get; private set; }
+    public DateTime? ReadDate { get; private set; }
+    public string Title { get; private set; }
     public string Message { get; private set; }
-    public bool Read { get; private set; }
-    public User User { get; private set; } = User.Empty;
+    public NotificationStatus Status { get; private set; }
+    public User? User { get; private set; } 
 
     public Notification(
-        int notificationID,
-        int userID, 
-        DateTime notificationDate,
-        string message,
-        bool read)
+        int userID,
+        string title,
+        string message)
     {
-        NotificationID = notificationID;
         UserID = userID;
-        NotificationDate = notificationDate;
+        Title = title;
         Message = message;
-        Read = read;
+        NotificationDate = DateTime.Now;
+        Status = NotificationStatus.New;
+    }
+
+    public void Send()
+    {
+        Status = NotificationStatus.Sent;
+        SentDate = DateTime.Now;
+    }
+
+    public void Read()
+    {
+        Status = NotificationStatus.Read;
+        ReadDate = DateTime.Now;
     }
 }

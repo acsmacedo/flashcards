@@ -10,11 +10,11 @@ public class NotificationConfig : IEntityTypeConfiguration<Notification>
             .ToTable("notifications");
 
         builder
-            .HasKey(x => x.NotificationID)
+            .HasKey(x => x.ID)
             .HasName("pk_notification_id");
 
         builder
-            .Property(x => x.NotificationID)
+            .Property(x => x.ID)
             .HasColumnName("notification_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()
@@ -33,9 +33,26 @@ public class NotificationConfig : IEntityTypeConfiguration<Notification>
             .IsRequired();
 
         builder
-            .Property(x => x.Read)
-            .HasColumnName("read")
-            .HasColumnType("bit")
+            .Property(x => x.SentDate)
+            .HasColumnName("sent_date")
+            .HasColumnType("datetime");
+
+        builder
+            .Property(x => x.ReadDate)
+            .HasColumnName("read_date")
+            .HasColumnType("datetime");
+
+        builder
+            .Property(x => x.Status)
+            .HasColumnName("status")
+            .HasColumnType("int")
+            .IsRequired();
+
+        builder
+            .Property(x => x.Title)
+            .HasColumnName("title")
+            .HasColumnType("varchar")
+            .HasMaxLength(Notification.TitleMaxLength)
             .IsRequired();
 
         builder

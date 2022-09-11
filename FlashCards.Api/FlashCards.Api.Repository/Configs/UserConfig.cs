@@ -1,4 +1,5 @@
-﻿using FlashCards.Api.Core.Users;
+﻿using FlashCards.Api.Core.Accounts;
+using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Repository.Configs;
 
@@ -10,14 +11,20 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .ToTable("users");
 
         builder
-            .HasKey(x => x.UserID)
+            .HasKey(x => x.ID)
             .HasName("pk_user_id");
 
         builder
-            .Property(x => x.UserID)
+            .Property(x => x.ID)
             .HasColumnName("user_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()
+            .IsRequired();
+
+        builder
+            .Property(x => x.AccountID)
+            .HasColumnName("account_id")
+            .HasColumnType("int")
             .IsRequired();
 
         builder
@@ -38,5 +45,20 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .HasColumnName("interests")
             .HasColumnType("varchar")
             .HasMaxLength(User.InterestsMaxLength);
+
+        builder
+            .HasOne(x => x.Account)
+            .WithOne()
+            .HasForeignKey<User>(x => x.AccountID);
+
+        //builder
+        //    .HasMany(x => x.Followers)
+        //    .WithOne()
+        //    .HasForeignKey(x => x.FollowerID);
+
+        //builder
+        //    .HasMany(x => x.Following)
+        //    .WithOne()
+        //    .HasForeignKey(x => x.FollowedID);
     }
 }

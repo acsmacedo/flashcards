@@ -10,11 +10,11 @@ public class DenunciationConfig : IEntityTypeConfiguration<Denunciation>
             .ToTable("denunciations");
 
         builder
-            .HasKey(x => x.DenunciationID)
+            .HasKey(x => x.ID)
             .HasName("pk_denunciation_id");
 
         builder
-            .Property(x => x.DenunciationID)
+            .Property(x => x.ID)
             .HasColumnName("denunciation_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()
@@ -55,11 +55,13 @@ public class DenunciationConfig : IEntityTypeConfiguration<Denunciation>
         builder
             .HasOne(x => x.Accuser)
             .WithMany()
-            .HasForeignKey(x => x.AccuserID);
+            .HasForeignKey(x => x.AccuserID)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasOne(x => x.Suspect)
             .WithMany()
-            .HasForeignKey(x => x.SuspectID);
+            .HasForeignKey(x => x.SuspectID)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

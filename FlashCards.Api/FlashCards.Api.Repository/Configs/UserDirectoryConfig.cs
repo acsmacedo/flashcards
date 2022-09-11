@@ -38,10 +38,10 @@ public class UserDirectoryConfig : IEntityTypeConfiguration<UserDirectory>
             .HasMaxLength(UserDirectory.NameMaxLength)
             .IsRequired();
 
-        builder
-            .HasOne(x => x.User)
-            .WithMany(x => x.Directories)
-            .HasForeignKey(x => x.UserID);
+        //builder
+        //    .HasOne(x => x.User)
+        //    .WithMany(x => x.Directories)
+        //    .HasForeignKey(x => x.UserID);
 
         builder
             .HasOne(x => x.Parent)

@@ -1,7 +1,5 @@
 ﻿using FlashCards.Api.Core.Categories;
-using FlashCards.Api.Repository;
 using FlashCards.Api.Service.DTO.Categories;
-using Microsoft.EntityFrameworkCore;
 
 namespace FlashCards.Api.Service.Services;
 

@@ -1,4 +1,6 @@
-﻿namespace FlashCards.Api.Core.Accounts;
+﻿using FlashCards.Api.Core.Users;
+
+namespace FlashCards.Api.Core.Accounts;
 
 public class Account
 {
@@ -26,4 +28,6 @@ public class Account
     {
         Status = AccountStatus.Disabled;
     }
+
+    public static Account Empty => new(string.Empty, string.Empty);
 }

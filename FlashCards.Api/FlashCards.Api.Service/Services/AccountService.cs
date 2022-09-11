@@ -1,4 +1,5 @@
 ﻿using FlashCards.Api.Core.Accounts;
+using FlashCards.Api.Core.Users;
 using FlashCards.Api.Service.DTO.Accounts;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,13 +24,14 @@ public class AccountService : IAccountService
 
     public async Task<AccountDto> CreateAsync(CreateAccountDto data)
     {
-        var entity = new Account(data.Email, data.Password);
+        var account = new Account(data.Email, data.Password);
+        var user = new User(account);
 
-        _context.Add(entity);
+        _context.Add(user);
 
         await SaveChangesAsync();
 
-        var result = new AccountDto(entity);
+        var result = new AccountDto(account, user);
 
         return result;
     }
@@ -70,16 +72,22 @@ public class AccountService : IAccountService
 
     public Task<AccountDto> LoginAsync(LoginAccountDto data)
     {
-        var entity = _context.Accounts
+        var account = _context.Accounts
             .FirstOrDefault(x => x.Email == data.Email);
 
-        if (entity == null)
+        if (account == null)
             throw new Exception("Senha ou usuário inválido.");
 
-        if (entity.Password != data.Password)
+        if (account.Password != data.Password)
             throw new Exception("Senha ou usuário inválido.");
 
-        var result = new AccountDto(entity);
+        var user = _context.Users
+            .FirstOrDefault(x => x.AccountID == account.ID);
+
+        if (user == null)
+            throw new Exception("Usuário não encontrado.");
+
+        var result = new AccountDto(account, user);
 
         return Task.FromResult(result);
     }

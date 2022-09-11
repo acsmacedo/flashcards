@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220910141733_AddAccountTable")]
-    partial class AddAccountTable
+    [Migration("20220911111225_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,55 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasName("pk_category_id");
 
                     b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.Users.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("AccountID")
+                        .HasColumnType("int")
+                        .HasColumnName("account_id");
+
+                    b.Property<string>("Instagram")
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("instagram");
+
+                    b.Property<string>("Interests")
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("interests");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
+
+                    b.HasKey("ID")
+                        .HasName("pk_user_id");
+
+                    b.HasIndex("AccountID")
+                        .IsUnique();
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.Users.User", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.Accounts.Account", "Account")
+                        .WithOne()
+                        .HasForeignKey("FlashCards.Api.Core.Users.User", "AccountID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }
