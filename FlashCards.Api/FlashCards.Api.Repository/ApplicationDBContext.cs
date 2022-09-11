@@ -18,12 +18,10 @@ public class ApplicationDbContext : DbContext
     #nullable disable
     public DbSet<Account> Accounts { get; set; }
     public DbSet<User> Users { get; set; }
-
-    public DbSet<Denunciation> Denunciations { get; set; }
-    public DbSet<Category> Categories { get; set; }
     public DbSet<Notification> Notifications { get; set; }
-
-    //public DbSet<UserDirectory> Directories { get; set; }
+    public DbSet<Denunciation> Denunciations { get; set; }
+    public DbSet<UserDirectory> Directories { get; set; }
+    public DbSet<Category> Categories { get; set; }
     //public DbSet<FlashCardCollection> FlashCards { get; set; }
     #nullable enable
 
@@ -32,13 +30,10 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new AccountConfig());
         modelBuilder.ApplyConfiguration(new UserConfig());
         modelBuilder.ApplyConfiguration(new UserRelationshipConfig());
-
-        modelBuilder.ApplyConfiguration(new DenunciationConfig());
         modelBuilder.ApplyConfiguration(new NotificationConfig());
-
+        modelBuilder.ApplyConfiguration(new DenunciationConfig());
+        modelBuilder.ApplyConfiguration(new UserDirectoryConfig());
         modelBuilder.ApplyConfiguration(new CategoryConfig());
-
-        //modelBuilder.ApplyConfiguration(new UserDirectoryConfig());
         //modelBuilder.ApplyConfiguration(new FlashCardCollectionConfig());
         //modelBuilder.ApplyConfiguration(new FlashCardItemConfig());
         //modelBuilder.ApplyConfiguration(new FlashCardRatingConfig());

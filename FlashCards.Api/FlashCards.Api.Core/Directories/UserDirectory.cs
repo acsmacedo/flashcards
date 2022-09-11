@@ -12,7 +12,7 @@ public class UserDirectory
     public int UserID { get; private set; }
     public string Name { get; private set; }
 
-    public User User { get; private set; } = User.Empty;
+    public User? User { get; private set; }
     public UserDirectory? Parent { get; private set; }
     public IReadOnlyCollection<UserDirectory> Children { get; private set; }
         = new List<UserDirectory>();
@@ -20,16 +20,19 @@ public class UserDirectory
         = new List<FlashCardCollection>();
 
     public UserDirectory(
-        int userDirectoryID,
         int? userDirectoryParentID,
         int userID,
         string name)
     {
-        UserDirectoryID = userDirectoryID;
         UserDirectoryParentID = userDirectoryParentID;
         UserID = userID;
         Name = name;
     }
 
-    public static UserDirectory Empty => new(0, null, 0, string.Empty);
+    public void Edit(string name)
+    {
+        Name = name;
+    }
+
+    public static UserDirectory Empty => new(null, 0, string.Empty);
 }
