@@ -22,7 +22,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Denunciation> Denunciations { get; set; }
     public DbSet<UserDirectory> Directories { get; set; }
     public DbSet<Category> Categories { get; set; }
-    //public DbSet<FlashCardCollection> FlashCards { get; set; }
+    public DbSet<FlashCardCollection> FlashCards { get; set; }
     #nullable enable
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,9 +34,9 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new DenunciationConfig());
         modelBuilder.ApplyConfiguration(new UserDirectoryConfig());
         modelBuilder.ApplyConfiguration(new CategoryConfig());
-        //modelBuilder.ApplyConfiguration(new FlashCardCollectionConfig());
-        //modelBuilder.ApplyConfiguration(new FlashCardItemConfig());
-        //modelBuilder.ApplyConfiguration(new FlashCardRatingConfig());
-        //modelBuilder.ApplyConfiguration(new FlashCardTagConfig());
+        modelBuilder.ApplyConfiguration(new FlashCardCollectionConfig());
+        modelBuilder.ApplyConfiguration(new FlashCardItemConfig());
+        modelBuilder.ApplyConfiguration(new FlashCardRatingConfig());
+        modelBuilder.ApplyConfiguration(new FlashCardTagConfig());
     }
 }

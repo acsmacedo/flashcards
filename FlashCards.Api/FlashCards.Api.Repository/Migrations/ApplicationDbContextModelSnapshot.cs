@@ -151,109 +151,112 @@ namespace FlashCards.Api.Repository.Migrations
 
             modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardCollection", b =>
                 {
-                    b.Property<int>("FlashCardCollectionID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_collection_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardCollectionID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("CategoryID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
 
                     b.Property<int>("UserDirectoryID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("user_directory_id");
 
-                    b.HasKey("FlashCardCollectionID");
+                    b.HasKey("ID")
+                        .HasName("pk_flash_card_collection_id");
 
                     b.HasIndex("CategoryID");
 
                     b.HasIndex("UserDirectoryID");
 
-                    b.ToTable("FlashCardCollection");
+                    b.ToTable("flash_card_collections", (string)null);
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardItem", b =>
                 {
                     b.Property<int>("FlashCardItemID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardItemID"), 1L, 1);
-
-                    b.Property<int>("CollectionFlashCardCollectionID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_id");
 
                     b.Property<string>("FrontDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("front_description");
 
                     b.Property<string>("VerseDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("verse_description");
 
-                    b.HasKey("FlashCardItemID");
+                    b.HasKey("FlashCardItemID")
+                        .HasName("pk_flash_card_id");
 
-                    b.HasIndex("CollectionFlashCardCollectionID");
-
-                    b.ToTable("FlashCardItem");
+                    b.ToTable("flash_card_items", (string)null);
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardRating", b =>
                 {
                     b.Property<int>("FlashCardRatingID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardRatingID"), 1L, 1);
-
-                    b.Property<int>("CollectionFlashCardCollectionID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_rating_id");
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("comment");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("rating");
 
                     b.Property<int>("UserID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("FlashCardRatingID");
+                    b.HasKey("FlashCardRatingID")
+                        .HasName("pk_flash_card_rating_id");
 
-                    b.HasIndex("CollectionFlashCardCollectionID");
-
-                    b.ToTable("FlashCardRating");
+                    b.ToTable("flash_card_ratings", (string)null);
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardTag", b =>
                 {
-                    b.Property<int>("FlashCardTagID")
+                    b.Property<int>("FlashCardCollectionID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardTagID"), 1L, 1);
-
-                    b.Property<int>("CollectionFlashCardCollectionID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_tag_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
 
-                    b.HasKey("FlashCardTagID");
+                    b.HasKey("FlashCardCollectionID")
+                        .HasName("pk_flash_card_tag_id");
 
-                    b.HasIndex("CollectionFlashCardCollectionID");
-
-                    b.ToTable("FlashCardTag");
+                    b.ToTable("flash_card_tags", (string)null);
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.Notifications.Notification", b =>
@@ -391,7 +394,7 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasForeignKey("UserDirectoryParentID");
 
                     b.HasOne("FlashCards.Api.Core.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Directories")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -404,7 +407,7 @@ namespace FlashCards.Api.Repository.Migrations
             modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardCollection", b =>
                 {
                     b.HasOne("FlashCards.Api.Core.Categories.Category", "Category")
-                        .WithMany()
+                        .WithMany("FlashCardCollections")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -424,7 +427,7 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
                         .WithMany("Cards")
-                        .HasForeignKey("CollectionFlashCardCollectionID")
+                        .HasForeignKey("FlashCardItemID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -435,7 +438,7 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
                         .WithMany("Ratings")
-                        .HasForeignKey("CollectionFlashCardCollectionID")
+                        .HasForeignKey("FlashCardRatingID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -446,7 +449,7 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
                         .WithMany("Tags")
-                        .HasForeignKey("CollectionFlashCardCollectionID")
+                        .HasForeignKey("FlashCardCollectionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -494,6 +497,11 @@ namespace FlashCards.Api.Repository.Migrations
                     b.Navigation("Follower");
                 });
 
+            modelBuilder.Entity("FlashCards.Api.Core.Categories.Category", b =>
+                {
+                    b.Navigation("FlashCardCollections");
+                });
+
             modelBuilder.Entity("FlashCards.Api.Core.Directories.UserDirectory", b =>
                 {
                     b.Navigation("Children");
@@ -512,6 +520,8 @@ namespace FlashCards.Api.Repository.Migrations
 
             modelBuilder.Entity("FlashCards.Api.Core.Users.User", b =>
                 {
+                    b.Navigation("Directories");
+
                     b.Navigation("Followers");
 
                     b.Navigation("Following");

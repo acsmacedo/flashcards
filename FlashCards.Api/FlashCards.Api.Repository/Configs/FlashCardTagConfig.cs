@@ -10,11 +10,11 @@ public class FlashCardTagConfig : IEntityTypeConfiguration<FlashCardTag>
             .ToTable("flash_card_tags");
 
         builder
-            .HasKey(x => x.FlashCardTagID)
+            .HasKey(x => x.FlashCardCollectionID)
             .HasName("pk_flash_card_tag_id");
 
         builder
-            .Property(x => x.FlashCardTagID)
+            .Property(x => x.FlashCardCollectionID)
             .HasColumnName("flash_card_tag_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()

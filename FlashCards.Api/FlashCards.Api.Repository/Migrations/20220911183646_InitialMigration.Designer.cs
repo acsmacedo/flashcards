@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220911163530_AddNotificationAndDenunciationTable")]
-    partial class AddNotificationAndDenunciationTable
+    [Migration("20220911183646_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,149 @@ namespace FlashCards.Api.Repository.Migrations
                     b.HasIndex("SuspectID");
 
                     b.ToTable("denunciations", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.Directories.UserDirectory", b =>
+                {
+                    b.Property<int>("UserDirectoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_directory_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserDirectoryID"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
+
+                    b.Property<int?>("UserDirectoryParentID")
+                        .HasColumnType("int")
+                        .HasColumnName("user_directory_parent_id");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("UserDirectoryID")
+                        .HasName("pk_user_directory_id");
+
+                    b.HasIndex("UserDirectoryParentID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("user_directories", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardCollection", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_collection_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("UserDirectoryID")
+                        .HasColumnType("int")
+                        .HasColumnName("user_directory_id");
+
+                    b.HasKey("ID")
+                        .HasName("pk_flash_card_collection_id");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("UserDirectoryID");
+
+                    b.ToTable("flash_card_collections", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardItem", b =>
+                {
+                    b.Property<int>("FlashCardItemID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_id");
+
+                    b.Property<string>("FrontDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("front_description");
+
+                    b.Property<string>("VerseDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("verse_description");
+
+                    b.HasKey("FlashCardItemID")
+                        .HasName("pk_flash_card_id");
+
+                    b.ToTable("flash_card_items", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardRating", b =>
+                {
+                    b.Property<int>("FlashCardRatingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_rating_id");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("comment");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int")
+                        .HasColumnName("rating");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("FlashCardRatingID")
+                        .HasName("pk_flash_card_rating_id");
+
+                    b.ToTable("flash_card_ratings", (string)null);
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardTag", b =>
+                {
+                    b.Property<int>("FlashCardCollectionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_tag_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)")
+                        .HasColumnName("name");
+
+                    b.HasKey("FlashCardCollectionID")
+                        .HasName("pk_flash_card_tag_id");
+
+                    b.ToTable("flash_card_tags", (string)null);
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.Notifications.Notification", b =>
@@ -246,6 +389,75 @@ namespace FlashCards.Api.Repository.Migrations
                     b.Navigation("Suspect");
                 });
 
+            modelBuilder.Entity("FlashCards.Api.Core.Directories.UserDirectory", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.Directories.UserDirectory", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("UserDirectoryParentID");
+
+                    b.HasOne("FlashCards.Api.Core.Users.User", "User")
+                        .WithMany("Directories")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardCollection", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.Categories.Category", "Category")
+                        .WithMany("FlashCardCollections")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlashCards.Api.Core.Directories.UserDirectory", "UserDirectory")
+                        .WithMany("FlashCardCollections")
+                        .HasForeignKey("UserDirectoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("UserDirectory");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardItem", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
+                        .WithMany("Cards")
+                        .HasForeignKey("FlashCardItemID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collection");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardRating", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
+                        .WithMany("Ratings")
+                        .HasForeignKey("FlashCardRatingID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collection");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardTag", b =>
+                {
+                    b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
+                        .WithMany("Tags")
+                        .HasForeignKey("FlashCardCollectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collection");
+                });
+
             modelBuilder.Entity("FlashCards.Api.Core.Notifications.Notification", b =>
                 {
                     b.HasOne("FlashCards.Api.Core.Users.User", "User")
@@ -287,8 +499,31 @@ namespace FlashCards.Api.Repository.Migrations
                     b.Navigation("Follower");
                 });
 
+            modelBuilder.Entity("FlashCards.Api.Core.Categories.Category", b =>
+                {
+                    b.Navigation("FlashCardCollections");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.Directories.UserDirectory", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("FlashCardCollections");
+                });
+
+            modelBuilder.Entity("FlashCards.Api.Core.FlashCards.FlashCardCollection", b =>
+                {
+                    b.Navigation("Cards");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("Tags");
+                });
+
             modelBuilder.Entity("FlashCards.Api.Core.Users.User", b =>
                 {
+                    b.Navigation("Directories");
+
                     b.Navigation("Followers");
 
                     b.Navigation("Following");

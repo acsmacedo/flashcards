@@ -8,8 +8,8 @@ public class Category
 
     public int ID { get; private set; }
     public string Name { get; private set; } = string.Empty;
-    //public IReadOnlyCollection<FlashCardCollection> FlashCardCollections { get; private set; }
-    //    = new List<FlashCardCollection>();
+    public IReadOnlyCollection<FlashCardCollection> FlashCardCollections { get; private set; }
+        = new List<FlashCardCollection>();
 
     public Category(string name)
     {
@@ -20,6 +20,4 @@ public class Category
     {
         Name = name;
     }
-
-    public static Category Empty => new(string.Empty);
 }

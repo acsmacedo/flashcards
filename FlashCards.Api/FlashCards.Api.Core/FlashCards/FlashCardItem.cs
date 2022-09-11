@@ -8,14 +8,20 @@ public class FlashCardItem
     public int FlashCardItemID { get; private set; }
     public string FrontDescription { get; private set; }
     public string VerseDescription { get; private set; }
-    public FlashCardCollection Collection { get; private set; } = FlashCardCollection.Empty;
+    public FlashCardCollection? Collection { get; private set; }
 
     public FlashCardItem(
-        int flashCardItemID, 
         string frontDescription,
         string verseDescription)
     {
-        FlashCardItemID = flashCardItemID;
+        FrontDescription = frontDescription;
+        VerseDescription = verseDescription;
+    }
+
+    public void Edit(
+        string frontDescription,
+        string verseDescription)
+    {
         FrontDescription = frontDescription;
         VerseDescription = verseDescription;
     }

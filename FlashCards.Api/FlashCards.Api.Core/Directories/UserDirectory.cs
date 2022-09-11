@@ -33,6 +33,4 @@ public class UserDirectory
     {
         Name = name;
     }
-
-    public static UserDirectory Empty => new(null, 0, string.Empty);
 }

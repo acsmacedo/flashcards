@@ -1,5 +1,4 @@
-﻿using FlashCards.Api.Core.Accounts;
-using FlashCards.Api.Core.Users;
+﻿using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Repository.Configs;
 
@@ -50,15 +49,5 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .HasOne(x => x.Account)
             .WithOne()
             .HasForeignKey<User>(x => x.AccountID);
-
-        //builder
-        //    .HasMany(x => x.Followers)
-        //    .WithOne()
-        //    .HasForeignKey(x => x.FollowerID);
-
-        //builder
-        //    .HasMany(x => x.Following)
-        //    .WithOne()
-        //    .HasForeignKey(x => x.FollowedID);
     }
 }

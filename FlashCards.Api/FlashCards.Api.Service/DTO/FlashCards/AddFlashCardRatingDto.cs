@@ -1,20 +1,19 @@
-﻿namespace FlashCards.Api.Core.FlashCards;
+﻿namespace FlashCards.Api.Service.DTO.FlashCards;
 
-public class FlashCardRating
+public class AddFlashCardRatingDto
 {
-    public const int CommentMaxLength = 1000;
-
-    public int FlashCardRatingID { get; private set; }
+    public int FlashCardCollectionID { get; private set; }
     public int UserID { get; private set; }
     public int Rating { get; private set; }
     public string Comment { get; private set; } = string.Empty;
-    public FlashCardCollection? Collection { get; private set; }
 
-    public FlashCardRating(
-        int userID, 
+    public AddFlashCardRatingDto(
+        int flashCardCollectionID, 
+        int userID,
         int rating, 
         string comment)
     {
+        FlashCardCollectionID = flashCardCollectionID;
         UserID = userID;
         Rating = rating;
         Comment = comment;

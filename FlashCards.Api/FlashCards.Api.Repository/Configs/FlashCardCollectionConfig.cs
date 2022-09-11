@@ -10,11 +10,11 @@ public class FlashCardCollectionConfig : IEntityTypeConfiguration<FlashCardColle
             .ToTable("flash_card_collections");
 
         builder
-            .HasKey(x => x.FlashCardCollectionID)
+            .HasKey(x => x.ID)
             .HasName("pk_flash_card_collection_id");
 
         builder
-            .Property(x => x.FlashCardCollectionID)
+            .Property(x => x.ID)
             .HasColumnName("flash_card_collection_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()
@@ -45,10 +45,10 @@ public class FlashCardCollectionConfig : IEntityTypeConfiguration<FlashCardColle
             .HasColumnType("varchar")
             .HasMaxLength(FlashCardCollection.DescriptionMaxLength);
 
-        //builder
-        //    .HasOne(x => x.Category)
-        //    .WithMany(x => x.FlashCardCollections)
-        //    .HasForeignKey(x => x.CategoryID);
+        builder
+            .HasOne(x => x.Category)
+            .WithMany(x => x.FlashCardCollections)
+            .HasForeignKey(x => x.CategoryID);
 
         builder
             .HasOne(x => x.UserDirectory)
@@ -58,7 +58,7 @@ public class FlashCardCollectionConfig : IEntityTypeConfiguration<FlashCardColle
         builder
             .HasMany(x => x.Tags)
             .WithOne(x => x.Collection)
-            .HasForeignKey(x => x.FlashCardTagID);
+            .HasForeignKey(x => x.FlashCardCollectionID);
 
         builder
             .HasMany(x => x.Ratings)

@@ -1,6 +1,5 @@
 ﻿using FlashCards.Api.Core.Accounts;
 using FlashCards.Api.Core.Directories;
-using FlashCards.Api.Core.FlashCards;
 
 namespace FlashCards.Api.Core.Users;
 
@@ -16,9 +15,9 @@ public class User
     public string? Instagram { get; private set; }
     public string? Interests { get; private set; }
 
-    public Account Account { get; private set; } = Account.Empty;
-    //public IReadOnlyCollection<UserDirectory> Directories { get; private set; }
-    //    = new List<UserDirectory>();
+    public Account? Account { get; private set; }
+    public IReadOnlyCollection<UserDirectory> Directories { get; private set; }
+        = new List<UserDirectory>();
 
     private User() { }
 
@@ -67,6 +66,4 @@ public class User
             followed.EditNotification(enableNotification);
         }
     }
-
-    public static User Empty => new(Account.Empty);
 }
