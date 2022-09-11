@@ -4,9 +4,4 @@
 [Route("[controller]")]
 public class FlashCardsController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult Get()
-    {
-        return Ok();
-    }
 }
