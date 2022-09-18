@@ -5,20 +5,105 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
+            <Color x:Key="Primary">#4956F1</Color>
+            <Color x:Key="Secondary">#33D2FF</Color>
+            <Color x:Key="Black">#1F2C37</Color>
+            <Color x:Key="GrayDark">#BAB9D0</Color>
+            <Color x:Key="GrayLight">#ECF1F6</Color>
+            <Color x:Key="White">#FFFFFF</Color>
+
+            <Style TargetType="Frame" x:Key="FrameInputInternal">
+                <Setter Property="Padding" Value="10, 5" />
+                <Setter Property="Margin" Value="1"></Setter>
+                <Setter Property="BackgroundColor" Value="{ StaticResource White }" />
+                <Setter Property="CornerRadius" Value="1000" />
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+
+            <Style TargetType="Frame" x:Key="FrameInputExternalBase">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0, 0, 0, 10" />
+                <Setter Property="CornerRadius" Value="1000" />
+                <Setter Property="HasShadow" Value="False"/> 
+            </Style>
+
+            <Style TargetType="Frame" x:Key="FrameInputExternalLight" BasedOn="{StaticResource FrameInputExternalBase }">
+                <Setter Property="BackgroundColor" Value="{ StaticResource White }" />
+            </Style>
+
+            <Style TargetType="Frame" x:Key="FrameInputExternalDark" BasedOn="{StaticResource FrameInputExternalBase }">
+                <Setter Property="BackgroundColor" Value="{ StaticResource GrayLight }" />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{ StaticResource Black }" />
+                <Setter Property="PlaceholderColor" Value="{ StaticResource GrayDark }" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelBase">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelLight" BasedOn="{ StaticResource LabelBase }">
+                <Setter Property="TextColor" Value="{ StaticResource White }" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LabelDark" BasedOn="{ StaticResource LabelBase }">
+                <Setter Property="TextColor" Value="{ StaticResource GrayDark }" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="TitleBase" >
+                <Setter Property="FontSize" Value="48" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="TitleLight" BasedOn="{ StaticResource TitleBase }">
+                <Setter Property="TextColor" Value="{ StaticResource White }" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="TitleDark" BasedOn="{ StaticResource TitleBase }">
+                <Setter Property="TextColor" Value="{ StaticResource GrayDark }" />
+            </Style>
+            
+            <Style TargetType="Button" x:Key="ButtonBase">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="1000" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="10, 5" />
+                <Setter Property="TextTransform" Value="None" />
+            </Style>
+
+            <Style TargetType="Button" x:Key="ButtonPrimary" BasedOn="{ StaticResource ButtonBase }">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{ StaticResource Primary }" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Disabled">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                    <Setter Property="BackgroundColor" Value="{ StaticResource Primary }" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style TargetType="Button" x:Key="ButtonSecondary" BasedOn="{ StaticResource ButtonBase }">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary }" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary }" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>

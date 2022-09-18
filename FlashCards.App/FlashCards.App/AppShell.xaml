@@ -11,15 +11,15 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="White" />
-                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
-                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.BackgroundColor" Value="{ StaticResource Primary }" />
+                <Setter Property="Shell.ForegroundColor" Value="{ StaticResource Primary }" />
+                <Setter Property="Shell.TitleColor" Value="{ StaticResource White }" />
+                <Setter Property="Shell.DisabledColor" Value="{ StaticResource GrayDark }" />
+                <Setter Property="Shell.UnselectedColor" Value="{ StaticResource GrayDark }" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{ StaticResource White }" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{ StaticResource Primary }"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{ StaticResource GrayDark }"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{ StaticResource Primary }"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
@@ -27,14 +27,10 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Home" Route="Home" ContentTemplate="{DataTemplate home:HomePage}" />
-        <ShellContent Title="FlashCards" Route="FlashCards" ContentTemplate="{DataTemplate flashcards:FlashCardsPage}" />
-        <ShellContent Title="Directories" Route="Directories" ContentTemplate="{DataTemplate directories:DirectoriesPage}" />
-        <ShellContent Title="Network" Route="Network" ContentTemplate="{DataTemplate network:NetworkPage}" />
-        <ShellContent Title="Settings" Route="Settings" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+        <ShellContent Title="Home" Icon="icon_home.png" Route="Home" ContentTemplate="{ DataTemplate home:HomePage }" />
+        <ShellContent Title="Cards" Icon="icon_flash_cards.png" Route="FlashCards" ContentTemplate="{ DataTemplate flashcards:FlashCardsPage }" />
+        <ShellContent Title="Pasta" Icon="icon_directories.png" Route="Directories" ContentTemplate="{ DataTemplate directories:DirectoriesPage }" />
+        <ShellContent Title="Rede" Icon="icon_network.png" Route="Network" ContentTemplate="{ DataTemplate network:NetworkPage }" />
+        <ShellContent Title="Opções" Icon="icon_settings.png" Route="Settings" ContentTemplate="{ DataTemplate settings:SettingsPage }" />
     </TabBar>
-
-    <!--<TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
 </Shell>

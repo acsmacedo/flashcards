@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FlashCards.App.Views.Account;
+using Xamarin.Forms;
 
 namespace FlashCards.App
 {
@@ -9,7 +10,15 @@ namespace FlashCards.App
             InitializeComponent();
 
             //DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+
+            if (Current.Properties.TryGetValue("user_id", out var value))
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }            
         }
 
         protected override void OnStart()

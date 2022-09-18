@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Account.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <ScrollView>
+        <StackLayout Padding="20" BackgroundColor="{ StaticResource Primary }">
+            <Label Text="Olá, seja bem vindo!" Style="{ StaticResource TitleLight }" />
+
+            <Label Text="E-mail" Style="{ StaticResource LabelLight }" />
+
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Email" Placeholder="Digite seu e-mail" ReturnType="Next" />
+                </Frame>
+            </Frame>
+
+
+            <Label Text="Senha" Style="{ StaticResource LabelLight }" />
+            
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Password" IsPassword="true" Placeholder="Digite sua senha" ReturnType="Done" />
+                </Frame>
+            </Frame>
+
+            <Button Text="Entrar" Clicked="Login" Style="{ StaticResource ButtonSecondary }" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
