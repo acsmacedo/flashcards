@@ -4,10 +4,86 @@
              x:Class="FlashCards.App.Views.Network.NetworkPage"
              Title="Network">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="{ StaticResource GrayLight }">
-            <Label Text="Network page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Style="{ StaticResource PageLight }">
+            <Frame Style="{ StaticResource FrameInputExternalDark }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Pesquisar" Placeholder="Pesquisar" ReturnType="Done" />
+                </Frame>
+            </Frame>
+
+            <CollectionView x:Name="_collection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GoToProfileUserPage" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <Frame HeightRequest="10"
+                                           WidthRequest="10"
+                                           CornerRadius="1000"
+                                           IsClippedToBounds="True">
+                                        <Image Source="avatar3.jpg"
+                                               Aspect="AspectFill"
+                                               WidthRequest="20"
+                                               HeightRequest="20" 
+                                               Margin="-30"/>
+                                    </Frame>
+
+                                    <StackLayout VerticalOptions="Center"  Margin="10, 0, 0, 0" Spacing="0">
+                                        <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }"/>
+                                        <Label Text="{ Binding Instagram }" Style="{ StaticResource SubTitleDark }"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="icon_star_primary.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding IsFollwed }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="UnFollow" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_star_outline.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding NotIsFollwed }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="Follow" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_alert_primary.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding IsEnableNotification }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="DisableNotification" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_alert_outline.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding NotIsEnableNotification }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="EnableNotification" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <BoxView Style="{ StaticResource Divider }" Margin="0, 5"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    

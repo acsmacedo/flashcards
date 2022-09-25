@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCards.App.Views.Account.LoginPage"
              NavigationPage.HasNavigationBar="False">
-    <ScrollView>
-        <StackLayout Padding="20" BackgroundColor="{ StaticResource Primary }">
-            <Label Text="Olá, seja bem vindo!" Style="{ StaticResource TitleLight }" />
+    <ScrollView BackgroundColor="{ StaticResource Primary }">
+        <StackLayout VerticalOptions="CenterAndExpand" Style="{ StaticResource PagePrimary }">
+            <Label Text="Olá, seja &#10;bem vindo!" Style="{ StaticResource TitleLight }" />
 
             <Label Text="E-mail" Style="{ StaticResource LabelLight }" />
-
             <Frame Style="{ StaticResource FrameInputExternalLight }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
                     <Entry x:Name="Email" Placeholder="Digite seu e-mail" ReturnType="Next" />
@@ -17,7 +16,6 @@
 
 
             <Label Text="Senha" Style="{ StaticResource LabelLight }" />
-            
             <Frame Style="{ StaticResource FrameInputExternalLight }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
                     <Entry x:Name="Password" IsPassword="true" Placeholder="Digite sua senha" ReturnType="Done" />
@@ -25,6 +23,20 @@
             </Frame>
 
             <Button Text="Entrar" Clicked="Login" Style="{ StaticResource ButtonSecondary }" />
+
+            <Label HorizontalTextAlignment="Center" Margin="0, 20, 0, 0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Não tem uma conta? " Style="{ StaticResource LabelLight }" />
+                        <Span Text="Criar conta!" Style="{ StaticResource LabelSecondary }">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToCreateAccountPage" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </StackLayout>
     </ScrollView>
 </ContentPage>
+    

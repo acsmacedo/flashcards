@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Network.ProfileUser"
+             Title="Perfil do usuário">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="Start">
+            <RelativeLayout HorizontalOptions="Center">
+                <Frame HeightRequest="90"
+                       WidthRequest="90"
+                       CornerRadius="1000"
+                       IsClippedToBounds="True">
+                    <Image Source="avatar3.jpg"
+                           Aspect="AspectFill"
+                           WidthRequest="120"
+                           Margin="-30"
+                           HeightRequest="120" />
+                </Frame>
+            </RelativeLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="0, 10">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="5">
+                        <Image Source="icon_star_primary.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+
+                        <Image Source="icon_star_primary.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+
+                        <Image Source="icon_star_primary.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+
+                        <Image Source="icon_star_outline.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+
+                        <Image Source="icon_star_outline.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+                    </StackLayout>
+
+                    <Label Text="100 avaliações" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="0">
+                    <Button Text="Seguir" BackgroundColor="{ StaticResource Primary }" TextColor="{ StaticResource White }" Margin="0" CornerRadius="0" />
+                    <ImageButton Source="icon_alert_primary.png" Margin="0" BorderColor="{ StaticResource Primary }" BorderWidth="2" BackgroundColor="{ StaticResource White }" CornerRadius="0" Padding="10, 0"/>
+                </StackLayout>
+            </StackLayout>
+            
+            <StackLayout>
+                <Label Text="Nome" Style="{ StaticResource SubTitleDark }" />
+                <Label Text="Anderson Macedo" Style="{ StaticResource SubTitleBlack }" />
+                
+                <BoxView Style="{ StaticResource Divider }" />
+
+                <Label Text="Instagram" Style="{ StaticResource SubTitleDark }" />
+                <Label Text="@desconhecido" Style="{ StaticResource SubTitleBlack }" />
+                
+                <BoxView Style="{ StaticResource Divider }" />
+                
+                <Label Text="Interesses" Style="{ StaticResource SubTitleDark }" />
+                <Label Text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." Style="{ StaticResource SubTitleBlack }" />
+
+                <StackLayout Orientation="Horizontal" Spacing="10" Padding="0, 10, 0, 0">
+                    <Button Text="Flashcards" Clicked="GoToFlashcardsPage" Style="{ StaticResource ButtonPrimary }" HorizontalOptions="FillAndExpand" />
+                    <Button Text="Denunciar" Clicked="GoToDenunciationPage" Style="{ StaticResource ButtonSecondary }" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -2,12 +2,154 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCards.App.Views.Settings.SettingsPage"
-             Title="Opções">
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="{ StaticResource GrayLight }">
-            <Label Text="Settings Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             Shell.NavBarIsVisible="False">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }" Padding="0">
+            <Grid RowDefinitions="30, 30, 30, 60, 70" ColumnDefinitions="1*">
+                <BoxView Color="{ StaticResource Primary }" Grid.Row="0" Grid.RowSpan="4" />
+
+                <Frame Style="{ StaticResource Frame }" Grid.Row="3" Grid.RowSpan="3" Margin="20, 0">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <StackLayout VerticalOptions="End">
+                            <Label Text="Anderson Macedo" 
+                                   HorizontalTextAlignment="Center"
+                                   Style="{ StaticResource SubTitleBlack }"
+                                   FontSize="21" />
+
+                            <StackLayout Orientation="Horizontal" Padding="0, 0, 0, 10">
+                                <FlexLayout HorizontalOptions="FillAndExpand" JustifyContent="Center" AlignItems="Center">
+                                    <FlexLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GoToMyFollowersPage" />
+                                    </FlexLayout.GestureRecognizers>
+                                    
+                                    <Image Source="icon_people.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" />
+
+                                    <Label Text="37 Seguidores" 
+                                           Style="{ StaticResource SubTitleDark }" 
+                                           Margin="5, 0, 0, 0" />
+                                </FlexLayout>
+
+                                <FlexLayout  HorizontalOptions="FillAndExpand" JustifyContent="Center" AlignItems="Center">
+                                    <FlexLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GoToMyFollowedsPage" />
+                                    </FlexLayout.GestureRecognizers>
+                                    
+                                    <Image Source="icon_people.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20"
+                                           Margin="5, 0, 0, 0" />
+
+                                    <Label Text="15 Seguindo" 
+                                           Style="{ StaticResource SubTitleDark }" 
+                                           Margin="5, 0, 0, 0" />
+                                </FlexLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
+
+                <RelativeLayout Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalOptions="Center">
+                    <RelativeLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="GoToMyProfilePage" />
+                    </RelativeLayout.GestureRecognizers>
+                    
+                    <Frame HeightRequest="90"
+                           WidthRequest="90"
+                           CornerRadius="1000"
+                           IsClippedToBounds="True"
+                           x:Name="_avatar">
+                        <Image Source="avatar3.jpg"
+                               Aspect="AspectFill"
+                               WidthRequest="120"
+                               Margin="-30"
+                               HeightRequest="120" />
+                    </Frame>
+
+
+                    <Image Source="icon_edit.png" 
+                           WidthRequest="30" 
+                           HeightRequest="30" 
+                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=_avatar, Property=Width, Constant=-35}"
+                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=_avatar, Property=Height, Constant=-35}" />
+                </RelativeLayout>
+            </Grid>
+
+            <StackLayout Padding="20" Spacing="10">
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToPrivacyAndSecurityPage" />
+                        </Frame.GestureRecognizers>
+
+                        <FlexLayout AlignItems="Center" Padding="10, 10">
+                            <Image Source="icon_settings_privacy.png" 
+                                   WidthRequest="40" 
+                                   HeightRequest="40" />
+
+                            <Label Text="Privacidade e segurança" 
+                                   Style="{ StaticResource SubTitleDark }"
+                                   Padding="20, 0, 0, 0"/>
+                        </FlexLayout>
+                    </Frame>
+                </Frame>
+
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToNotificationPage" />
+                        </Frame.GestureRecognizers>
+
+                        <FlexLayout AlignItems="Center" Padding="10, 10">
+                            <Image Source="icon_settings_notification.png" 
+                                   WidthRequest="40" 
+                                   HeightRequest="40" />
+
+                            <Label Text="Notificações" 
+                                   Style="{ StaticResource SubTitleDark }"
+                                   Padding="20, 0, 0, 0"/>
+                        </FlexLayout>
+                    </Frame>
+                </Frame>
+
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToSubscriptionPage" />
+                        </Frame.GestureRecognizers>
+
+                        <FlexLayout AlignItems="Center" Padding="10, 10">
+                            <Image Source="icon_settings_subscribe.png" 
+                                   WidthRequest="40" 
+                                   HeightRequest="40" />
+
+                            <Label Text="Minha assinatura" 
+                                   Style="{ StaticResource SubTitleDark }"
+                                   Padding="20, 0, 0, 0"/>
+                        </FlexLayout>
+                    </Frame>
+                </Frame>
+
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Logout" />
+                        </Frame.GestureRecognizers>
+
+                        <FlexLayout AlignItems="Center" Padding="10, 10">
+                            <Image Source="icon_settings_logout.png" 
+                                   WidthRequest="40" 
+                                   HeightRequest="40" />
+
+                            <Label Text="Sair" 
+                                   Style="{ StaticResource SubTitleDark }"
+                                   Padding="20, 0, 0, 0"/>
+                        </FlexLayout>
+                    </Frame>
+                </Frame>
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>
+    

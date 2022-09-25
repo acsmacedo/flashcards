@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Network.MyFollowersPage"
+             Title="Meus seguidores">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{ StaticResource GrayLight }">
+            <Label Text="Meus seguidores"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

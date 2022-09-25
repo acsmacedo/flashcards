@@ -12,7 +12,7 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{ StaticResource Primary }" />
-                <Setter Property="Shell.ForegroundColor" Value="{ StaticResource Primary }" />
+                <Setter Property="Shell.ForegroundColor" Value="{ StaticResource White }" />
                 <Setter Property="Shell.TitleColor" Value="{ StaticResource White }" />
                 <Setter Property="Shell.DisabledColor" Value="{ StaticResource GrayDark }" />
                 <Setter Property="Shell.UnselectedColor" Value="{ StaticResource GrayDark }" />
@@ -21,16 +21,36 @@
                 <Setter Property="Shell.TabBarUnselectedColor" Value="{ StaticResource GrayDark }"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="{ StaticResource Primary }"/>
             </Style>
+            
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Home" Icon="icon_home.png" Route="Home" ContentTemplate="{ DataTemplate home:HomePage }" />
-        <ShellContent Title="Cards" Icon="icon_flash_cards.png" Route="FlashCards" ContentTemplate="{ DataTemplate flashcards:FlashCardsPage }" />
-        <ShellContent Title="Pasta" Icon="icon_directories.png" Route="Directories" ContentTemplate="{ DataTemplate directories:DirectoriesPage }" />
-        <ShellContent Title="Rede" Icon="icon_network.png" Route="Network" ContentTemplate="{ DataTemplate network:NetworkPage }" />
-        <ShellContent Title="Opções" Icon="icon_settings.png" Route="Settings" ContentTemplate="{ DataTemplate settings:SettingsPage }" />
+        <ShellContent Title="Home" 
+                      Icon="icon_home.png" 
+                      Route="Home" 
+                      ContentTemplate="{ DataTemplate home:HomePage }" />
+        
+        <ShellContent Title="Cards" 
+                      Icon="icon_flash_cards.png" 
+                      Route="FlashCards" 
+                      ContentTemplate="{ DataTemplate flashcards:FlashCardsPage }" />
+        
+        <ShellContent Title="Pasta" 
+                      Icon="icon_directories.png"
+                      Route="Directories" 
+                      ContentTemplate="{ DataTemplate directories:DirectoriesPage }" />
+        
+        <ShellContent Title="Rede" 
+                      Icon="icon_network.png" 
+                      Route="Network" 
+                      ContentTemplate="{ DataTemplate network:NetworkPage }" />
+        
+        <ShellContent Title="Opções" 
+                      Icon="icon_settings.png"
+                      Route="Settings" 
+                      ContentTemplate="{ DataTemplate settings:SettingsPage }" />
     </TabBar>
 </Shell>

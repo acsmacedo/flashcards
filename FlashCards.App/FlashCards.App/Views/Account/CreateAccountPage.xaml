@@ -1,12 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlashCards.App.Views.Account.CreateAccountPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             x:Class="FlashCards.App.Views.Account.CreateAccountPage"
+             NavigationPage.HasNavigationBar="False">
+    <ScrollView BackgroundColor="{ StaticResource Primary }">
+        <StackLayout VerticalOptions="CenterAndExpand" Style="{ StaticResource PagePrimary }">
+            <Label Text="Criar conta" Style="{ StaticResource TitleLight }" />
+
+            <Label Text="Nome" Style="{ StaticResource LabelLight }" />
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Nome" Placeholder="Digite seu nome" ReturnType="Next" />
+                </Frame>
+            </Frame>
+
+            <Label Text="E-mail" Style="{ StaticResource LabelLight }" />
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Email" Placeholder="Digite seu e-mail" ReturnType="Next" />
+                </Frame>
+            </Frame>
+
+            <Label Text="Senha" Style="{ StaticResource LabelLight }" />
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Password" IsPassword="true" Placeholder="Digite sua senha" ReturnType="Next" />
+                </Frame>
+            </Frame>
+
+            <Label Text="Confirmar senha" Style="{ StaticResource LabelLight }" />
+            <Frame Style="{ StaticResource FrameInputExternalLight }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="ConfirmPassword" IsPassword="true" Placeholder="Confirme a senha" ReturnType="Done" />
+                </Frame>
+            </Frame>
+
+            <FlexLayout Direction="Row" AlignItems="Center" Margin="0, 0, 0, 20">
+                <CheckBox Color="{ StaticResource White }" />
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Eu aceito os " Style="{ StaticResource LabelLight }" />
+                            <Span Text="termos e condições." Style="{ StaticResource LabelSecondary }">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="GoToTermsAndConditions" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </FlexLayout>
+            
+            <Button Text="Entrar" Clicked="Login" Style="{ StaticResource ButtonSecondary }" />
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>
+    

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="FlashCards.App.Views.Settings.SettingsPrivacyAndSecurityPage"
+             Title="Privacidade e segurança">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }">
+            <StackLayout Spacing="10">
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <StackLayout Padding="10, 10">
+                            <xct:Expander>
+                                <xct:Expander.Header>
+                                    <Grid>
+                                        <Label Text="Histórico de acessos" Style="{ StaticResource SubTitleBlack }" />
+                                        <Image Source="icon_arrow_up.png" 
+                                               HorizontalOptions="End" 
+                                               VerticalOptions="Center" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20">
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" 
+                                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}" 
+                                                             Value="True">
+                                                    <Setter Property="Source" Value="icon_arrow_down.png" />
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </Grid>
+                                </xct:Expander.Header>
+
+                                <xct:Expander.ContentTemplate>
+                                    <DataTemplate>
+                                        <Label Margin="0, 10, 0, 0">
+                                            <Label.FormattedText>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras massa odio, ultrices vel rhoncus sed, elementum et sapien. Nunc ut luctus urna, vitae efficitur purus. Nunc faucibus, lacus nec sagittis mattis, justo velit varius dolor, id tristique nisl sem a velit. Etiam feugiat eleifend mi, in volutpat nisi vulputate sed. Fusce metus libero, tincidunt vitae aliquam maximus, vulputate posuere sem. Aliquam sem massa, maximus vel enim id, pulvinar ultrices nulla. Vivamus vitae ante non ipsum consequat pulvinar.
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </xct:Expander.ContentTemplate>
+                            </xct:Expander>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
+
+
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <StackLayout Padding="10, 10">
+                            <xct:Expander>
+                                <xct:Expander.Header>
+                                    <Grid>
+                                        <Label Text="E-mails enviados" Style="{ StaticResource SubTitleBlack }" />
+                                        <Image Source="icon_arrow_up.png" 
+                                               HorizontalOptions="End" 
+                                               VerticalOptions="Center" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20">
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" 
+                                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}" 
+                                                             Value="True">
+                                                    <Setter Property="Source" Value="icon_arrow_down.png" />
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </Grid>
+                                </xct:Expander.Header>
+
+                                <xct:Expander.ContentTemplate>
+                                    <DataTemplate>
+                                        <Label Margin="0, 10, 0, 0">
+                                            <Label.FormattedText>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras massa odio, ultrices vel rhoncus sed, elementum et sapien. Nunc ut luctus urna, vitae efficitur purus. Nunc faucibus, lacus nec sagittis mattis, justo velit varius dolor, id tristique nisl sem a velit. Etiam feugiat eleifend mi, in volutpat nisi vulputate sed. Fusce metus libero, tincidunt vitae aliquam maximus, vulputate posuere sem. Aliquam sem massa, maximus vel enim id, pulvinar ultrices nulla. Vivamus vitae ante non ipsum consequat pulvinar.
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </xct:Expander.ContentTemplate>
+                            </xct:Expander>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
+
+
+                <Frame Style="{ StaticResource Frame }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <StackLayout Padding="10, 10">
+                            <xct:Expander>
+                                <xct:Expander.Header>
+                                    <Grid>
+                                        <Label Text="Política de privacidade" Style="{ StaticResource SubTitleBlack }" />
+                                        <Image Source="icon_arrow_up.png" 
+                                               HorizontalOptions="End" 
+                                               VerticalOptions="Center" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20">
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" 
+                                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}" 
+                                                             Value="True">
+                                                    <Setter Property="Source" Value="icon_arrow_down.png" />
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+                                    </Grid>
+                                </xct:Expander.Header>
+
+                                <xct:Expander.ContentTemplate>
+                                    <DataTemplate>
+                                        <Label Margin="0, 10, 0, 0">
+                                            <Label.FormattedText>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras massa odio, ultrices vel rhoncus sed, elementum et sapien. Nunc ut luctus urna, vitae efficitur purus. Nunc faucibus, lacus nec sagittis mattis, justo velit varius dolor, id tristique nisl sem a velit. Etiam feugiat eleifend mi, in volutpat nisi vulputate sed. Fusce metus libero, tincidunt vitae aliquam maximus, vulputate posuere sem. Aliquam sem massa, maximus vel enim id, pulvinar ultrices nulla. Vivamus vitae ante non ipsum consequat pulvinar.
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </DataTemplate>
+                                </xct:Expander.ContentTemplate>
+                            </xct:Expander>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
+            </StackLayout>
+            
+            <StackLayout Spacing="10" Padding="0, 20, 0, 0">
+                <Button Text="Alterar senha" Clicked="GoToChangePasswordPage" Style="{ StaticResource ButtonSecondary }" />
+                <Button Text="Cancelar conta" Clicked="CancelAccountAction" Style="{ StaticResource ButtonPrimary }" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+    

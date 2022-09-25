@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Settings.SettingsSubscriptionPage"
+             Title="Minha assinatura">
+    <ContentPage.Content>
+        <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="CenterAndExpand" Padding="0, 70">
+            <CarouselView x:Name="_carousel" PeekAreaInsets="30" VerticalOptions="CenterAndExpand" IndicatorView="_indicatorView">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" VerticalOptions="CenterAndExpand">
+                            <Frame Style="{ StaticResource Frame }" VerticalOptions="Start">
+                                <Frame Style="{ StaticResource FrameInputInternal }" VerticalOptions="Start">
+                                    <StackLayout Padding="10" HorizontalOptions="Center">
+                                        <Label Text="{ Binding Name }"
+                                               TextColor="{ StaticResource GrayDark }"
+                                               HorizontalTextAlignment="Center"
+                                               FontSize="16"
+                                               FontAttributes="Bold" />
+
+                                        <Label Text="{ Binding Price }" 
+                                               TextColor="{ StaticResource Black}"
+                                               HorizontalTextAlignment="Center"
+                                               FontSize="36"
+                                               FontAttributes="Bold" />
+
+                                        <StackLayout Spacing="5" Padding="0, 10">
+                                            <CollectionView ItemsSource="{ Binding Benefits }">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <FlexLayout AlignItems="Center">
+                                                            <CheckBox Color="{ StaticResource Primary }" 
+                                                                      IsChecked="True"
+                                                                      IsEnabled="False" />
+
+                                                            <Label Text="{ Binding BenefitName }" Style="{ StaticResource SubTitleDark }" FontSize="14" />
+                                                        </FlexLayout>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                            <Button Text="Assinar" Style="{ StaticResource ButtonPrimary }" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Frame>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView x:Name="_indicatorView"
+                           IndicatorsShape="Circle"
+                           IndicatorColor="{ StaticResource GrayDark }"
+                           SelectedIndicatorColor="{ StaticResource Primary }"
+                           IndicatorSize="20" 
+                           VerticalOptions="Start" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+    

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Network.ProfileDenouncePage"
+             Title="Denunciar perfil">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="Start">
+            <StackLayout Orientation="Horizontal">
+                <Frame HeightRequest="20"
+                       WidthRequest="20"
+                       CornerRadius="1000"
+                       IsClippedToBounds="True">
+                    <Image Source="avatar3.jpg"
+                           Aspect="AspectFill"
+                           WidthRequest="40"
+                           Margin="-30"
+                           HeightRequest="40" />
+                </Frame>
+
+                <StackLayout VerticalOptions="Center" Margin="10, 0, 0, 0" Spacing="0">
+                    <Label Text="Anderson Macedo" Style="{ StaticResource SubTitleBlack }"/>
+                    <Label Text="@deconhecido" Style="{ StaticResource SubTitleDark }"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Margin="0, 20, 0, 0">
+                <Label Text="Ocorrência" Style="{ StaticResource LabelDark }" />
+                <Frame Style="{ StaticResource FrameInputExternalDark }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Entry x:Name="Ocorrencia" Placeholder="Digite o titulo da ocorrência" ReturnType="Next" />
+                    </Frame>
+                </Frame>
+
+                <Label Text="Descrição" Style="{ StaticResource LabelDark }" />
+                <Frame Style="{ StaticResource FrameInputExternalDark }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Entry x:Name="Instagram" Placeholder="Digite a descriação da ocorrência" ReturnType="Next" />
+                    </Frame>
+                </Frame>
+
+                <Button Text="Denunciar" Clicked="SubmitDenounceProfile" Style="{ StaticResource ButtonSecondary }" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+    

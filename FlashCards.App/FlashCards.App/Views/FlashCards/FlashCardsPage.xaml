@@ -4,10 +4,63 @@
              x:Class="FlashCards.App.Views.FlashCards.FlashCardsPage"
              Title="Cards">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="{ StaticResource GrayLight }">
-            <Label Text="Flash Cards Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Style="{ StaticResource PageLight }">
+            <Frame Style="{ StaticResource FrameInputExternalDark }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Pesquisar" Placeholder="Pesquisar" ReturnType="Done" />
+                </Frame>
+            </Frame>
+
+            <CollectionView x:Name="_collection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="GoToFlashcardPage" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <StackLayout VerticalOptions="Center" Spacing="0">
+                                        <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }"/>
+                                        <Label Text="{ Binding Instagram }" Style="{ StaticResource SubTitleDark }"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Image Source="icon_star_primary.png" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20" />
+
+                                        <Image Source="icon_star_primary.png" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20" />
+
+                                        <Image Source="icon_star_primary.png" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20" />
+
+                                        <Image Source="icon_star_outline.png" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20" />
+
+                                        <Image Source="icon_star_outline.png" 
+                                               WidthRequest="20" 
+                                               HeightRequest="20" />
+                                    </StackLayout>
+
+                                    <Label Text="100 avaliações" HorizontalOptions="End" />
+                                </StackLayout>
+                            </StackLayout>
+                            
+                            <BoxView Style="{ StaticResource Divider }" Margin="0, 5"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    
