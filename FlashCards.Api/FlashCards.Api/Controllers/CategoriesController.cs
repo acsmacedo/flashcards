@@ -21,6 +21,15 @@ public class CategoriesController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("{categoryID}")]
+    public async Task<IActionResult> GetByIDAsync(int categoryID)
+    {
+        var result = await _service.GetByIDAsync(categoryID);
+
+        return Ok(result);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync(CreateCategoryDto data)
     {
@@ -38,9 +47,10 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteAsync(DeleteCategoryDto data)
+    [Route("{categoryID}")]
+    public async Task<IActionResult> DeleteAsync(int categoryID)
     {
-        await _service.DeleteAsync(data);
+        await _service.DeleteAsync(new DeleteCategoryDto(categoryID));
 
         return Ok();
     }

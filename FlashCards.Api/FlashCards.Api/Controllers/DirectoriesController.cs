@@ -14,6 +14,7 @@ public class DirectoriesController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{userID}")]
     public async Task<IActionResult> GetByUserIDAsync(int userID)
     {
         var result = await _service.GetByUserIDAsync(userID);
@@ -38,9 +39,10 @@ public class DirectoriesController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteAsync(DeleteDirectoryDto data)
+    [Route("{userDirectoryID}")]
+    public async Task<IActionResult> DeleteAsync(int userDirectoryID)
     {
-        await _service.DeleteAsync(data);
+        await _service.DeleteAsync(new DeleteDirectoryDto(userDirectoryID));
 
         return Ok();
     }

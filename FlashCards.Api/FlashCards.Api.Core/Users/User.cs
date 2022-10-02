@@ -1,5 +1,7 @@
 ﻿using FlashCards.Api.Core.Accounts;
 using FlashCards.Api.Core.Directories;
+using FlashCards.Api.Core.NotificationSettings;
+using FlashCards.Api.Core.SubscriptionTypes;
 
 namespace FlashCards.Api.Core.Users;
 
@@ -14,17 +16,19 @@ public class User
     public string Name { get; private set; } = string.Empty;
     public string? Instagram { get; private set; }
     public string? Interests { get; private set; }
+    public int? SubscriptionTypeID { get; private set; }
 
     public Account? Account { get; private set; }
+    public SubscriptionType? SubscriptionType { get; private set; }
     public IReadOnlyCollection<UserDirectory> Directories { get; private set; }
         = new List<UserDirectory>();
 
     private User() { }
 
-    public User(Account account)
+    public User(Account account, string name)
     {
         Account = account;
-        Name = "Sem Nome";
+        Name = name;
     }
 
     public void Edit(string name, string? instagram, string? interests)
@@ -34,6 +38,12 @@ public class User
         Interests = interests;
     }
 
+    public void ChangeSubscriptionType(int subscriptionTypeID)
+    {
+        SubscriptionTypeID = subscriptionTypeID;
+    }
+
+    #region Relationship
     private List<UserRelationship> _following = new();
     public IReadOnlyCollection<UserRelationship> Following => _following;
     public IReadOnlyCollection<UserRelationship> Followers { get; private set; }
@@ -66,4 +76,37 @@ public class User
             followed.EditNotification(enableNotification);
         }
     }
+    #endregion
+
+    #region NotifiactionsSettings
+    private List<UserNotificationSetting> _notificationSettings = new();
+    public IReadOnlyCollection<UserNotificationSetting> NotiicationSettings => _notificationSettings;
+
+    public void AddOrEditNotificationSettings(int notificationSettingID, NotificationSettingStatus status)
+    {
+        var setting = _notificationSettings.FirstOrDefault(x => x.NotificationSettingID == notificationSettingID);
+        if (setting == null)
+        {
+            var newFollowed = new UserNotificationSetting(notificationSettingID, status);
+            _notificationSettings.Add(newFollowed);
+        }
+        else
+        {
+            setting.Edit(status);
+        }
+    }
+
+    public NotificationSettingStatus GetNotificationStatus(int notificationSettingID)
+    {
+        var setting = _notificationSettings.FirstOrDefault(x => x.NotificationSettingID == notificationSettingID);
+        if (setting != null)
+        {
+            return setting.Status;
+        }
+        else
+        {
+            return NotificationSettingStatus.None;
+        }
+    }
+    #endregion
 }

@@ -1,4 +1,5 @@
-﻿using FlashCards.Api.Service.DTO.Accounts;
+﻿using FlashCards.Api.Core.Accounts;
+using FlashCards.Api.Service.DTO.Accounts;
 
 namespace FlashCards.Api.Controllers
 {
@@ -58,9 +59,10 @@ namespace FlashCards.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(DeleteAccountDto data)
+        [Route("{accountID}")]
+        public async Task<IActionResult> DeleteAsync(int accountID)
         {
-            await _service.DeleteAsync(data);
+            await _service.DeleteAsync(new DeleteAccountDto(accountID));
 
             return Ok();
         }

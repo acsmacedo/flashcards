@@ -14,9 +14,10 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetByIDAsync(int id)
+    [Route("{userID}")]
+    public async Task<IActionResult> GetByIDAsync(int userID)
     {
-        var result = await _service.GetByIDAsync(id);
+        var result = await _service.GetByIDAsync(userID);
 
         return Ok(result);
     }
@@ -52,6 +53,24 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> EditNotificationFollowedAsync(FollowNotificationDto data)
     {
         await _service.EditNotificationFollowedAsync(data);
+
+        return Ok();
+    }
+
+    [HttpPut]
+    [Route("ChangeSubscription")]
+    public async Task<IActionResult> ChangeSubscriptionAsync(ChangeSubscriptionTypeDto data)
+    {
+        await _service.ChangeSubscriptionType(data);
+
+        return Ok();
+    }
+
+    [HttpPut]
+    [Route("AddOrEditNotificationSetting")]
+    public async Task<IActionResult> AddOrEditNotificationSettingAsync(AddOrEditNotificationSettingDto data)
+    {
+        await _service.AddOrEditNotificationSetting(data);
 
         return Ok();
     }

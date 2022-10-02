@@ -14,6 +14,7 @@ public class NotificationsController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{userID}")]
     public async Task<IActionResult> GetAllByUserIDAsync(int userID)
     {
         var result = await _service.GetAllByUserIDAsync(userID);

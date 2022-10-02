@@ -20,6 +20,14 @@ public class CategoryService : ICategoryService
         return result;
     }
 
+    public Task<CategoryDto> GetByIDAsync(int categoryID)
+    {
+        var category = GetByID(categoryID);
+        var result = new CategoryDto(category);
+
+        return Task.FromResult(result);
+    }
+
     public async Task CreateAsync(CreateCategoryDto data)
     {
         var entity = new Category(data.Name);

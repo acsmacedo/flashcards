@@ -14,6 +14,7 @@ public class FlashCardsController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{userID}")]
     public async Task<IActionResult> GetByUserIDAsync(int userID)
     {
         var result = await _service.GetByUserIDAsync(userID);
@@ -38,9 +39,10 @@ public class FlashCardsController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteAsync(DeleteFlashCardCollectioDto data)
+    [Route("{flashCardCollectionID}")]
+    public async Task<IActionResult> DeleteAsync(int flashCardCollectionID)
     {
-        await _service.DeleteAsync(data);
+        await _service.DeleteAsync(new DeleteFlashCardCollectioDto(flashCardCollectionID));
 
         return Ok();
     }
@@ -64,9 +66,13 @@ public class FlashCardsController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("CardItem")]
-    public async Task<IActionResult> RemoveCardAsync(RemoveFlashCardItemDto data)
+    [Route("{flashCardCollectionID}/CardItem/{flashCardItemID}")]
+    public async Task<IActionResult> RemoveCardAsync(int flashCardCollectionID, int flashCardItemID)
     {
+        var data = new RemoveFlashCardItemDto(
+            flashCardCollectionID: flashCardCollectionID, 
+            flashCardItemID: flashCardItemID);
+
         await _service.RemoveCardAsync(data);
 
         return Ok();

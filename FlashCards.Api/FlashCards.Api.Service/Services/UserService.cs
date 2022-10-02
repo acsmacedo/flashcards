@@ -79,6 +79,41 @@ public class UserService : IUserService
         await SaveChangesAsync();
     }
 
+
+    public async Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data)
+    {
+        var entity = GetByID(data.UserID);
+
+        var subscriptionType = _context.SubscriptionTypes
+            .FirstOrDefault(x => x.ID == data.SubscriptionTypeID);
+
+        if (subscriptionType == null)
+            throw new Exception("Tipo de assinatura não encontrado.");
+
+        entity.ChangeSubscriptionType(data.SubscriptionTypeID);
+
+        _context.Update(entity);
+
+        await SaveChangesAsync();
+    }
+
+    public async Task AddOrEditNotificationSetting(AddOrEditNotificationSettingDto data)
+    {
+        var entity = GetByIDWithNotificationSettings(data.UserID);
+
+        var notificationSetting = _context.NotificationSettings
+            .FirstOrDefault(x => x.ID == data.NotificationSettingID);
+
+        if (notificationSetting == null)
+            throw new Exception("Tipo de notificação não encontrada.");
+
+        entity.AddOrEditNotificationSettings(data.NotificationSettingID, data.Status);
+
+        _context.Update(entity);
+
+        await SaveChangesAsync();
+    }
+
     private User GetByID(int id)
     {
         var entity = _context.Users
@@ -95,6 +130,18 @@ public class UserService : IUserService
         var entity = _context.Users
             .Include(x => x.Following)
                 .ThenInclude(x => x.Followed)
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity != null)
+            return entity;
+
+        throw new Exception("Usuário não encontrado.");
+    }
+
+    private User GetByIDWithNotificationSettings(int id)
+    {
+        var entity = _context.Users
+            .Include(x => x.NotiicationSettings)
             .FirstOrDefault(x => x.ID == id);
 
         if (entity != null)

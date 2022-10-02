@@ -25,7 +25,7 @@ public class AccountService : IAccountService
     public async Task<AccountDto> CreateAsync(CreateAccountDto data)
     {
         var account = new Account(data.Email, data.Password);
-        var user = new User(account);
+        var user = new User(account, data.Name);
 
         _context.Add(user);
 
