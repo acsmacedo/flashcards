@@ -2,93 +2,49 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCards.App.Views.Settings.SettingsNotificationPage"
+             xmlns:local="clr-namespace:FlashCards.App.ViewModels.NotificationSettings"  
+             xmlns:model="clr-namespace:FlashCards.App.Models.NotificationSettings"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
              Title="Notificações">
-    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
-        <StackLayout Style="{ StaticResource PageLight }" Spacing="10">
-            <Frame Style="{ StaticResource Frame }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangeNotification" />
-                    </Frame.GestureRecognizers>
-                    
-                    <FlexLayout Padding="10, 15" AlignItems="Center">
-                        <CheckBox Color="{ StaticResource Primary }" />
-                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                            <Label Text="Promoções e novidades" Style="{ StaticResource SubTitleBlack }" />
-                            <Label Text="E-mail" Style="{ StaticResource LeadPrimary }" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NotificationSettingStatusToStringConverter x:Key="converterToString" />
+            <converters:NotificationSettingStatusToBoolConverter x:Key="converterToBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Style="{ StaticResource PageLight }">
+            <CollectionView x:Name="ItemsListView"
+                            ItemsSource="{ Binding Items }"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:NotificationSettingByUser" Padding="0, 0, 0, 10">
+                            <Frame Style="{ StaticResource Frame }">
+                                <Frame Style="{ StaticResource FrameInputInternal }">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:NotificationSettingsViewModel }}, Path=AddOrEditNotificationSettingCommand }"		
+                                                              CommandParameter="{ Binding . }" />
+                                    </Frame.GestureRecognizers>
+
+                                    <FlexLayout Padding="10, 15" AlignItems="Center">
+                                        <CheckBox Color="{ StaticResource Primary }" 
+                                                  IsEnabled="False"
+                                                  IsChecked="{ Binding Status, Converter={ StaticResource converterToBool } }" />
+
+                                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
+                                            <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }" />
+                                            <Label Text="{ Binding Status, Converter={ StaticResource converterToString } }" Style="{ StaticResource LeadPrimary }" />
+                                        </StackLayout>
+                                    </FlexLayout>
+                                </Frame>
+                            </Frame>
                         </StackLayout>
-                    </FlexLayout>
-                </Frame>
-            </Frame>
-
-
-            <Frame Style="{ StaticResource Frame }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangeNotification" />
-                    </Frame.GestureRecognizers>
-                    
-                    <FlexLayout Padding="10, 15" AlignItems="Center">
-                        <CheckBox Color="{ StaticResource Primary }" />
-                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                            <Label Text="Novo seguidor" Style="{ StaticResource SubTitleBlack }" />
-                            <Label Text="Notificação push" Style="{ StaticResource LeadPrimary }" />
-                        </StackLayout>
-                    </FlexLayout>
-                </Frame>
-            </Frame>
-
-
-            <Frame Style="{ StaticResource Frame }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangeNotification" />
-                    </Frame.GestureRecognizers>
-                    
-                    <FlexLayout Padding="10, 15" AlignItems="Center">
-                        <CheckBox Color="{ StaticResource Primary }" />
-                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                            <Label Text="Atualização de conteúdo" Style="{ StaticResource SubTitleBlack }" />
-                            <Label Text="E-mail" Style="{ StaticResource LeadPrimary }" />
-                        </StackLayout>
-                    </FlexLayout>
-                </Frame>
-            </Frame>
-
-
-            <Frame Style="{ StaticResource Frame }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangeNotification" />
-                    </Frame.GestureRecognizers>
-                    
-                    <FlexLayout Padding="10, 15" AlignItems="Center">
-                        <CheckBox Color="{ StaticResource Primary }" />
-                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                            <Label Text="Sugestões de conteúdo" Style="{ StaticResource SubTitleBlack }" />
-                            <Label Text="Notificação push" Style="{ StaticResource LeadPrimary }" />
-                        </StackLayout>
-                    </FlexLayout>
-                </Frame>
-            </Frame>
-
-
-            <Frame Style="{ StaticResource Frame }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ChangeNotification" />
-                    </Frame.GestureRecognizers>
-                    
-                    <FlexLayout Padding="10, 15" AlignItems="Center">
-                        <CheckBox Color="{ StaticResource Primary }" />
-                        <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                            <Label Text="Avaliações e comentários" Style="{ StaticResource SubTitleBlack }" />
-                            <Label Text="E-mail" Style="{ StaticResource LeadPrimary }" />
-                        </StackLayout>
-                    </FlexLayout>
-                </Frame>
-            </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
-    </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
     

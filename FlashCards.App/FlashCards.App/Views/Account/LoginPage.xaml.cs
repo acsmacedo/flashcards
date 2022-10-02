@@ -1,4 +1,4 @@
-﻿using System;
+﻿using FlashCards.App.ViewModels.Accounts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,17 +10,8 @@ namespace FlashCards.App.Views.Account
         public LoginPage()
         {
             InitializeComponent();
-        }
 
-        private void Login(object sender, EventArgs e)
-        {
-            Application.Current.Properties["user_id"] = -2;
-            Application.Current.MainPage = new AppShell();
-        }
-
-        private void GoToCreateAccountPage(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new CreateAccountPage());
+            BindingContext = Startup.ServiceProvider.GetService<LoginAccountViewModel>();
         }
     }
 }

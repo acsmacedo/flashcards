@@ -10,7 +10,7 @@ public class SubscriptionTypeByUserDto
     public bool IsSubscribed { get; private set; }
     public string Name { get; private set; }
     public double? Price { get; private set; }
-    public IEnumerable<SubscriptionTypeBenefitDto> Benefits { get; }
+    public IEnumerable<SubscriptionTypeBenefitDto> Benefits { get; private set; }
 
     public SubscriptionTypeByUserDto(SubscriptionType data, User user)
     {

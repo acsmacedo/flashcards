@@ -1,4 +1,4 @@
-﻿using System;
+﻿using FlashCards.App.ViewModels.Accounts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,11 +10,7 @@ namespace FlashCards.App.Views.Account
         public ChangePasswordPage()
         {
             InitializeComponent();
-        }
-
-        private void ChangePassword(object sender, EventArgs e)
-        {
-            
+            BindingContext = Startup.ServiceProvider.GetService<ChangePasswordAccountViewModel>();
         }
     }
 }

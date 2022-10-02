@@ -2,10 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCards.App.Views.Settings.SettingsSubscriptionPage"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
+             xmlns:local="clr-namespace:FlashCards.App.ViewModels.SubscriptionTypes"
              Title="Minha assinatura">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PriceNumberToMoneyStringCoverter x:Key="converterToMoney" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="CenterAndExpand" Padding="0, 70">
-            <CarouselView x:Name="_carousel" PeekAreaInsets="30" VerticalOptions="CenterAndExpand" IndicatorView="_indicatorView">
+            <CarouselView x:Name="ItemsListView"
+                          ItemsSource="{Binding Items}"
+                          PeekAreaInsets="30" 
+                          VerticalOptions="CenterAndExpand" 
+                          IndicatorView="_indicatorView">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10" VerticalOptions="CenterAndExpand">
@@ -18,8 +30,8 @@
                                                FontSize="16"
                                                FontAttributes="Bold" />
 
-                                        <Label Text="{ Binding Price }" 
-                                               TextColor="{ StaticResource Black}"
+                                        <Label Text="{ Binding Price, Converter={ StaticResource converterToMoney } }" 
+                                               TextColor="{ StaticResource Black }"
                                                HorizontalTextAlignment="Center"
                                                FontSize="36"
                                                FontAttributes="Bold" />
@@ -33,7 +45,10 @@
                                                                       IsChecked="True"
                                                                       IsEnabled="False" />
 
-                                                            <Label Text="{ Binding BenefitName }" Style="{ StaticResource SubTitleDark }" FontSize="14" />
+                                                            <Label Text="{ Binding Benefit }" 
+                                                                   Style="{ StaticResource SubTitleDark }" 
+                                                                   FontSize="14"
+                                                                   Margin="5, 0, 0, 0" />
                                                         </FlexLayout>
                                                     </DataTemplate>
                                                 </CollectionView.ItemTemplate>
@@ -41,7 +56,15 @@
                                         </StackLayout>
 
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                            <Button Text="Assinar" Style="{ StaticResource ButtonPrimary }" />
+                                            <Button Text="Assinar" 
+                                                    Style="{ StaticResource ButtonSecondary }" 
+                                                    IsVisible="{ Binding IsNotSubscribed }" 
+                                                    Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:SubscriptionTypesViewModel }}, Path=ChangeSubscriptionTypeCommand }"		
+                                                    CommandParameter="{ Binding . }" />
+
+                                            <Button Text="Minha assinatura" 
+                                                    Style="{ StaticResource ButtonPrimary }" 
+                                                    IsVisible="{ Binding IsSubscribed }" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

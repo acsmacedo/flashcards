@@ -1,6 +1,5 @@
 ﻿using FlashCards.Api.Core.Users;
 using FlashCards.Api.Service.DTO.Users;
-using Microsoft.EntityFrameworkCore;
 
 namespace FlashCards.Api.Service.Services;
 
