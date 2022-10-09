@@ -1,5 +1,5 @@
-﻿using FlashCards.App.Views.FlashCards;
-using System;
+﻿using FlashCards.App.Models.Users;
+using FlashCards.App.ViewModels.Users;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,20 +8,15 @@ namespace FlashCards.App.Views.Network
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfileUser : ContentPage
     {
-        public ProfileUser()
+        public ProfileUser(UserRelationship user)
         {
             InitializeComponent();
-        }
 
+            var viewModel = Startup.ServiceProvider.GetService<ProfileUserViewModel>();
 
-        private void GoToDenunciationPage(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new ProfileDenouncePage());
-        }
+            viewModel.SetInitialData(user);
 
-        private void GoToFlashcardsPage(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new FlashCardsPage());
+            BindingContext = viewModel;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCards.App.Models.Users;
+using FlashCards.App.ViewModels.Users;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,19 +8,15 @@ namespace FlashCards.App.Views.Network
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MyProfilePage : ContentPage
     {
-        public MyProfilePage()
+        public MyProfilePage(User user)
         {
             InitializeComponent();
-        }
+            
+            var viewModel = Startup.ServiceProvider.GetService<MyProfileViewModel>();
 
-        private void SubmitEditProfile(object sender, EventArgs e)
-        {
+            viewModel.SetInitialData(user);
 
-        }
-
-        private void EditPhoto(object sender, EventArgs e)
-        {
-
+            BindingContext = viewModel;
         }
     }
 }

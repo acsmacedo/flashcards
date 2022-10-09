@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FlashCards.App.ViewModels.Network;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace FlashCards.App.Views.Network
@@ -9,6 +10,7 @@ namespace FlashCards.App.Views.Network
         public MyFollowedsPage()
         {
             InitializeComponent();
+            BindingContext = Startup.ServiceProvider.GetService<MyFollowedsViewModel>();
         }
     }
 }

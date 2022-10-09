@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FlashCards.App.ViewModels.Home;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace FlashCards.App.Views.Home
@@ -9,6 +10,7 @@ namespace FlashCards.App.Views.Home
         public HomePage()
         {
             InitializeComponent();
+            BindingContext = Startup.ServiceProvider.GetService<HomeViewModel>();
         }
     }
 }

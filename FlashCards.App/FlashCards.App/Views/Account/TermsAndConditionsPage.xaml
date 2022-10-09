@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.Account.TermsAndConditionsPage"
+             Title="Termos e condições">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }">
+            <Label TextColor="{ StaticResource Black }">
+                <Label.Text>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ornare eros at erat posuere imperdiet. Vestibulum et pretium risus. Duis nisl ante, feugiat et mollis quis, ullamcorper vel velit. Praesent facilisis, est lobortis fermentum laoreet, mi lacus consectetur tellus, nec tincidunt ex risus nec quam. Proin et viverra odio. Fusce orci orci, lobortis sodales efficitur volutpat, semper id diam. Pellentesque condimentum pharetra purus vel pretium. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi semper posuere dui, malesuada sollicitudin arcu posuere id. Vivamus non ante laoreet, mollis felis ut, maximus nulla. Fusce laoreet auctor vulputate. Pellentesque pharetra sit amet dui ut vestibulum. Ut volutpat laoreet neque, hendrerit euismod nibh mattis id. Pellentesque lobortis pharetra est non aliquet.
+
+Integer lobortis nisl mauris, vitae eleifend libero porta et. Quisque feugiat in libero et dapibus. Suspendisse non dolor purus. Nullam vel auctor ligula. Sed turpis ligula, sodales non libero vel, vulputate vehicula neque. Duis interdum, mi sed venenatis accumsan, sapien massa congue nibh, id eleifend sem neque eget odio. Praesent id tellus lacus. In in feugiat sem, eu tincidunt tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec risus justo, vulputate eu nibh nec, placerat luctus lacus. Donec blandit dictum est et blandit. Nullam eleifend dui eget lorem facilisis, ut dignissim turpis imperdiet. Proin sit amet mollis quam, at laoreet mauris. Pellentesque pellentesque ultricies elit fermentum vulputate. Nunc eleifend orci et lobortis convallis.
+
+Donec ac lacus eu magna consectetur molestie eu a massa. Proin tincidunt quam accumsan porta fermentum. Nullam malesuada nisl eget maximus ornare. Suspendisse imperdiet, arcu vel mollis consequat, nulla augue euismod ex, viverra maximus lectus felis a massa. Integer et scelerisque ligula. Nunc sodales imperdiet nulla, a cursus ex malesuada vel. Nullam pharetra fermentum leo, quis interdum tortor ornare rutrum. Phasellus at nisi quis sapien vestibulum finibus at nec enim. Sed laoreet sollicitudin nisl, non rhoncus quam facilisis eget. Fusce iaculis velit ac dolor efficitur pellentesque. Vestibulum blandit porttitor purus, eget consequat ex. Proin eu erat nec diam posuere laoreet. Phasellus tempus vestibulum velit, id fermentum nulla egestas id. Nam finibus in urna eu sagittis.
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec mollis facilisis justo malesuada facilisis. Aenean ipsum nulla, efficitur sit amet mattis consequat, ultrices sed augue. Nulla nec aliquet erat. Duis hendrerit lobortis tellus, id finibus quam eleifend sit amet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis at iaculis risus. Praesent laoreet massa felis, sit amet vulputate magna vehicula eu. Aliquam vel elit neque. Vestibulum et magna lorem. Sed lacinia tellus eget suscipit lobortis. Aliquam condimentum ut velit placerat luctus. Nullam accumsan libero sed maximus venenatis.
+
+Vivamus sodales finibus interdum. Fusce ornare lectus in orci porta convallis lobortis quis nibh. Maecenas fermentum commodo ligula, eu mattis urna feugiat id. Nulla varius sem pulvinar, condimentum augue vitae, suscipit dui. Vestibulum ac velit tempus metus viverra malesuada et quis leo. Vivamus ut eros eget purus mollis molestie vitae eget tellus. Aliquam at nunc a risus aliquet tempor sit amet id nulla. Nulla leo turpis, dignissim id mauris non, aliquam blandit libero. Donec faucibus mollis lacus, venenatis condimentum nisl gravida et. Nulla tincidunt tempor finibus. Aliquam quis lacus tempor, pretium quam nec, dignissim ipsum. Integer aliquam est non nunc tincidunt, ac gravida libero convallis. Vestibulum in dignissim lectus, vitae suscipit nisi. In in laoreet velit.
+                </Label.Text>
+            </Label>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+    

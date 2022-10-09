@@ -46,7 +46,7 @@
             </Frame>
 
             <FlexLayout Direction="Row" AlignItems="Center" Margin="0, 0, 0, 20">
-                <CheckBox Color="{ StaticResource White }" />
+                <CheckBox Color="{ StaticResource White }" IsChecked="{ Binding AgreeTerms, Mode=TwoWay }"/>
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>

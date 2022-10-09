@@ -5,6 +5,7 @@ using FlashCards.App.Models.Accounts;
 using Xamarin.Forms;
 using FlashCards.App.Interfaces;
 using FlashCards.App.Utils;
+using FlashCards.App.Views.Account;
 
 namespace FlashCards.App.Services
 {
@@ -31,7 +32,9 @@ namespace FlashCards.App.Services
 
             var result = await ReadAsync<Account>(response);
 
-            Application.Current.Properties["user_account"] = result;
+            Application.Current.Properties["user_id"] = result.UserID;
+
+            await Application.Current.SavePropertiesAsync();
         }
 
         public async Task SignUp(SignUpAccountViewModel viewModel)
@@ -43,7 +46,18 @@ namespace FlashCards.App.Services
 
             var result = await ReadAsync<Account>(response);
 
-            Application.Current.Properties["user_account"] = result;
+            Application.Current.Properties["user_id"] = result.UserID;
+
+            await Application.Current.SavePropertiesAsync();
+        }
+
+        public async Task Logout()
+        {
+            Application.Current.Properties.Remove("user_id");
+
+            await Application.Current.SavePropertiesAsync();
+
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
     }
 }

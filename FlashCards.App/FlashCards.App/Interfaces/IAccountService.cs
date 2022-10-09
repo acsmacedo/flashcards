@@ -8,5 +8,6 @@ namespace FlashCards.App.Interfaces
         Task Login(LoginAccountViewModel viewModel);
         Task SignUp(SignUpAccountViewModel viewModel);
         Task ChangePassword(ChangePasswordAccountViewModel viewModel);
+        Task Logout();
     }
 }

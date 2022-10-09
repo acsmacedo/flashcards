@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCards.App.Models.Users;
+using FlashCards.App.ViewModels.Users;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,14 +8,15 @@ namespace FlashCards.App.Views.Network
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfileDenouncePage : ContentPage
     {
-        public ProfileDenouncePage()
+        public ProfileDenouncePage(UserRelationship user)
         {
             InitializeComponent();
-        }
 
-        private void SubmitDenounceProfile(object sender, EventArgs e)
-        {
+            var viewModel = Startup.ServiceProvider.GetService<ProfileDenounceViewModel>();
 
+            viewModel.SetInitialData(user);
+
+            BindingContext = viewModel;
         }
     }
 }

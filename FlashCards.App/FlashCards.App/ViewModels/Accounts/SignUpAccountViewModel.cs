@@ -47,6 +47,13 @@ namespace FlashCards.App.ViewModels.Accounts
             set => SetProperty(ref _confirmPassword, value);
         }
 
+        private bool _agreeTerms;
+        public bool AgreeTerms
+        {
+            get => _agreeTerms;
+            set => SetProperty(ref _agreeTerms, value);
+        }
+
         private bool _isInvalid =>
             string.IsNullOrEmpty(Name) ||
             string.IsNullOrEmpty(Email) ||
@@ -63,6 +70,12 @@ namespace FlashCards.App.ViewModels.Accounts
                     return;
                 }
 
+                if (!AgreeTerms)
+                {
+                    DisplayError(message: "Você precisa concordar com os termos para continuar o cadastro.");
+                    return;
+                }
+
                 await _service.SignUp(this);
                 Application.Current.MainPage = new AppShell();
             }
@@ -74,7 +87,7 @@ namespace FlashCards.App.ViewModels.Accounts
 
         private void GoToTermsAndConditions(object sender)
         {
-            Navigation.PushAsync(new CreateAccountPage());
+            Navigation.PushAsync(new TermsAndConditionsPage());
         }
     }
 }

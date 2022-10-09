@@ -1,16 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
              x:Class="FlashCards.App.Views.Network.ProfileUser"
              Title="Perfil do usuário">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstStarToImageConverter x:Key="firstStarToImageConverter" />
+            <converters:SecondStarToImageConverter x:Key="secondStarToImageConverter" />
+            <converters:ThirdStarToImageConverter x:Key="thirdStarToImageConverter" />
+            <converters:FourthStarToImageConverter x:Key="fourthStarToImageConverter" />
+            <converters:FifthStarToImageConverter x:Key="fifthStarToImageConverter" />
+            <converters:AvailablesQtyToStringConverter x:Key="availablesQtyToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ScrollView BackgroundColor="{ StaticResource GrayLight }">
         <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="Start">
             <RelativeLayout HorizontalOptions="Center">
                 <Frame HeightRequest="90"
                        WidthRequest="90"
                        CornerRadius="1000"
+                       HasShadow="False"
                        IsClippedToBounds="True">
-                    <Image Source="avatar3.jpg"
+                    <Image Source="{ Binding Photo }"
                            Aspect="AspectFill"
                            WidthRequest="120"
                            Margin="-30"
@@ -21,55 +34,118 @@
             <StackLayout Orientation="Horizontal" Padding="0, 10">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" Spacing="5">
-                        <Image Source="icon_star_primary.png" 
+                        <Image Source="{ Binding Stars, Converter={ StaticResource firstStarToImageConverter } }"
                                WidthRequest="20" 
                                HeightRequest="20" />
 
-                        <Image Source="icon_star_primary.png" 
+                        <Image Source="{ Binding Stars, Converter={ StaticResource secondStarToImageConverter } }"
                                WidthRequest="20" 
                                HeightRequest="20" />
 
-                        <Image Source="icon_star_primary.png" 
+                        <Image Source="{ Binding Stars, Converter={ StaticResource thirdStarToImageConverter } }"
                                WidthRequest="20" 
                                HeightRequest="20" />
 
-                        <Image Source="icon_star_outline.png" 
+                        <Image Source="{ Binding Stars, Converter={ StaticResource fourthStarToImageConverter } }"
                                WidthRequest="20" 
                                HeightRequest="20" />
 
-                        <Image Source="icon_star_outline.png" 
+                        <Image Source="{ Binding Stars, Converter={ StaticResource fifthStarToImageConverter } }"
                                WidthRequest="20" 
                                HeightRequest="20" />
                     </StackLayout>
 
-                    <Label Text="100 avaliações" />
+                    <Label Text="{ Binding Available, Converter={ StaticResource availablesQtyToStringConverter } }" />
                 </StackLayout>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="0">
-                    <Button Text="Seguir" BackgroundColor="{ StaticResource Primary }" TextColor="{ StaticResource White }" Margin="0" CornerRadius="0" />
-                    <ImageButton Source="icon_alert_primary.png" Margin="0" BorderColor="{ StaticResource Primary }" BorderWidth="2" BackgroundColor="{ StaticResource White }" CornerRadius="0" Padding="10, 0"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Spacing="0">
+                    <Button Text="Seguir" 
+                            BorderColor="{ StaticResource Primary }"
+                            BackgroundColor="Transparent" 
+                            TextColor="{ StaticResource Primary }"
+                            FontSize="12"
+                            TextTransform="None"
+                            Margin="0" 
+                            Padding="10, 0"
+                            BorderWidth="1"
+                            CornerRadius="0"
+                            Command="{ Binding FollowCommand }"
+                            HeightRequest="30"
+                            IsVisible="{ Binding NotIsFollowed }" />
+
+                    <Button Text="Deixar de seguir" 
+                            BackgroundColor="{ StaticResource Primary }" 
+                            TextColor="{ StaticResource White }"
+                            Margin="0" 
+                            Padding="10, 0"
+                            FontSize="12"
+                            TextTransform="None"
+                            CornerRadius="0"
+                            Command="{ Binding UnfollowCommand }"
+                            HeightRequest="30"
+                            IsVisible="{ Binding IsFollowed }" />
+
+                    <ImageButton Source="icon_alert_outline.png" 
+                                 Margin="0" 
+                                 BorderColor="{ StaticResource Primary }" 
+                                 BorderWidth="1"
+                                 BackgroundColor="Transparent" 
+                                 CornerRadius="0"
+                                 Padding="7"
+                                 Command="{ Binding EnableNotificationUserCommand }"
+                                 HeightRequest="30"
+                                 IsVisible="{ Binding NotIsEnableNotification }" />
+
+                    <ImageButton Source="icon_alert_primary.png" 
+                                 Margin="0" 
+                                 BorderColor="{ StaticResource Primary }" 
+                                 BorderWidth="1"
+                                 BackgroundColor="Transparent" 
+                                 CornerRadius="0"
+                                 Padding="7"
+                                 Command="{ Binding DisableNotificationUserCommand }"
+                                 HeightRequest="30"
+                                 IsVisible="{ Binding IsEnableNotification }" />
                 </StackLayout>
             </StackLayout>
             
             <StackLayout>
-                <Label Text="Nome" Style="{ StaticResource SubTitleDark }" />
-                <Label Text="Anderson Macedo" Style="{ StaticResource SubTitleBlack }" />
-                
-                <BoxView Style="{ StaticResource Divider }" />
+                <Label Text="Nome" Style="{ StaticResource LabelDark }" />
+                <Frame Style="{ StaticResource FrameInputExternalDark }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Entry Text="{ Binding Name }" IsReadOnly="true" />
+                    </Frame>
+                </Frame>
 
-                <Label Text="Instagram" Style="{ StaticResource SubTitleDark }" />
-                <Label Text="@desconhecido" Style="{ StaticResource SubTitleBlack }" />
-                
-                <BoxView Style="{ StaticResource Divider }" />
-                
-                <Label Text="Interesses" Style="{ StaticResource SubTitleDark }" />
-                <Label Text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." Style="{ StaticResource SubTitleBlack }" />
+                <Label Text="Instagram" Style="{ StaticResource LabelDark }" />
+                <Frame Style="{ StaticResource FrameInputExternalDark }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Entry Text="{ Binding Instagram }" IsReadOnly="true" />
+                    </Frame>
+                </Frame>
 
-                <StackLayout Orientation="Horizontal" Spacing="10" Padding="0, 10, 0, 0">
-                    <Button Text="Flashcards" Clicked="GoToFlashcardsPage" Style="{ StaticResource ButtonPrimary }" HorizontalOptions="FillAndExpand" />
-                    <Button Text="Denunciar" Clicked="GoToDenunciationPage" Style="{ StaticResource ButtonSecondary }" HorizontalOptions="FillAndExpand" />
+                <Label Text="Interesses" Style="{ StaticResource LabelDark }" />
+                <Frame Style="{ StaticResource FrameInputExternalDark }">
+                    <Frame Style="{ StaticResource FrameInputInternal }">
+                        <Editor Text="{ Binding Interests }" IsReadOnly="true" />
+                    </Frame>
+                </Frame>
+                
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button Text="Flashcards" 
+                            Command="{ Binding GoToFlashcardsPageCommand }" 
+                            CommandParameter="{ Binding User }"
+                            Style="{ StaticResource ButtonPrimary }" 
+                            HorizontalOptions="FillAndExpand" />
+                    
+                    <Button Text="Denunciar" 
+                            Command="{ Binding GoToDenunciationPageCommand }"
+                            CommandParameter="{ Binding User }"
+                            Style="{ StaticResource ButtonSecondary }" 
+                            HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
+    

@@ -13,11 +13,9 @@ namespace FlashCards.App
             var provider = new ServiceCollection();
             
             provider.ConfigureInfrastructure();
-            provider.ConfigureAccounts();
-            provider.ConfigureUsers();
-            provider.ConfigureSubscriptionTypes();
-            provider.ConfigureNotificationSettings();
-
+            provider.ConfigureServices();
+            provider.ConfigureViewModels();
+            
             ServiceProvider = provider.BuildServiceProvider();
         }
     }

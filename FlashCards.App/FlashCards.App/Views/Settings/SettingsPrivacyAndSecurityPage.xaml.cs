@@ -20,13 +20,12 @@ namespace FlashCards.App.Views.Settings
 
         private async void CancelAccountAction(object sender, EventArgs e)
         {
-            string action = await DisplayActionSheet("O que você deseja fazer?", "Cancelar", null, "Excluir conta", "Desativar conta");
+            string action = await DisplayActionSheet(
+                "O que você deseja fazer?", 
+                "Cancelar", null, 
+                "Excluir conta", 
+                "Desativar conta");
             
-        }
-
-        private void Expander_Tapped(object sender, EventArgs e)
-        {
-
         }
     }
 }

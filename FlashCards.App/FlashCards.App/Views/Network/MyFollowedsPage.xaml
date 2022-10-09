@@ -2,12 +2,99 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCards.App.Views.Network.MyFollowedsPage"
+             xmlns:model="clr-namespace:FlashCards.App.Models.Users"
+             xmlns:local="clr-namespace:FlashCards.App.ViewModels.Network" 
              Title="Quem estou seguindo">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="{ StaticResource GrayLight }">
-            <Label Text="Quem estou seguindo"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+        <StackLayout Style="{ StaticResource PageLight }">
+            <!-- TODO: Adicionar pesquisa (filtrar usuários) -->
+            <!--<Frame Style="{ StaticResource FrameInputExternalDark }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry x:Name="Pesquisar" Placeholder="Pesquisar" ReturnType="Done" />
+                </Frame>
+            </Frame>-->
+
+            <CollectionView x:Name="ItemsListView"
+                            ItemsSource="{ Binding Items }"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:UserRelationship" Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:MyFollowedsViewModel }}, Path=GoToProfileUserPageCommand }"		
+                                                              CommandParameter="{ Binding . }" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <Frame HeightRequest="10"
+                                           WidthRequest="10"
+                                           CornerRadius="1000"
+                                           HasShadow="False"
+                                           IsClippedToBounds="True">
+                                        <Image Source="{ Binding Photo }"
+                                               Aspect="AspectFill"
+                                               WidthRequest="20"
+                                               HeightRequest="20" 
+                                               Margin="-30"/>
+                                    </Frame>
+
+                                    <StackLayout VerticalOptions="Center"  Margin="10, 0, 0, 0" Spacing="0">
+                                        <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }" />
+                                        <Label Text="{ Binding Instagram }" Style="{ StaticResource LegendDark }" />
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="icon_star_primary.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding IsFollowed }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:MyFollowedsViewModel }}, Path=UnfollowCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_star_outline.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           IsVisible="{ Binding NotIsFollowed }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:MyFollowedsViewModel }}, Path=FollowCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_alert_primary.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           Margin="5, 0, 0, 0"
+                                           IsVisible="{ Binding IsEnableNotification }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:MyFollowedsViewModel }}, Path=DisableNotificationCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <Image Source="icon_alert_outline.png" 
+                                           WidthRequest="20" 
+                                           HeightRequest="20" 
+                                           Margin="5, 0, 0, 0"
+                                           IsVisible="{ Binding NotIsEnableNotification }">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:MyFollowedsViewModel }}, Path=EnableNotificationCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <BoxView Style="{ StaticResource Divider }" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

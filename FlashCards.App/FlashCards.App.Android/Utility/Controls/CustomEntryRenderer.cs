@@ -10,7 +10,6 @@ namespace FlashCards.App.Droid.Utility.Controls
     {
         public CustomEntryRenderer(Context context) : base(context)
         {
-
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)

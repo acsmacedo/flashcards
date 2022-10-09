@@ -9,8 +9,9 @@
                 <Frame HeightRequest="20"
                        WidthRequest="20"
                        CornerRadius="1000"
+                       HasShadow="False"
                        IsClippedToBounds="True">
-                    <Image Source="avatar3.jpg"
+                    <Image Source="{ Binding Photo }" 
                            Aspect="AspectFill"
                            WidthRequest="40"
                            Margin="-30"
@@ -18,8 +19,8 @@
                 </Frame>
 
                 <StackLayout VerticalOptions="Center" Margin="10, 0, 0, 0" Spacing="0">
-                    <Label Text="Anderson Macedo" Style="{ StaticResource SubTitleBlack }"/>
-                    <Label Text="@deconhecido" Style="{ StaticResource SubTitleDark }"/>
+                    <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }" />
+                    <Label Text="{ Binding Instagram }" Style="{ StaticResource LegendDark }" />
                 </StackLayout>
             </StackLayout>
 
@@ -27,18 +28,23 @@
                 <Label Text="Ocorrência" Style="{ StaticResource LabelDark }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry x:Name="Ocorrencia" Placeholder="Digite o titulo da ocorrência" ReturnType="Next" />
+                        <Entry Text="{ Binding Title, Mode=TwoWay }"
+                               Placeholder="Digite o titulo da ocorrência"
+                               ReturnType="Next" />
                     </Frame>
                 </Frame>
 
                 <Label Text="Descrição" Style="{ StaticResource LabelDark }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry x:Name="Instagram" Placeholder="Digite a descriação da ocorrência" ReturnType="Next" />
+                        <Editor Text="{ Binding Description, Mode=TwoWay }"
+                                Placeholder="Digite a descriação da ocorrência" />
                     </Frame>
                 </Frame>
 
-                <Button Text="Denunciar" Clicked="SubmitDenounceProfile" Style="{ StaticResource ButtonSecondary }" />
+                <Button Text="Denunciar" 
+                        Command="{ Binding SubmitDenounceProfileCommand }"
+                        Style="{ StaticResource ButtonSecondary }" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

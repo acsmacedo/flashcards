@@ -11,7 +11,7 @@ namespace FlashCards.App
 
             Startup.Init();
 
-            if (Current.Properties.TryGetValue("user_account", out var value))
+            if (Current.Properties.TryGetValue("user_id", out var value))
             {
                 MainPage = new AppShell();
             }

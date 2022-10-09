@@ -49,6 +49,17 @@ namespace FlashCards.App.ViewModels
                 cancel: cancel);
         }
 
+        protected async Task DisplaySuccess(
+            string title = "Sucesso",
+            string message = "Os dados foram salvos com sucesso!",
+            string cancel = "Ok")
+        {
+            await MainPage.DisplayAlert(
+                title: title,
+                message: message,
+                cancel: cancel);
+        }
+
         protected async Task<string> DisplayActionSheet(
             string title,
             string cancel,
@@ -65,11 +76,9 @@ namespace FlashCards.App.ViewModels
         {
             get
             {
-                if (Application.Current.Properties.TryGetValue("user_account", out var value))
+                if (Application.Current.Properties.TryGetValue("user_id", out var value))
                 {
-                    var result = value as Account;
-
-                    return result.UserID;
+                    return (int)value;
                 }
 
                 throw new Exception("Usuário não encontrado!");

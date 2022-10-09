@@ -6,9 +6,11 @@
         <ResourceDictionary>
             <!-- ************************************************************** Cores -->
             <Color x:Key="Primary">#4956F1</Color>
+            <Color x:Key="PrimaryLight">#554956F1</Color>
             <Color x:Key="Secondary">#33D2FF</Color>
             <Color x:Key="Black">#1F2C37</Color>
             <Color x:Key="GrayDark">#BAB9D0</Color>
+            <Color x:Key="GrayMedium">#DBE1E6</Color>
             <Color x:Key="GrayLight">#ECF1F6</Color>
             <Color x:Key="White">#FFFFFF</Color>
 
@@ -57,6 +59,13 @@
                 <Setter Property="FontSize" Value="16" />
             </Style>
 
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="{ StaticResource Black }" />
+                <Setter Property="PlaceholderColor" Value="{ StaticResource GrayDark }" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="AutoSize" Value="TextChanges" />
+            </Style>
+
 
             <!-- ************************************************************** Frame -->
             <Style TargetType="Frame" x:Key="Frame">
@@ -72,7 +81,7 @@
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="Margin" Value="0, 10" />
                 <Setter Property="HeightRequest" Value="1" />
-                <Setter Property="BackgroundColor" Value="{ StaticResource GrayDark }"/>
+                <Setter Property="BackgroundColor" Value="{ StaticResource GrayMedium }"/>
             </Style>
 
 
@@ -125,6 +134,21 @@
                 <Setter Property="TextColor" Value="{ StaticResource GrayDark }" />
             </Style>
 
+            
+            <!-- ************************************************************** SubTitle -->
+            <Style TargetType="Label" x:Key="LegendBase" >
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LegendBlack" BasedOn="{ StaticResource LegendBase }">
+                <Setter Property="TextColor" Value="{ StaticResource Black }" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="LegendDark" BasedOn="{ StaticResource LegendBase }">
+                <Setter Property="TextColor" Value="{ StaticResource GrayDark }" />
+            </Style>
+
 
             <!-- ************************************************************** Lead -->
             <Style TargetType="Label" x:Key="LeadBase" >
@@ -135,6 +159,9 @@
                 <Setter Property="TextColor" Value="{ StaticResource Primary }" />
             </Style>
 
+            <Style TargetType="Label" x:Key="LeadGrayDark" BasedOn="{ StaticResource LeadBase }">
+                <Setter Property="TextColor" Value="{ StaticResource GrayDark }" />
+            </Style>
 
             <!-- ************************************************************** Button -->
             <Style TargetType="Button" x:Key="ButtonBase">

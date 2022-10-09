@@ -7,15 +7,16 @@
         <StackLayout Style="{ StaticResource PageLight }" VerticalOptions="Start">
             <RelativeLayout HorizontalOptions="Center">
                 <RelativeLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="EditPhoto" />
+                    <TapGestureRecognizer Command="{ Binding EditPhotoCommand }" />
                 </RelativeLayout.GestureRecognizers>
 
                 <Frame HeightRequest="90"
                        WidthRequest="90"
                        CornerRadius="1000"
+                       HasShadow="False"
                        IsClippedToBounds="True"
                        x:Name="_avatar">
-                    <Image Source="avatar3.jpg"
+                    <Image Source="{ Binding Photo }"
                            Aspect="AspectFill"
                            WidthRequest="120"
                            Margin="-30"
@@ -33,25 +34,32 @@
                 <Label Text="Nome" Style="{ StaticResource LabelDark }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry x:Name="Name" Placeholder="Digite seu nome" ReturnType="Next" />
+                        <Entry Text="{ Binding Name, Mode=TwoWay }"
+                               Placeholder="Digite seu nome" 
+                               ReturnType="Next" />
                     </Frame>
                 </Frame>
 
                 <Label Text="Instagram" Style="{ StaticResource LabelDark }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry x:Name="Instagram" Placeholder="Digite seu instagram" ReturnType="Next" />
+                        <Entry Text="{ Binding Instagram, Mode=TwoWay }" 
+                               Placeholder="Digite seu instagram" 
+                               ReturnType="Next" />
                     </Frame>
                 </Frame>
 
                 <Label Text="Interesses" Style="{ StaticResource LabelDark }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry x:Name="Interests" Placeholder="Digite seus interesses" ReturnType="Done" />
+                        <Editor Text="{ Binding Interests, Mode=TwoWay }" 
+                                Placeholder="Digite seus interesses" />
                     </Frame>
                 </Frame>
 
-                <Button Text="Salvar" Clicked="SubmitEditProfile" Style="{ StaticResource ButtonSecondary }" />
+                <Button Text="Salvar" 
+                        Command="{ Binding SubmitEditProfileCommand }" 
+                        Style="{ StaticResource ButtonSecondary }" />
             </StackLayout>
         </StackLayout>
     </ScrollView>
