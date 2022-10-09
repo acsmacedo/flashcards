@@ -14,19 +14,59 @@ public class UserService : IUserService
 
     public Task<UserDto> GetByIDAsync(int id)
     {
-        var entity = _context.Users
-            .Include(x => x.Followers)
-                .ThenInclude(x => x.Follower)
-            .Include(x => x.Following)
-                .ThenInclude(x => x.Followed)
-            .FirstOrDefault(x => x.ID == id);
-
-        if (entity == null)
-            throw new Exception("Usuário não encontrado.");
+        var entity = GetByIDWithRelationship(id);
 
         var result = new UserDto(entity);
 
         return Task.FromResult(result);
+    }
+
+    public Task<IEnumerable<UserRelationshipDto>> GetAllAsync(int id)
+    {
+        var entity = GetByIDWithRelationship(id);
+
+        var data = _context.Users
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
+            .Where(x => x.ID != id);
+
+        var result = data.Select(x => new UserRelationshipDto(x, entity));
+
+        return Task.FromResult(result.AsEnumerable());
+    }
+
+    public Task<IEnumerable<UserRelationshipDto>> GetFollowingAsync(int id)
+    {
+        var entity = GetByIDWithRelationship(id);
+
+        var data = _context.Users
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
+            .Where(x => x.Followers.Any(y => y.FollowerID == id));
+
+        var result = data.Select(x => new UserRelationshipDto(x, entity));
+
+        return Task.FromResult(result.AsEnumerable());
+    }
+
+    public Task<IEnumerable<UserRelationshipDto>> GetFollowersAsync(int id)
+    {
+        var entity = GetByIDWithRelationship(id);
+
+        var data = _context.Users
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
+            .Where(x => x.Following.Any(y => y.FollowedID == id));
+
+        var result = data.Select(x => new UserRelationshipDto(x, entity));
+
+        return Task.FromResult(result.AsEnumerable());
     }
 
     public async Task EditAsync(EditUserDto data)
@@ -141,6 +181,21 @@ public class UserService : IUserService
     {
         var entity = _context.Users
             .Include(x => x.NotiicationSettings)
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity != null)
+            return entity;
+
+        throw new Exception("Usuário não encontrado.");
+    }
+
+    private User GetByIDWithRelationship(int id)
+    {
+        var entity = _context.Users
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
             .FirstOrDefault(x => x.ID == id);
 
         if (entity != null)

@@ -8,8 +8,11 @@ public class UserDto
     public string Name { get; private set; }
     public string? Instagram { get; private set; }
     public string? Interests { get; private set; }
-    public IEnumerable<FollowedDto> Following { get; private set; }
-    public IEnumerable<FollowerDto> Followers { get; private set; }
+    public string Photo { get; private set; }
+    public int Following { get; private set; }
+    public int Followers { get; private set; }
+    public int Available { get; private set; }
+    public int Stars { get; private set; }
 
     public UserDto(User data)
     {
@@ -17,7 +20,10 @@ public class UserDto
         Name = data.Name;
         Instagram = data.Instagram;
         Interests = data.Interests;
-        Following = data.Following.Select(x => new FollowedDto(x));
-        Followers = data.Followers.Select(x => new FollowerDto(x, data));
+        Photo = string.IsNullOrEmpty(data.Photo) ? @"https://cdn0.iconfinder.com/data/icons/people-57/24/user-square-512.png" : data.Photo;
+        Following = data.Following.Select(x => new FollowedDto(x)).Count();
+        Followers = data.Followers.Select(x => new FollowerDto(x, data)).Count();
+        Available = 123;
+        Stars = 4;
     }
 }

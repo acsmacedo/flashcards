@@ -46,6 +46,12 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .HasMaxLength(User.InterestsMaxLength);
 
         builder
+            .Property(x => x.Photo)
+            .HasColumnName("photo")
+            .HasColumnType("varchar")
+            .HasMaxLength(User.PhotoMaxLength);
+
+        builder
             .HasOne(x => x.Account)
             .WithOne()
             .HasForeignKey<User>(x => x.AccountID);

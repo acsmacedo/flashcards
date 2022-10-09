@@ -22,6 +22,33 @@ public class UsersController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("All/{userID}")]
+    public async Task<IActionResult> GetAllAsync(int userID)
+    {
+        var result = await _service.GetAllAsync(userID);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("Following/{userID}")]
+    public async Task<IActionResult> GetFollowingAsync(int userID)
+    {
+        var result = await _service.GetFollowingAsync(userID);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("Followers/{userID}")]
+    public async Task<IActionResult> GetFollowersAsync(int userID)
+    {
+        var result = await _service.GetFollowersAsync(userID);
+
+        return Ok(result);
+    }
+
     [HttpPut]
     public async Task<IActionResult> EditAsync(EditUserDto data)
     {

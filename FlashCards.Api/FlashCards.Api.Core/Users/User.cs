@@ -10,6 +10,7 @@ public class User
     public const int NameMaxLength = 80;
     public const int InstagramMaxLength = 80;
     public const int InterestsMaxLength = 80;
+    public const int PhotoMaxLength = 1000;
 
     public int ID { get; private set; }
     public int AccountID { get; private set; }
@@ -17,6 +18,7 @@ public class User
     public string? Instagram { get; private set; }
     public string? Interests { get; private set; }
     public int? SubscriptionTypeID { get; private set; }
+    public string? Photo { get; private set; }
 
     public Account? Account { get; private set; }
     public SubscriptionType? SubscriptionType { get; private set; }

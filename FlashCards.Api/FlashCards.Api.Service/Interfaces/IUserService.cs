@@ -5,6 +5,10 @@ namespace FlashCards.Api.Service.Interfaces;
 public interface IUserService
 {
     Task<UserDto> GetByIDAsync(int id);
+    Task<IEnumerable<UserRelationshipDto>> GetAllAsync(int id);
+    Task<IEnumerable<UserRelationshipDto>> GetFollowingAsync(int id);
+    Task<IEnumerable<UserRelationshipDto>> GetFollowersAsync(int id);
+
     Task EditAsync(EditUserDto data);
 
     Task FollowAsync(FollowDto data);
