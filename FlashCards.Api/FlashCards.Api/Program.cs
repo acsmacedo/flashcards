@@ -44,6 +44,8 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
 app.UseAuthorization();

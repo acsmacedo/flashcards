@@ -58,8 +58,8 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder
             .HasOne(x => x.SubscriptionType)
-            .WithOne()
-            .HasForeignKey<User>(x => x.SubscriptionTypeID);
+            .WithMany(x => x.Users)
+            .HasForeignKey(x => x.SubscriptionTypeID);
 
         builder
             .HasMany(x => x.NotiicationSettings)

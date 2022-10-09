@@ -8,8 +8,13 @@ public class CreateCategoryDto
     [StringLength(Category.NameMaxLength)]
     public string Name { get; private set; }
 
-    public CreateCategoryDto(string name)
+    [Required]
+    [StringLength(Category.ImageMaxLength)]
+    public string Image { get; private set; }
+
+    public CreateCategoryDto(string name, string image)
     {
         Name = name;
+        Image = image;
     }
 }

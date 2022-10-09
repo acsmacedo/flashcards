@@ -24,8 +24,11 @@ public class AccountService : IAccountService
 
     public async Task<AccountDto> CreateAsync(CreateAccountDto data)
     {
+        var subscriptionType = await _context.SubscriptionTypes
+            .FirstOrDefaultAsync(x => x.Price == null);
+
         var account = new Account(data.Email, data.Password);
-        var user = new User(account, data.Name);
+        var user = new User(account, data.Name, subscriptionType?.ID);
 
         _context.Add(user);
 

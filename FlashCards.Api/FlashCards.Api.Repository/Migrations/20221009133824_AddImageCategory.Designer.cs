@@ -4,6 +4,7 @@ using FlashCards.Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221009133824_AddImageCategory")]
+    partial class AddImageCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,7 +438,9 @@ namespace FlashCards.Api.Repository.Migrations
                     b.HasIndex("AccountID")
                         .IsUnique();
 
-                    b.HasIndex("SubscriptionTypeID");
+                    b.HasIndex("SubscriptionTypeID")
+                        .IsUnique()
+                        .HasFilter("[SubscriptionTypeID] IS NOT NULL");
 
                     b.ToTable("users", (string)null);
                 });
@@ -604,8 +608,8 @@ namespace FlashCards.Api.Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("FlashCards.Api.Core.SubscriptionTypes.SubscriptionType", "SubscriptionType")
-                        .WithMany("Users")
-                        .HasForeignKey("SubscriptionTypeID");
+                        .WithOne()
+                        .HasForeignKey("FlashCards.Api.Core.Users.User", "SubscriptionTypeID");
 
                     b.Navigation("Account");
 
@@ -674,8 +678,6 @@ namespace FlashCards.Api.Repository.Migrations
             modelBuilder.Entity("FlashCards.Api.Core.SubscriptionTypes.SubscriptionType", b =>
                 {
                     b.Navigation("Benefits");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.Users.User", b =>

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Xml.Linq;
+﻿using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Core.SubscriptionTypes;
 
@@ -10,6 +9,8 @@ public class SubscriptionType
     public int ID { get; private set; }
     public string Name { get; private set; }
     public double? Price { get; private set; }
+    public IReadOnlyCollection<User> Users { get; private set; }
+        = new List<User>();
 
     public SubscriptionType(string name, double? price)
     {

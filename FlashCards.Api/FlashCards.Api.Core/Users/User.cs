@@ -27,10 +27,11 @@ public class User
 
     private User() { }
 
-    public User(Account account, string name)
+    public User(Account account, string name, int? subscriptionTypeID)
     {
         Account = account;
         Name = name;
+        SubscriptionTypeID = subscriptionTypeID;
     }
 
     public void Edit(string name, string? instagram, string? interests)

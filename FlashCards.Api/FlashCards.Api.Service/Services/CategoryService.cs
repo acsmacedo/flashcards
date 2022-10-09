@@ -30,7 +30,7 @@ public class CategoryService : ICategoryService
 
     public async Task CreateAsync(CreateCategoryDto data)
     {
-        var entity = new Category(data.Name);
+        var entity = new Category(data.Name, data.Image);
 
         _context.Add(entity);
 
@@ -41,7 +41,7 @@ public class CategoryService : ICategoryService
     {
         var entity = GetByID(data.ID);
 
-        entity.Edit(data.Name);
+        entity.Edit(data.Name, data.Image);
 
         _context.Update(entity);
 

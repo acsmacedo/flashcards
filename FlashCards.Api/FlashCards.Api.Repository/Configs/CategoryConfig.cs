@@ -26,5 +26,12 @@ public class CategoryConfig : IEntityTypeConfiguration<Category>
             .HasColumnType("varchar")
             .HasMaxLength(Category.NameMaxLength)
             .IsRequired();
+
+        builder
+            .Property(x => x.Image)
+            .HasColumnName("image")
+            .HasColumnType("varchar")
+            .HasMaxLength(Category.ImageMaxLength)
+            .IsRequired();
     }
 }

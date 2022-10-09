@@ -11,9 +11,14 @@ public class EditCategoryDto
     [StringLength(Category.NameMaxLength)]
     public string Name { get; private set; }
 
-    public EditCategoryDto(int id, string name)
+    [Required]
+    [StringLength(Category.ImageMaxLength)]
+    public string Image { get; private set; }
+
+    public EditCategoryDto(int id, string name, string image)
     {
         ID = id;
         Name = name;
+        Image = image;
     }
 }
