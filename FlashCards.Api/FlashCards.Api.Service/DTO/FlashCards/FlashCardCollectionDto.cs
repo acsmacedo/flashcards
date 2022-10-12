@@ -9,6 +9,9 @@ public class FlashCardCollectionDto
     public int UserDirectoryID { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
+    public int Stars { get; private set; }
+    public int Available { get; private set; }
+    public string UserInstagram { get; private set; }
 
     public FlashCardCollectionDto(FlashCardCollection data)
     {
@@ -17,5 +20,8 @@ public class FlashCardCollectionDto
         UserDirectoryID = data.UserDirectoryID;
         Name = data.Name;
         Description = data.Description;
+        Stars = 4;
+        Available = 10;
+        UserInstagram = "@deconhecido";
     }
 }

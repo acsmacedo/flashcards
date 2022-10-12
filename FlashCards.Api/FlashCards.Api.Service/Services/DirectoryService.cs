@@ -12,24 +12,53 @@ public class DirectoryService : IDirectoryService
         _context = context;
     }
 
-    public async Task<IEnumerable<DirectoryDto>> GetByUserIDAsync(int userID)
+    public async Task<DirectoryDto> GetByUserIDAsync(int userID, int? directoryID)
     {
-        var directories = await _context.Directories
-            .Where(x => x.UserID == userID)
-            .ToListAsync();
+        if (directoryID == null)
+        {
+            var entity = _context.Directories
+                .Include(x => x.FlashCardCollections)
+                .Include(x => x.Children)
+                .FirstOrDefault(x => x.UserDirectoryParentID == null && x.UserID == userID);
 
-        var result = directories.Select(x => new DirectoryDto(x));
+            if (entity == null)
+            {
+                var newEntity = new UserDirectory(null, userID, "ROOT" + userID);
 
-        return result;
+                _context.Add(newEntity);
+
+                await SaveChangesAsync();
+
+                return new DirectoryDto(newEntity);
+            }
+            else
+            {
+                return new DirectoryDto(entity);
+            }
+        }
+        else
+        {
+            var entity = _context.Directories
+                .Include(x => x.FlashCardCollections)
+                .Include(x => x.Children)
+                .FirstOrDefault(x => x.ID == directoryID);
+
+            if (entity== null)
+                throw new Exception("Diretório não encontrado.");
+
+            return new DirectoryDto(entity);
+        }  
     }
 
-    public async Task CreateAsync(CreateDirectoryDto data)
+    public async Task<int> CreateAsync(CreateDirectoryDto data)
     {
         var entity = new UserDirectory(data.ParentID, data.UserID, data.Name);
 
         _context.Add(entity);
 
         await SaveChangesAsync();
+
+        return entity.ID;
     }
 
     public async Task EditAsync(EditDirectoryDto data)
@@ -55,7 +84,7 @@ public class DirectoryService : IDirectoryService
     private UserDirectory GetByID(int id)
     {
         var entity = _context.Directories
-            .FirstOrDefault(x => x.UserDirectoryID == id);
+            .FirstOrDefault(x => x.ID == id);
 
         if (entity != null)
             return entity;

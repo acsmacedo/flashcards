@@ -104,7 +104,7 @@ public class FlashCardService : IFlashCardService
     {
         var directories = _context.Directories
             .Where(x => x.UserID == userID)
-            .Select(x => x.UserDirectoryID);
+            .Select(x => x.ID);
 
         var flashCards = await _context.FlashCards
             .Where(x => directories.Contains(x.UserDirectoryID))

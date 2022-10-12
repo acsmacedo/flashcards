@@ -13,21 +13,12 @@ public class DirectoriesController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
-    [Route("{userID}")]
-    public async Task<IActionResult> GetByUserIDAsync(int userID)
-    {
-        var result = await _service.GetByUserIDAsync(userID);
-
-        return Ok(result);
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateAsync(CreateDirectoryDto data)
     {
-        await _service.CreateAsync(data);
+        var result = await _service.CreateAsync(data);
 
-        return Ok();
+        return Ok(result);
     }
 
     [HttpPut]

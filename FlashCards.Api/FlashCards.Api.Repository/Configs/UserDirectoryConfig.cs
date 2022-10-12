@@ -10,11 +10,11 @@ public class UserDirectoryConfig : IEntityTypeConfiguration<UserDirectory>
             .ToTable("user_directories");
 
         builder
-            .HasKey(x => x.UserDirectoryID)
+            .HasKey(x => x.ID)
             .HasName("pk_user_directory_id");
 
         builder
-            .Property(x => x.UserDirectoryID)
+            .Property(x => x.ID)
             .HasColumnName("user_directory_id")
             .HasColumnType("int")
             .ValueGeneratedOnAdd()

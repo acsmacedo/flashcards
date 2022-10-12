@@ -7,7 +7,7 @@ public class UserDirectory
 {
     public const int NameMaxLength = 80;
 
-    public int UserDirectoryID { get; private set; }
+    public int ID { get; private set; }
     public int? UserDirectoryParentID { get; private set; }
     public int UserID { get; private set; }
     public string Name { get; private set; }
