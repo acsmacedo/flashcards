@@ -12,6 +12,7 @@ public class FlashCardCollectionDto
     public int Stars { get; private set; }
     public int Available { get; private set; }
     public string UserInstagram { get; private set; }
+    public IEnumerable<FlashcardItemDto> Items { get; private set; }
 
     public FlashCardCollectionDto(FlashCardCollection data)
     {
@@ -23,5 +24,6 @@ public class FlashCardCollectionDto
         Stars = 4;
         Available = 10;
         UserInstagram = "@deconhecido";
+        Items = data.Cards.Select(x => new FlashcardItemDto(x));
     }
 }

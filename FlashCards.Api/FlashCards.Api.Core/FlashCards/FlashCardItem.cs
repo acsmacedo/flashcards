@@ -6,6 +6,7 @@ public class FlashCardItem
     public const int VerseDescriptionMaxLength = 500;
 
     public int FlashCardItemID { get; private set; }
+    public int FlashCardCollectionID { get; private set; }
     public string FrontDescription { get; private set; }
     public string VerseDescription { get; private set; }
     public FlashCardCollection? Collection { get; private set; }

@@ -12,7 +12,7 @@ public class FlashCardService : IFlashCardService
         _context = context;
     }
 
-    public Task AddCardAsync(AddFlashCardItemDto data)
+    public async Task<int> AddCardAsync(AddFlashCardItemDto data)
     {
         var entity = _context.FlashCards
             .Include(x => x.Cards)
@@ -25,10 +25,12 @@ public class FlashCardService : IFlashCardService
             frontDescription: data.FrontDescription, 
             verseDescription: data.VerseDescription);
 
-        return Task.CompletedTask;
+        await SaveChangesAsync();
+
+        return entity.Cards.First(x => x.FrontDescription == data.FrontDescription && x.VerseDescription == data.VerseDescription).FlashCardItemID;
     }
 
-    public Task AddRatingAsync(AddFlashCardRatingDto data)
+    public async Task AddRatingAsync(AddFlashCardRatingDto data)
     {
         var entity = _context.FlashCards
             .Include(x => x.Ratings)
@@ -42,10 +44,10 @@ public class FlashCardService : IFlashCardService
             rating: data.Rating,
             comment: data.Comment);
 
-        return Task.CompletedTask;
+        await SaveChangesAsync();
     }
 
-    public async Task CreateAsync(CreateFlashCardCollectionDto data)
+    public async Task<int> CreateAsync(CreateFlashCardCollectionDto data)
     {
         var entity = new FlashCardCollection(
             categoryID: data.CategoryID,
@@ -57,6 +59,8 @@ public class FlashCardService : IFlashCardService
         _context.Add(entity);
 
         await SaveChangesAsync();
+
+        return entity.ID;
     }
 
     public async Task DeleteAsync(DeleteFlashCardCollectioDto data)
@@ -100,6 +104,17 @@ public class FlashCardService : IFlashCardService
         return Task.CompletedTask;
     }
 
+    public async Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID)
+    {
+        var flashcard = await _context.FlashCards
+            .Include(x => x.Cards)
+            .FirstAsync(x => x.ID == flashcardCollectionID);
+
+        var result = new FlashCardCollectionDto(flashcard);
+
+        return result;
+    }
+
     public async Task<IEnumerable<FlashCardCollectionDto>> GetByUserIDAsync(int userID)
     {
         var directories = _context.Directories
@@ -107,6 +122,7 @@ public class FlashCardService : IFlashCardService
             .Select(x => x.ID);
 
         var flashCards = await _context.FlashCards
+            .Include(x => x.Cards)
             .Where(x => directories.Contains(x.UserDirectoryID))
             .ToListAsync();
 

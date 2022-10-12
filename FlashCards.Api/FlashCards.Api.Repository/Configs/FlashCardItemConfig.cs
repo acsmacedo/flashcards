@@ -21,6 +21,12 @@ public class FlashCardItemConfig : IEntityTypeConfiguration<FlashCardItem>
             .IsRequired();
 
         builder
+            .Property(x => x.FlashCardCollectionID)
+            .HasColumnName("flash_card_collection_id")
+            .HasColumnType("int")
+            .IsRequired();
+
+        builder
             .Property(x => x.FrontDescription)
             .HasColumnName("front_description")
             .HasColumnType("varchar")

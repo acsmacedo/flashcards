@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlashCards.Api.Repository.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,11 +30,60 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     category_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false)
+                    name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
+                    image = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_category_id", x => x.category_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "notification_settings",
+                columns: table => new
+                {
+                    notification_setting_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
+                    description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_notification_setting_id", x => x.notification_setting_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "subscription_types",
+                columns: table => new
+                {
+                    subscription_type_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
+                    price = table.Column<decimal>(type: "smallmoney", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_subscription_type_id", x => x.subscription_type_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "subscription_type_benefits",
+                columns: table => new
+                {
+                    subscription_type_benefit_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    subscription_type_id = table.Column<int>(type: "int", nullable: false),
+                    benefit = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_subscription_type_benefit_id", x => x.subscription_type_benefit_id);
+                    table.ForeignKey(
+                        name: "FK_subscription_type_benefits_subscription_types_subscription_type_id",
+                        column: x => x.subscription_type_id,
+                        principalTable: "subscription_types",
+                        principalColumn: "subscription_type_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,7 +95,9 @@ namespace FlashCards.Api.Repository.Migrations
                     account_id = table.Column<int>(type: "int", nullable: false),
                     name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false),
                     instagram = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: true),
-                    interests = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: true)
+                    interests = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: true),
+                    SubscriptionTypeID = table.Column<int>(type: "int", nullable: true),
+                    photo = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,6 +108,11 @@ namespace FlashCards.Api.Repository.Migrations
                         principalTable: "accounts",
                         principalColumn: "account_id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_users_subscription_types_SubscriptionTypeID",
+                        column: x => x.SubscriptionTypeID,
+                        principalTable: "subscription_types",
+                        principalColumn: "subscription_type_id");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,6 +194,31 @@ namespace FlashCards.Api.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "user_notification_settings",
+                columns: table => new
+                {
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    notification_setting_id = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_user_notification_setting_id", x => new { x.user_id, x.notification_setting_id });
+                    table.ForeignKey(
+                        name: "FK_user_notification_settings_notification_settings_notification_setting_id",
+                        column: x => x.notification_setting_id,
+                        principalTable: "notification_settings",
+                        principalColumn: "notification_setting_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_user_notification_settings_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "user_relationships",
                 columns: table => new
                 {
@@ -192,7 +273,9 @@ namespace FlashCards.Api.Repository.Migrations
                 name: "flash_card_items",
                 columns: table => new
                 {
-                    flash_card_id = table.Column<int>(type: "int", nullable: false),
+                    flash_card_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    flash_card_collection_id = table.Column<int>(type: "int", nullable: false),
                     front_description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     verse_description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
                 },
@@ -200,8 +283,8 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     table.PrimaryKey("pk_flash_card_id", x => x.flash_card_id);
                     table.ForeignKey(
-                        name: "FK_flash_card_items_flash_card_collections_flash_card_id",
-                        column: x => x.flash_card_id,
+                        name: "FK_flash_card_items_flash_card_collections_flash_card_collection_id",
+                        column: x => x.flash_card_collection_id,
                         principalTable: "flash_card_collections",
                         principalColumn: "flash_card_collection_id",
                         onDelete: ReferentialAction.Cascade);
@@ -211,7 +294,9 @@ namespace FlashCards.Api.Repository.Migrations
                 name: "flash_card_ratings",
                 columns: table => new
                 {
-                    flash_card_rating_id = table.Column<int>(type: "int", nullable: false),
+                    flash_card_rating_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    flash_card_collection_id = table.Column<int>(type: "int", nullable: false),
                     user_id = table.Column<int>(type: "int", nullable: false),
                     rating = table.Column<int>(type: "int", nullable: false),
                     comment = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
@@ -220,8 +305,8 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     table.PrimaryKey("pk_flash_card_rating_id", x => x.flash_card_rating_id);
                     table.ForeignKey(
-                        name: "FK_flash_card_ratings_flash_card_collections_flash_card_rating_id",
-                        column: x => x.flash_card_rating_id,
+                        name: "FK_flash_card_ratings_flash_card_collections_flash_card_collection_id",
+                        column: x => x.flash_card_collection_id,
                         principalTable: "flash_card_collections",
                         principalColumn: "flash_card_collection_id",
                         onDelete: ReferentialAction.Cascade);
@@ -266,9 +351,24 @@ namespace FlashCards.Api.Repository.Migrations
                 column: "user_directory_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_flash_card_items_flash_card_collection_id",
+                table: "flash_card_items",
+                column: "flash_card_collection_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_flash_card_ratings_flash_card_collection_id",
+                table: "flash_card_ratings",
+                column: "flash_card_collection_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_notifications_user_id",
                 table: "notifications",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_subscription_type_benefits_subscription_type_id",
+                table: "subscription_type_benefits",
+                column: "subscription_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_directories_user_directory_parent_id",
@@ -281,6 +381,11 @@ namespace FlashCards.Api.Repository.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_user_notification_settings_notification_setting_id",
+                table: "user_notification_settings",
+                column: "notification_setting_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_user_relationships_follower_id",
                 table: "user_relationships",
                 column: "follower_id");
@@ -290,6 +395,11 @@ namespace FlashCards.Api.Repository.Migrations
                 table: "users",
                 column: "account_id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_SubscriptionTypeID",
+                table: "users",
+                column: "SubscriptionTypeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -310,10 +420,19 @@ namespace FlashCards.Api.Repository.Migrations
                 name: "notifications");
 
             migrationBuilder.DropTable(
+                name: "subscription_type_benefits");
+
+            migrationBuilder.DropTable(
+                name: "user_notification_settings");
+
+            migrationBuilder.DropTable(
                 name: "user_relationships");
 
             migrationBuilder.DropTable(
                 name: "flash_card_collections");
+
+            migrationBuilder.DropTable(
+                name: "notification_settings");
 
             migrationBuilder.DropTable(
                 name: "categories");
@@ -326,6 +445,9 @@ namespace FlashCards.Api.Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "accounts");
+
+            migrationBuilder.DropTable(
+                name: "subscription_types");
         }
     }
 }

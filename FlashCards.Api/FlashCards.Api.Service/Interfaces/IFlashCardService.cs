@@ -5,11 +5,13 @@ namespace FlashCards.Api.Service.Interfaces;
 public interface IFlashCardService
 {
     Task<IEnumerable<FlashCardCollectionDto>> GetByUserIDAsync(int userID);
-    Task CreateAsync(CreateFlashCardCollectionDto data);
+    Task<FlashCardCollectionDto> GetByIDAsync(int userID);
+
+    Task<int> CreateAsync(CreateFlashCardCollectionDto data);
     Task EditAsync(EditFlashCardCollectioDto data);
     Task DeleteAsync(DeleteFlashCardCollectioDto data);
 
-    Task AddCardAsync(AddFlashCardItemDto data);
+    Task<int> AddCardAsync(AddFlashCardItemDto data);
     Task EditCardAsync(EditFlashCardItemDto data);
     Task RemoveCardAsync(RemoveFlashCardItemDto data);
 

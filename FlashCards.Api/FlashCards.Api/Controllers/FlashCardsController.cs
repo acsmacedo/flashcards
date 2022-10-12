@@ -14,7 +14,7 @@ public class FlashCardsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{userID}")]
+    [Route("Users/{userID}")]
     public async Task<IActionResult> GetByUserIDAsync(int userID)
     {
         var result = await _service.GetByUserIDAsync(userID);
@@ -22,12 +22,21 @@ public class FlashCardsController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("{flashcardCollectionID}")]
+    public async Task<IActionResult> GetByIDAsync(int flashcardCollectionID)
+    {
+        var result = await _service.GetByIDAsync(flashcardCollectionID);
+
+        return Ok(result);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync(CreateFlashCardCollectionDto data)
     {
-        await _service.CreateAsync(data);
+        var id = await _service.CreateAsync(data);
 
-        return Ok();
+        return Ok(id);
     }
 
     [HttpPut]
@@ -51,9 +60,9 @@ public class FlashCardsController : ControllerBase
     [Route("CardItem")]
     public async Task<IActionResult> AddCardAsync(AddFlashCardItemDto data)
     {
-        await _service.AddCardAsync(data);
+        var id = await _service.AddCardAsync(data);
 
-        return Ok();
+        return Ok(id);
     }
 
     [HttpPut]

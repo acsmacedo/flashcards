@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221009140706_CorrigeRelacionamentoUserSubscription")]
-    partial class CorrigeRelacionamentoUserSubscription
+    [Migration("20221012183421_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,12 +126,12 @@ namespace FlashCards.Api.Repository.Migrations
 
             modelBuilder.Entity("FlashCards.Api.Core.Directories.UserDirectory", b =>
                 {
-                    b.Property<int>("UserDirectoryID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("user_directory_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserDirectoryID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -147,7 +147,7 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasColumnType("int")
                         .HasColumnName("user_id");
 
-                    b.HasKey("UserDirectoryID")
+                    b.HasKey("ID")
                         .HasName("pk_user_directory_id");
 
                     b.HasIndex("UserDirectoryParentID");
@@ -203,6 +203,12 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasColumnType("int")
                         .HasColumnName("flash_card_id");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardItemID"), 1L, 1);
+
+                    b.Property<int>("FlashCardCollectionID")
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_collection_id");
+
                     b.Property<string>("FrontDescription")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -218,6 +224,8 @@ namespace FlashCards.Api.Repository.Migrations
                     b.HasKey("FlashCardItemID")
                         .HasName("pk_flash_card_id");
 
+                    b.HasIndex("FlashCardCollectionID");
+
                     b.ToTable("flash_card_items", (string)null);
                 });
 
@@ -228,11 +236,17 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasColumnType("int")
                         .HasColumnName("flash_card_rating_id");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlashCardRatingID"), 1L, 1);
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("varchar(1000)")
                         .HasColumnName("comment");
+
+                    b.Property<int>("FlashCardCollectionID")
+                        .HasColumnType("int")
+                        .HasColumnName("flash_card_collection_id");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int")
@@ -244,6 +258,8 @@ namespace FlashCards.Api.Repository.Migrations
 
                     b.HasKey("FlashCardRatingID")
                         .HasName("pk_flash_card_rating_id");
+
+                    b.HasIndex("FlashCardCollectionID");
 
                     b.ToTable("flash_card_ratings", (string)null);
                 });
@@ -546,7 +562,7 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
                         .WithMany("Cards")
-                        .HasForeignKey("FlashCardItemID")
+                        .HasForeignKey("FlashCardCollectionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -557,7 +573,7 @@ namespace FlashCards.Api.Repository.Migrations
                 {
                     b.HasOne("FlashCards.Api.Core.FlashCards.FlashCardCollection", "Collection")
                         .WithMany("Ratings")
-                        .HasForeignKey("FlashCardRatingID")
+                        .HasForeignKey("FlashCardCollectionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

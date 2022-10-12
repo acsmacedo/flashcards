@@ -56,6 +56,11 @@ public class FlashCardCollectionConfig : IEntityTypeConfiguration<FlashCardColle
             .HasForeignKey(x => x.UserDirectoryID);
 
         builder
+            .HasMany(x => x.Cards)
+            .WithOne(x => x.Collection)
+            .HasForeignKey(x => x.FlashCardCollectionID);
+
+        builder
             .HasMany(x => x.Tags)
             .WithOne(x => x.Collection)
             .HasForeignKey(x => x.FlashCardCollectionID);
@@ -63,11 +68,6 @@ public class FlashCardCollectionConfig : IEntityTypeConfiguration<FlashCardColle
         builder
             .HasMany(x => x.Ratings)
             .WithOne(x => x.Collection)
-            .HasForeignKey(x => x.FlashCardRatingID);
-
-        builder
-            .HasMany(x => x.Cards)
-            .WithOne(x => x.Collection)
-            .HasForeignKey(x => x.FlashCardItemID);
+            .HasForeignKey(x => x.FlashCardCollectionID);
     }
 }

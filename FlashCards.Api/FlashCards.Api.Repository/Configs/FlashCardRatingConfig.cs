@@ -21,6 +21,12 @@ public class FlashCardRatingConfig : IEntityTypeConfiguration<FlashCardRating>
             .IsRequired();
 
         builder
+            .Property(x => x.FlashCardCollectionID)
+            .HasColumnName("flash_card_collection_id")
+            .HasColumnType("int")
+            .IsRequired();
+
+        builder
             .Property(x => x.UserID)
             .HasColumnName("user_id")
             .HasColumnType("int")
