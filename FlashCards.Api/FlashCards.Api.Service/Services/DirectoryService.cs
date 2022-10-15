@@ -18,6 +18,7 @@ public class DirectoryService : IDirectoryService
         {
             var entity = _context.Directories
                 .Include(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
                 .Include(x => x.Children)
                 .FirstOrDefault(x => x.UserDirectoryParentID == null && x.UserID == userID);
 
@@ -40,6 +41,7 @@ public class DirectoryService : IDirectoryService
         {
             var entity = _context.Directories
                 .Include(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
                 .Include(x => x.Children)
                 .FirstOrDefault(x => x.ID == directoryID);
 

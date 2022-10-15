@@ -14,10 +14,27 @@ public class FlashCardsController : ControllerBase
     }
 
     [HttpGet]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var result = await _service.GetAllAsync();
+
+        return Ok(result);
+    }
+
+    [HttpGet]
     [Route("Users/{userID}")]
     public async Task<IActionResult> GetByUserIDAsync(int userID)
     {
         var result = await _service.GetByUserIDAsync(userID);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("Categories/{categoryID}")]
+    public async Task<IActionResult> GetByCategoryIDAsync(int categoryID)
+    {
+        var result = await _service.GetByCategoryIDAsync(categoryID);
 
         return Ok(result);
     }

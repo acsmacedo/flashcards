@@ -4,6 +4,8 @@ namespace FlashCards.Api.Service.Interfaces;
 
 public interface IFlashCardService
 {
+    Task<IEnumerable<FlashCardCollectionDto>> GetAllAsync();
+    Task<IEnumerable<FlashCardCollectionDto>> GetByCategoryIDAsync(int categoryID);
     Task<IEnumerable<FlashCardCollectionDto>> GetByUserIDAsync(int userID);
     Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID);
 
