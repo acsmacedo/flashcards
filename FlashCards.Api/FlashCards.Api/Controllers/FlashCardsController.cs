@@ -87,6 +87,15 @@ public class FlashCardsController : ControllerBase
         return Ok();
     }
 
+    [HttpGet]
+    [Route("CardRating/{flashCardCollectionID}")]
+    public async Task<IActionResult> GetCardRatingByIDAsync(int flashCardCollectionID)
+    {
+        var result = await _service.GetCardRatingByIDAsync(flashCardCollectionID);
+
+        return Ok(result);
+    }
+
     [HttpPost]
     [Route("CardRating")]
     public async Task<IActionResult> AddRatingAsync(AddFlashCardRatingDto data)

@@ -5,7 +5,7 @@ namespace FlashCards.Api.Service.Interfaces;
 public interface IFlashCardService
 {
     Task<IEnumerable<FlashCardCollectionDto>> GetByUserIDAsync(int userID);
-    Task<FlashCardCollectionDto> GetByIDAsync(int userID);
+    Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID);
 
     Task<int> CreateAsync(CreateFlashCardCollectionDto data);
     Task EditAsync(EditFlashCardCollectioDto data);
@@ -15,5 +15,6 @@ public interface IFlashCardService
     Task EditCardAsync(EditFlashCardItemDto data);
     Task RemoveCardAsync(RemoveFlashCardItemDto data);
 
+    Task<IEnumerable<FlashCardRatingDto>> GetCardRatingByIDAsync(int flashcardCollectionID);
     Task AddRatingAsync(AddFlashCardRatingDto data);
 }

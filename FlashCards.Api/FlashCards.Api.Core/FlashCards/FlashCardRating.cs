@@ -1,4 +1,6 @@
-﻿namespace FlashCards.Api.Core.FlashCards;
+﻿using FlashCards.Api.Core.Users;
+
+namespace FlashCards.Api.Core.FlashCards;
 
 public class FlashCardRating
 {
@@ -10,6 +12,7 @@ public class FlashCardRating
     public int Rating { get; private set; }
     public string Comment { get; private set; } = string.Empty;
     public FlashCardCollection? Collection { get; private set; }
+    public User? User { get; private set; }
 
     public FlashCardRating(
         int userID, 

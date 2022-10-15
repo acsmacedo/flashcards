@@ -14,7 +14,18 @@ public class UserService : IUserService
 
     public Task<UserDto> GetByIDAsync(int id)
     {
-        var entity = GetByIDWithRelationship(id);
+        var entity = _context.Users
+            .Include(x => x.Directories)
+                .ThenInclude(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity == null)
+            throw new Exception("Usuário não encontrado.");
 
         var result = new UserDto(entity);
 
@@ -26,6 +37,9 @@ public class UserService : IUserService
         var entity = GetByIDWithRelationship(id);
 
         var data = _context.Users
+            .Include(x => x.Directories)
+                .ThenInclude(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
             .Include(x => x.Followers)
                 .ThenInclude(x => x.Follower)
             .Include(x => x.Following)
@@ -42,6 +56,9 @@ public class UserService : IUserService
         var entity = GetByIDWithRelationship(id);
 
         var data = _context.Users
+            .Include(x => x.Directories)
+                .ThenInclude(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
             .Include(x => x.Followers)
                 .ThenInclude(x => x.Follower)
             .Include(x => x.Following)
@@ -58,6 +75,9 @@ public class UserService : IUserService
         var entity = GetByIDWithRelationship(id);
 
         var data = _context.Users
+            .Include(x => x.Directories)
+                .ThenInclude(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
             .Include(x => x.Followers)
                 .ThenInclude(x => x.Follower)
             .Include(x => x.Following)
@@ -117,7 +137,6 @@ public class UserService : IUserService
 
         await SaveChangesAsync();
     }
-
 
     public async Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data)
     {

@@ -14,6 +14,13 @@ public class Category
     public IReadOnlyCollection<FlashCardCollection> FlashCardCollections { get; private set; }
         = new List<FlashCardCollection>();
 
+    public Category(int id, string name, string image)
+    {
+        ID = id;
+        Name = name;
+        Image = image;
+    }
+
     public Category(string name, string image)
     {
         Name = name;

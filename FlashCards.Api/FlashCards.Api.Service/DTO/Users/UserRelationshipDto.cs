@@ -27,8 +27,14 @@ namespace FlashCards.Api.Service.DTO.Users
             Followers = data.Followers.Select(x => new FollowerDto(x, data)).Count();
             IsFollowed = current.Following.Any(x => x.FollowedID == data.ID);
             IsEnableNotification = current.Following.Any(x => x.FollowedID == data.ID && x.EnableNotification);
-            Available = 123;
-            Stars = 4;
+
+            var available = data.Directories.SelectMany(x => x.FlashCardCollections).SelectMany(x => x.Ratings);
+
+            if (available.Any())
+            {
+                Available = available.Count();
+                Stars = (int)Math.Round(available.Average(x => x.Rating));
+            }
         }
     }
 }

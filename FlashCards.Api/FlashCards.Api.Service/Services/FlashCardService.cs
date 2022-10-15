@@ -108,6 +108,9 @@ public class FlashCardService : IFlashCardService
     {
         var flashcard = await _context.FlashCards
             .Include(x => x.Cards)
+            .Include(x => x.Ratings)
+            .Include(x => x.UserDirectory)
+                .ThenInclude(x => x.User)
             .FirstAsync(x => x.ID == flashcardCollectionID);
 
         var result = new FlashCardCollectionDto(flashcard);
@@ -123,12 +126,30 @@ public class FlashCardService : IFlashCardService
 
         var flashCards = await _context.FlashCards
             .Include(x => x.Cards)
+            .Include(x => x.Ratings)
+            .Include(x => x.UserDirectory)
+                .ThenInclude(x => x.User)
             .Where(x => directories.Contains(x.UserDirectoryID))
             .ToListAsync();
 
         var result = flashCards.Select(x => new FlashCardCollectionDto(x));
 
         return result;
+    }
+
+    public Task<IEnumerable<FlashCardRatingDto>> GetCardRatingByIDAsync(int flashcardCollectionID)
+    {
+        var entity = _context.FlashCards
+            .Include(x => x.Ratings)
+                .ThenInclude(x => x.User)
+            .FirstOrDefault(x => x.ID == flashcardCollectionID);
+
+        if (entity == null)
+            throw new Exception("Coleção de flash card não encontrada.");
+
+        var result = entity.Ratings.Select(x => new FlashCardRatingDto(x));
+
+        return Task.FromResult(result);
     }
 
     public Task RemoveCardAsync(RemoveFlashCardItemDto data)

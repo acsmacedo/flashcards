@@ -23,7 +23,13 @@ public class UserDto
         Photo = string.IsNullOrEmpty(data.Photo) ? @"https://cdn0.iconfinder.com/data/icons/people-57/24/user-square-512.png" : data.Photo;
         Following = data.Following.Select(x => new FollowedDto(x)).Count();
         Followers = data.Followers.Select(x => new FollowerDto(x, data)).Count();
-        Available = 123;
-        Stars = 4;
+
+        var available = data.Directories.SelectMany(x => x.FlashCardCollections).SelectMany(x => x.Ratings);
+
+        if (available.Any())
+        {
+            Available = available.Count();
+            Stars = (int)Math.Round(available.Average(x => x.Rating));
+        }
     }
 }

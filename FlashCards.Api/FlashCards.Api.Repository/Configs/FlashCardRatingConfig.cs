@@ -43,5 +43,11 @@ public class FlashCardRatingConfig : IEntityTypeConfiguration<FlashCardRating>
             .HasColumnName("comment")
             .HasColumnType("varchar")
             .HasMaxLength(FlashCardRating.CommentMaxLength);
+
+        builder
+            .HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserID)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

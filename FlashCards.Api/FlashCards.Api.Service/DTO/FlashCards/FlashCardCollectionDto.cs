@@ -21,9 +21,14 @@ public class FlashCardCollectionDto
         UserDirectoryID = data.UserDirectoryID;
         Name = data.Name;
         Description = data.Description;
-        Stars = 4;
-        Available = 10;
-        UserInstagram = "@deconhecido";
+
+        if (data.Ratings.Any())
+        {
+            Stars = (int)Math.Round(data.Ratings.Average(x => x.Rating));
+            Available = data.Ratings.Count;
+        }
+
+        UserInstagram = data.UserDirectory?.User?.Name ?? string.Empty;
         Items = data.Cards.Select(x => new FlashcardItemDto(x));
     }
 }
