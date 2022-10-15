@@ -14,6 +14,7 @@ namespace FlashCards.App.IoC
             services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IFlashcardCollectionService, FlashcardCollectionService>();
+            services.AddScoped<IDirectoryService, DirectoryService>();
         }
     }
 }

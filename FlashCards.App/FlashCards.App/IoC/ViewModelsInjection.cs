@@ -1,4 +1,5 @@
 ﻿using FlashCards.App.ViewModels.Accounts;
+using FlashCards.App.ViewModels.Directories;
 using FlashCards.App.ViewModels.Flashcards;
 using FlashCards.App.ViewModels.Home;
 using FlashCards.App.ViewModels.Network;
@@ -31,7 +32,12 @@ namespace FlashCards.App.IoC
             services.AddTransient<MyFollowersViewModel>();
             services.AddTransient<MyFollowedsViewModel>();
 
+            services.AddTransient<MyDirectoryViewModel>();
             services.AddTransient<FlashcardsViewModel>();
+            services.AddTransient<FlashcardAvailablesViewModel>();
+            services.AddTransient<CreateOrEditFlashcardViewModel>();
+            services.AddTransient<CreateOrEditFlashcardItemViewModel>();
+            services.AddTransient<CreateFlashcardAvailableViewModel>();
         }
     }
 }

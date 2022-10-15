@@ -19,8 +19,6 @@ namespace FlashCards.App.ViewModels.Flashcards
 
             Items = new ObservableCollection<FlashcardCollection>();
 
-            LoadItems();
-
             LoadItemsCommand = new Command(LoadItems);
             GoToFlahcardPageCommand = new Command<FlashcardCollection>(GoToFlahcardPage);
         }

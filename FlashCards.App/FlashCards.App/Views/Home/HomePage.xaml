@@ -87,74 +87,13 @@
                         </CollectionView.ItemTemplate>
                         <CollectionView.Footer>
                             <StackLayout Margin="0, 0, 0, 20">
-                                
+
                             </StackLayout>
                         </CollectionView.Footer>
                     </CollectionView>
                 </StackLayout>
             </Grid>
         </StackLayout>
-        <!--<StackLayout Style="{ StaticResource PageLight }">
-            <CollectionView x:Name="ItemsListView"
-                            ItemsSource="{ Binding Items }"
-                            SelectionMode="None">
-                <CollectionView.Header>
-                    <StackLayout Style="{ StaticResource PageLight }" Padding="0">
-                        <Grid RowDefinitions="30, 30, 30, 80" ColumnDefinitions="1*">
-                            <BoxView Color="{ StaticResource Primary }" Grid.Row="0" Grid.RowSpan="3" />
-
-                            <Frame Style="{ StaticResource Frame }" Grid.Row="1" Grid.RowSpan="3" Margin="20, 10">
-                                <Frame Style="{ StaticResource FrameInputInternal }" Padding="20, 5">
-                                    <StackLayout VerticalOptions="End">
-                                        <Frame HasShadow="False" 
-                                               HorizontalOptions="Start" 
-                                               BackgroundColor="{ StaticResource PrimaryLight }"
-                                               CornerRadius="20"
-                                               Margin="10, 5">
-                                            <Label Text="Atualizações" 
-                                                   Style="{ StaticResource LeadPrimary }" />
-                                        </Frame>
-
-                                        <Label Text="Agora você pode criar flashcards com áudios e imagens"
-                                               Style="{ StaticResource SubTitleBlack }" />
-                                    </StackLayout>
-                                </Frame>
-                            </Frame>
-                        </Grid>
-                    </StackLayout>
-                </CollectionView.Header>
-
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
-                </CollectionView.ItemsLayout>
-                
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout x:DataType="model:Category">
-                            <Frame Style="{ StaticResource Frame }">
-                                <Frame Style="{ StaticResource FrameInputInternal }" Padding="0, 20">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:HomeViewModel }}, Path=GoToFlashcardsCommand }"		
-                                                              CommandParameter="{ Binding . }" />
-                                    </Frame.GestureRecognizers>
-
-                                    <StackLayout>
-                                        <Image Source="{ Binding Image }"
-                                               Aspect="AspectFill"
-                                               WidthRequest="40"
-                                               HeightRequest="40" />
-                                        
-                                        <Label Text="{ Binding Name }" 
-                                               Style="{ StaticResource SubTitleBlack }"
-                                               HorizontalTextAlignment="Center" />
-                                    </StackLayout>
-                                </Frame>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>-->
     </ContentPage.Content>
 </ContentPage>
     

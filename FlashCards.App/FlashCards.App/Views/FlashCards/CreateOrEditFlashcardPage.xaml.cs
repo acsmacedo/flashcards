@@ -1,39 +1,48 @@
-﻿using FlashCards.App.ViewModels.Directories;
+﻿using FlashCards.App.Models.Flashcards;
+using FlashCards.App.ViewModels.Flashcards;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FlashCards.App.Views.Directories
+namespace FlashCards.App.Views.FlashCards
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DirectoriesPage : ContentPage
+    public partial class CreateOrEditFlashcardPage : ContentPage
     {
-        private int _directoryID;
-        private MyDirectoryViewModel _viewModel;
+        private CreateOrEditFlashcardViewModel _viewModel;
 
         private List<SwipeView> SwipeViews { set; get; }
 
-        public DirectoriesPage()
+        public CreateOrEditFlashcardPage(FlashcardCollection flashcardCollection)
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = Startup.ServiceProvider.GetService<MyDirectoryViewModel>();
             SwipeViews = new List<SwipeView>();
+
+            var viewModel = Startup.ServiceProvider.GetService<CreateOrEditFlashcardViewModel>();
+
+            viewModel.SetInitialData(flashcardCollection);
+
+            BindingContext = _viewModel = viewModel;
         }
 
-        public DirectoriesPage(int directoryID)
+        public CreateOrEditFlashcardPage(int userDirectoryID)
         {
             InitializeComponent();
 
-            _directoryID = directoryID;
-            BindingContext = _viewModel = Startup.ServiceProvider.GetService<MyDirectoryViewModel>();
             SwipeViews = new List<SwipeView>();
+
+            var viewModel = Startup.ServiceProvider.GetService<CreateOrEditFlashcardViewModel>();
+
+            viewModel.SetInitialData(userDirectoryID);
+
+            BindingContext = _viewModel = viewModel;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing(_directoryID);
+            _viewModel.OnAppearing();
         }
 
         private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)

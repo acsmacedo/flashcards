@@ -77,7 +77,7 @@ namespace FlashCards.App.ViewModels.Users
 
                 await _service.EditProfile(this);
 
-                DisplaySuccess();
+                await DisplaySuccess();
             }
             catch (Exception ex)
             {

@@ -1,4 +1,6 @@
-﻿namespace FlashCards.App.Models.Flashcards
+﻿using System.Collections.Generic;
+
+namespace FlashCards.App.Models.Flashcards
 {
     public class FlashcardCollection
     {
@@ -10,6 +12,7 @@
         public int Stars { get; private set; }
         public int Available { get; private set; }
         public string UserInstagram { get; private set; }
+        public IEnumerable<FlashcardItem> Items { get; private set; }
 
         public FlashcardCollection(
             int id, 
@@ -19,7 +22,8 @@
             string description, 
             int stars, 
             int available, 
-            string userInstagram)
+            string userInstagram,
+            IEnumerable<FlashcardItem> items)
         {
             ID = id;
             CategoryID = categoryID;
@@ -29,6 +33,7 @@
             Stars = stars;
             Available = available;
             UserInstagram = userInstagram;
+            Items = items;
         }
     }
 }

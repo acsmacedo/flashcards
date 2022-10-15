@@ -3,8 +3,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
-using FlashCards.App.Models.Accounts;
-using FlashCards.App.Views.Account;
 using System.Threading.Tasks;
 
 namespace FlashCards.App.ViewModels
@@ -70,6 +68,23 @@ namespace FlashCards.App.ViewModels
                 cancel: cancel,
                 destruction: null,
                 buttons: buttons);
+        }
+
+        protected async Task<string> DisplayPrompt(
+            string title, 
+            string message,
+            string initialValue = null,
+            string accept = "Salvar",
+            string cancel = "Cancelar")
+        {
+            string result = await MainPage.DisplayPromptAsync(
+                title: title,
+                message: message,
+                cancel: cancel,
+                accept: accept,
+                initialValue: initialValue);
+
+            return result;
         }
 
         protected int UserID

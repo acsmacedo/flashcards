@@ -35,6 +35,13 @@ namespace FlashCards.App.Services
             return response;
         }
 
+        protected async Task<HttpResponseMessage> DeleteAsync(string url)
+        {
+            var response = await _httpClient.DeleteAsync(url);
+
+            return response;
+        }
+
         protected async Task<HttpResponseMessage> GetAsync(string url)
         {
             var response = await _httpClient.GetAsync(url);

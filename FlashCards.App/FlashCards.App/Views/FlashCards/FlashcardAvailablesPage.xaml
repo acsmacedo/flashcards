@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.FlashCards.FlashcardAvailablesPage"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
+             xmlns:model="clr-namespace:FlashCards.App.Models.Flashcards"
+             Title="Histórico de avaliações">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstStarToImageConverter x:Key="firstStarToImageConverter" />
+            <converters:SecondStarToImageConverter x:Key="secondStarToImageConverter" />
+            <converters:ThirdStarToImageConverter x:Key="thirdStarToImageConverter" />
+            <converters:FourthStarToImageConverter x:Key="fourthStarToImageConverter" />
+            <converters:FifthStarToImageConverter x:Key="fifthStarToImageConverter" />
+            <converters:AvailablesQtyToStringConverter x:Key="availablesQtyToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Style="{ StaticResource PageLight }">
+            <CollectionView x:Name="ItemsListView"
+                            ItemsSource="{ Binding Items }"
+                            SelectionMode="None">
+                <CollectionView.Header>
+                    <StackLayout Margin="0, 0, 0, 20">
+                        <Label Text="{ Binding Name }" 
+                               HorizontalOptions="CenterAndExpand" 
+                               Style="{ StaticResource SubTitleBlack }" />
+
+                        <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand">
+                            <Image Source="{ Binding Stars, Converter={ StaticResource firstStarToImageConverter } }"
+                                   WidthRequest="20" 
+                                   HeightRequest="20" />
+
+                            <Image Source="{ Binding Stars, Converter={ StaticResource secondStarToImageConverter } }"
+                                   WidthRequest="20" 
+                                   HeightRequest="20" />
+
+                            <Image Source="{ Binding Stars, Converter={ StaticResource thirdStarToImageConverter } }"
+                                   WidthRequest="20" 
+                                   HeightRequest="20" />
+
+                            <Image Source="{ Binding Stars, Converter={ StaticResource fourthStarToImageConverter } }"
+                                   WidthRequest="20" 
+                                   HeightRequest="20" />
+
+                            <Image Source="{ Binding Stars, Converter={ StaticResource fifthStarToImageConverter } }"
+                                   WidthRequest="20" 
+                                   HeightRequest="20" />
+                        </StackLayout>
+
+                        <Label Text="{ Binding Available, Converter={ StaticResource availablesQtyToStringConverter } }" 
+                               HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:FlashcardCollectionAvailable">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame HeightRequest="10"
+                                       WidthRequest="10"
+                                       CornerRadius="1000"
+                                       HasShadow="False"
+                                       IsClippedToBounds="True">
+                                    <Image Source="{ Binding UserPhoto }"
+                                           Aspect="AspectFill"
+                                           WidthRequest="20"
+                                           HeightRequest="20" 
+                                           Margin="-30"/>
+                                </Frame>
+
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{ Binding UserName }"
+                                                Style="{ StaticResource SubTitleBlack }" 
+                                                HorizontalOptions="FillAndExpand"/>
+
+                                        <StackLayout Orientation="Horizontal" Spacing="5" >
+                                            <Image Source="{ Binding Stars, Converter={ StaticResource firstStarToImageConverter } }"
+                                                   WidthRequest="20" 
+                                                   HeightRequest="20" />
+
+                                            <Image Source="{ Binding Stars, Converter={ StaticResource secondStarToImageConverter } }"
+                                                   WidthRequest="20" 
+                                                   HeightRequest="20" />
+
+                                            <Image Source="{ Binding Stars, Converter={ StaticResource thirdStarToImageConverter } }"
+                                                   WidthRequest="20" 
+                                                   HeightRequest="20" />
+
+                                            <Image Source="{ Binding Stars, Converter={ StaticResource fourthStarToImageConverter } }"
+                                                   WidthRequest="20" 
+                                                   HeightRequest="20" />
+
+                                            <Image Source="{ Binding Stars, Converter={ StaticResource fifthStarToImageConverter } }"
+                                                   WidthRequest="20" 
+                                                   HeightRequest="20" />
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <Label Text="{ Binding Comment }" 
+                                           Style="{ StaticResource SubTitleBlack }" 
+                                           FontAttributes="None" />
+                                </StackLayout>
+                            </StackLayout>
+
+                            <BoxView Style="{ StaticResource Divider }" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+    

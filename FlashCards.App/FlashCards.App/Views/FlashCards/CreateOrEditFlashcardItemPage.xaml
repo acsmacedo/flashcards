@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.FlashCards.CreateOrEditFlashcardItemPage">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout Style="{ StaticResource PageLight }">
+            <Label Text="Frente" Style="{ StaticResource LabelDark }" />
+            <Frame Style="{ StaticResource FrameInputExternalDark }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry Text="{ Binding FrontDescription, Mode=TwoWay }"  
+                           Placeholder="Digite a frente do card" 
+                           ReturnType="Next" />
+                </Frame>
+            </Frame>
+
+            <Label Text="Verso" Style="{ StaticResource LabelDark }" />
+            <Frame Style="{ StaticResource FrameInputExternalDark }">
+                <Frame Style="{ StaticResource FrameInputInternal }">
+                    <Entry Text="{ Binding VerseDescription, Mode=TwoWay }" 
+                           Placeholder="Digite o verso do card"
+                           ReturnType="Done" />
+                </Frame>
+            </Frame>
+
+            <Button Text="Salvar" 
+                    Command="{ Binding SaveFlashcardItemCommand }" 
+                    Style="{ StaticResource ButtonSecondary }" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
