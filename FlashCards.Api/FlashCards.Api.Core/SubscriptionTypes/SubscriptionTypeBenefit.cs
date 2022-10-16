@@ -14,6 +14,16 @@ public class SubscriptionTypeBenefit
         Benefit = benefit;
     }
 
+    public SubscriptionTypeBenefit(
+        int id, 
+        int subsriptionTypeID, 
+        string benefit)
+    {
+        ID = id;
+        SubsriptionTypeID = subsriptionTypeID;
+        Benefit = benefit;
+    }
+
     public void Edit(string benefit)
     {
         Benefit = benefit;

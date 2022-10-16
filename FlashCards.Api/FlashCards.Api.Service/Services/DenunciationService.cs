@@ -33,17 +33,6 @@ public class DenunciationService : IDenunciationService
         return result;
     }
 
-    private Denunciation GetByID(int id)
-    {
-        var entity = _context.Denunciations
-            .FirstOrDefault(x => x.ID == id);
-
-        if (entity != null)
-            return entity;
-
-        throw new Exception("Categoria não encontrada.");
-    }
-
     private async Task SaveChangesAsync()
     {
         var result = await _context.SaveChangesAsync();

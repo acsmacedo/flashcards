@@ -4,6 +4,7 @@ using FlashCards.Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221016112159_AddSeeding")]
+    partial class AddSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,56 +151,6 @@ namespace FlashCards.Api.Repository.Migrations
                         .HasName("pk_category_id");
 
                     b.ToTable("categories", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            ID = -1,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_administracao.png",
-                            Name = "Administração"
-                        },
-                        new
-                        {
-                            ID = -2,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_arquitetura.png",
-                            Name = "Arquitetura"
-                        },
-                        new
-                        {
-                            ID = -3,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_design.png",
-                            Name = "Design"
-                        },
-                        new
-                        {
-                            ID = -4,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_financas.png",
-                            Name = "Finanças"
-                        },
-                        new
-                        {
-                            ID = -5,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_geografia.png",
-                            Name = "Geografia"
-                        },
-                        new
-                        {
-                            ID = -6,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_literatura.png",
-                            Name = "Literatura"
-                        },
-                        new
-                        {
-                            ID = -7,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_programacao.png",
-                            Name = "Programação"
-                        },
-                        new
-                        {
-                            ID = -8,
-                            Image = "http://acsmacedo.somee.com/images/categories/categoria_saude.png",
-                            Name = "Saúde"
-                        });
                 });
 
             modelBuilder.Entity("FlashCards.Api.Core.Denunciations.Denunciation", b =>

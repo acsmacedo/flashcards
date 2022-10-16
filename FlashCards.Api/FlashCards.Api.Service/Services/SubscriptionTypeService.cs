@@ -16,6 +16,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
     {
         var subscription = await _context.SubscriptionTypes
             .Include(x => x.Benefits)
+            .OrderBy(x => x.Price)
             .ToListAsync();
 
         var result = subscription.Select(x => new SubscriptionTypeDto(x));
@@ -25,14 +26,15 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task<IEnumerable<SubscriptionTypeByUserDto>> GetAllByUserAsync(int userID)
     {
-        var subscription = await _context.SubscriptionTypes
-            .Include(x => x.Benefits)
-            .ToListAsync();
-
         var user = _context.Users.FirstOrDefault(x => x.ID == userID);
 
         if (user == null)
             throw new Exception("Usuário não encontrado.");
+
+        var subscription = await _context.SubscriptionTypes
+            .Include(x => x.Benefits)
+            .OrderBy(x => x.Price)
+            .ToListAsync();
 
         var result = subscription.Select(x => new SubscriptionTypeByUserDto(x, user));
 
@@ -50,7 +52,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task EditAsync(EditSubscriptionTypeDto data)
     {
-        var entity = GetByID(data.ID);
+        var entity = GetByIDWithBenefits(data.ID);
 
         entity.Edit(data.Name, data.Price);
 
@@ -61,7 +63,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task DeleteAsync(DeleteSubscriptionTypeDto data)
     {
-        var entity = GetByID(data.ID);
+        var entity = GetByIDWithBenefits(data.ID);
 
         _context.Remove(entity);
 
@@ -70,7 +72,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task AddBenefitAsync(AddSubscriptionTypeBenefitDto data)
     {
-        var entity = GetByID(data.SubscriptionTypeID);
+        var entity = GetByIDWithBenefits(data.SubscriptionTypeID);
 
         entity.AddBenefit(data.Benefit);
 
@@ -81,7 +83,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task EditBenefitAsync(EditSubscriptionTypeBenefitDto data)
     {
-        var entity = GetByID(data.SubscriptionTypeID);
+        var entity = GetByIDWithBenefits(data.SubscriptionTypeID);
 
         entity.EditBenefit(data.SubscriptionTypeBenefitID, data.Benefit);
 
@@ -92,7 +94,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
 
     public async Task RemoveBenefitAsync(RemoveSubscriptionTypeBenefitDto data)
     {
-        var entity = GetByID(data.SubscriptionTypeID);
+        var entity = GetByIDWithBenefits(data.SubscriptionTypeID);
 
         entity.RemoveBenefit(data.SubscriptionTypeBenefitID);
 
@@ -101,7 +103,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
         await SaveChangesAsync();
     }
 
-    private SubscriptionType GetByID(int id)
+    private SubscriptionType GetByIDWithBenefits(int id)
     {
         var entity = _context.SubscriptionTypes
             .Include(x => x.Benefits)

@@ -14,42 +14,32 @@ public class DirectoryService : IDirectoryService
 
     public async Task<DirectoryDto> GetByUserIDAsync(int userID, int? directoryID)
     {
-        if (directoryID == null)
+        UserDirectory? entity = null;
+
+        if (directoryID.HasValue)
         {
-            var entity = _context.Directories
-                .Include(x => x.FlashCardCollections)
-                    .ThenInclude(x => x.Ratings)
-                .Include(x => x.Children)
-                .FirstOrDefault(x => x.UserDirectoryParentID == null && x.UserID == userID);
-
-            if (entity == null)
-            {
-                var newEntity = new UserDirectory(null, userID, "ROOT" + userID);
-
-                _context.Add(newEntity);
-
-                await SaveChangesAsync();
-
-                return new DirectoryDto(newEntity);
-            }
-            else
-            {
-                return new DirectoryDto(entity);
-            }
-        }
-        else
-        {
-            var entity = _context.Directories
-                .Include(x => x.FlashCardCollections)
-                    .ThenInclude(x => x.Ratings)
-                .Include(x => x.Children)
-                .FirstOrDefault(x => x.ID == directoryID);
-
-            if (entity== null)
-                throw new Exception("Diretório não encontrado.");
-
+            entity = GetByID(directoryID.Value);
             return new DirectoryDto(entity);
-        }  
+        }
+
+        entity = _context.Directories
+            .Include(x => x.FlashCardCollections)
+                .ThenInclude(x => x.Ratings)
+            .Include(x => x.Children)
+            .FirstOrDefault(x => x.UserDirectoryParentID == null && x.UserID == userID);
+
+        if (entity != null)
+        {
+            return new DirectoryDto(entity);
+        }
+
+        entity = new UserDirectory(null, userID, "ROOT" + userID);
+
+        _context.Add(entity);
+
+        await SaveChangesAsync();
+
+        return new DirectoryDto(entity);
     }
 
     public async Task<int> CreateAsync(CreateDirectoryDto data)
@@ -86,6 +76,9 @@ public class DirectoryService : IDirectoryService
     private UserDirectory GetByID(int id)
     {
         var entity = _context.Directories
+            .Include(x => x.FlashCardCollections)
+                .ThenInclude(x => x.Ratings)
+            .Include(x => x.Children)
             .FirstOrDefault(x => x.ID == id);
 
         if (entity != null)

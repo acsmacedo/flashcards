@@ -28,6 +28,7 @@ public class NotificationService : INotificationService
     {
         var notifications = await _context.Notifications
             .Where(x => x.UserID == userID)
+            .OrderByDescending(x => x.SentDate)
             .ToListAsync();
 
         var result = notifications.Select(x => new NotificationDto(x));

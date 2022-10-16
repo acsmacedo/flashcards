@@ -12,6 +12,13 @@ public class SubscriptionType
     public IReadOnlyCollection<User> Users { get; private set; }
         = new List<User>();
 
+    public SubscriptionType(int id, string name, double? price)
+    {
+        ID = id;
+        Name = name;
+        Price = price;
+    }
+
     public SubscriptionType(string name, double? price)
     {
         Name = name;
@@ -30,6 +37,11 @@ public class SubscriptionType
     public void AddBenefit(string benefitText)
     {
         _benefits.Add(new SubscriptionTypeBenefit(benefitText));
+    }
+
+    public void AddBenefit(SubscriptionTypeBenefit benefit)
+    {
+        _benefits.Add(benefit);
     }
 
     public void EditBenefit(int subscriptionTypeBenefitID, string newBenefitText)

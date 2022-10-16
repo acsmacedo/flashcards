@@ -22,14 +22,16 @@ namespace FlashCards.Api.Service.Services
 
         public async Task<IEnumerable<NotificationSettingByUserDto>> GetAllByUserAsync(int userID)
         {
-            var settings = await _context.NotificationSettings.ToListAsync();
-
             var user = _context.Users
                 .Include(x => x.NotiicationSettings)
                 .FirstOrDefault(x => x.ID == userID);
 
             if (user == null)
                 throw new Exception("Usuário não encontrado.");
+
+            var settings = await _context.NotificationSettings
+                .OrderBy(x => x.Name)
+                .ToListAsync();
 
             var result = settings.Select(x => new NotificationSettingByUserDto(x, user));
 

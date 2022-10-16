@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Logging;
 
 namespace FlashCards.Api.Repository;
 
@@ -12,7 +13,10 @@ public class ApplicationDbContextFactory
     {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-        optionsBuilder.UseSqlServer(ConnectionString);
+        optionsBuilder
+            .UseSqlServer(ConnectionString)
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging();
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

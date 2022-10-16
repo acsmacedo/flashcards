@@ -1,7 +1,6 @@
 ﻿using FlashCards.Api.Core.Accounts;
 using FlashCards.Api.Core.Users;
 using FlashCards.Api.Service.DTO.Accounts;
-using Microsoft.EntityFrameworkCore;
 
 namespace FlashCards.Api.Service.Services;
 

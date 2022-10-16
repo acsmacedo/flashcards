@@ -14,7 +14,10 @@ public class CategoryService : ICategoryService
 
     public async Task<IEnumerable<CategoryDto>> GetAllAsync()
     {
-        var categories = await _context.Categories.ToListAsync();
+        var categories = await _context.Categories
+            .OrderBy(x => x.Name)
+            .ToListAsync();
+
         var result = categories.Select(x => new CategoryDto(x));
 
         return result;

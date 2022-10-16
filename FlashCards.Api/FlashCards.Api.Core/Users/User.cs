@@ -27,6 +27,13 @@ public class User
 
     private User() { }
 
+    public User(int id, string name)
+    {
+        ID = id;
+        AccountID = id;
+        Name = name;
+    }
+
     public User(Account account, string name, int? subscriptionTypeID)
     {
         Account = account;

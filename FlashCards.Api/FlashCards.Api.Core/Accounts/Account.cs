@@ -10,6 +10,14 @@ public class Account
     public string Password { get; private set; }
     public AccountStatus Status { get; private set; }
 
+    public Account(int id, string email, string password)
+    {
+        ID = id;
+        Email = email;
+        Password = password;
+        Status = AccountStatus.Active;
+    }
+
     public Account(string email, string password)
     {
         Email = email;

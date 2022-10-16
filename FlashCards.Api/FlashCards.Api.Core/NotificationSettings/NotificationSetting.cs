@@ -9,6 +9,13 @@ public class NotificationSetting
     public string Name { get; private set; }
     public string Description { get; private set; }
 
+    public NotificationSetting(int id, string name, string description)
+    {
+        ID = id;
+        Name = name;
+        Description = description;
+    }
+
     public NotificationSetting(string name, string description)
     {
         Name = name;

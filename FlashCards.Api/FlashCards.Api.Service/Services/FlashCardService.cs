@@ -12,98 +12,6 @@ public class FlashCardService : IFlashCardService
         _context = context;
     }
 
-    public async Task<int> AddCardAsync(AddFlashCardItemDto data)
-    {
-        var entity = _context.FlashCards
-            .Include(x => x.Cards)
-            .FirstOrDefault(x => x.ID == data.FlashCardCollectionID);
-
-        if (entity == null)
-            throw new Exception("Coleção de flash card não encontrada.");
-
-        entity.AddCardItem(
-            frontDescription: data.FrontDescription, 
-            verseDescription: data.VerseDescription);
-
-        await SaveChangesAsync();
-
-        return entity.Cards.First(x => x.FrontDescription == data.FrontDescription && x.VerseDescription == data.VerseDescription).FlashCardItemID;
-    }
-
-    public async Task AddRatingAsync(AddFlashCardRatingDto data)
-    {
-        var entity = _context.FlashCards
-            .Include(x => x.Ratings)
-            .FirstOrDefault(x => x.ID == data.FlashCardCollectionID);
-
-        if (entity == null)
-            throw new Exception("Coleção de flash card não encontrada.");
-
-        entity.AddRating(
-            userID: data.EvaluatorID,
-            rating: data.Rating,
-            comment: data.Comment);
-
-        await SaveChangesAsync();
-    }
-
-    public async Task<int> CreateAsync(CreateFlashCardCollectionDto data)
-    {
-        var entity = new FlashCardCollection(
-            categoryID: data.CategoryID,
-            userDirectoryID: data.UserDirectoryID,
-            name: data.Name,
-            description: data.Description,
-            tags: data.Tags);
-
-        _context.Add(entity);
-
-        await SaveChangesAsync();
-
-        return entity.ID;
-    }
-
-    public async Task DeleteAsync(DeleteFlashCardCollectioDto data)
-    {
-        var entity = GetByID(data.ID);
-
-        _context.Remove(entity);
-
-        await SaveChangesAsync();
-    }
-
-    public async Task EditAsync(EditFlashCardCollectioDto data)
-    {
-        var entity = GetByID(data.ID);
-
-        entity.Edit(
-            categoryID: data.CategoryID,
-            name: data.Name,
-            description: data.Description,
-            tags: data.Tags);
-
-        _context.Update(entity);
-
-        await SaveChangesAsync();
-    }
-
-    public async Task EditCardAsync(EditFlashCardItemDto data)
-    {
-        var entity = _context.FlashCards
-            .Include(x => x.Cards)
-            .FirstOrDefault(x => x.ID == data.FlashCardCollectionID);
-
-        if (entity == null)
-            throw new Exception("Coleção de flash card não encontrada.");
-
-        entity.EditCardItem(
-            flashCardItemID: data.FlashCardItemID,
-            frontDescription: data.FrontDescription,
-            verseDescription: data.VerseDescription);
-
-        await SaveChangesAsync();
-    }
-
     public async Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID)
     {
         var flashcard = await _context.FlashCards
@@ -181,14 +89,78 @@ public class FlashCardService : IFlashCardService
         return Task.FromResult(result);
     }
 
+    public async Task<int> CreateAsync(CreateFlashCardCollectionDto data)
+    {
+        var entity = new FlashCardCollection(
+            categoryID: data.CategoryID,
+            userDirectoryID: data.UserDirectoryID,
+            name: data.Name,
+            description: data.Description,
+            tags: data.Tags);
+
+        _context.Add(entity);
+
+        await SaveChangesAsync();
+
+        return entity.ID;
+    }
+
+    public async Task EditAsync(EditFlashCardCollectioDto data)
+    {
+        var entity = GetByIDWithTags(data.ID);
+
+        entity.Edit(
+            categoryID: data.CategoryID,
+            name: data.Name,
+            description: data.Description,
+            tags: data.Tags);
+
+        _context.Update(entity);
+
+        await SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(DeleteFlashCardCollectioDto data)
+    {
+        var entity = GetByIDWithTags(data.ID);
+
+        _context.Remove(entity);
+
+        await SaveChangesAsync();
+    }
+
+    public async Task<int> AddCardAsync(AddFlashCardItemDto data)
+    {
+        var entity = GetByIDWithCards(data.FlashCardCollectionID);
+
+        entity.AddCardItem(
+            frontDescription: data.FrontDescription,
+            verseDescription: data.VerseDescription);
+
+        await SaveChangesAsync();
+
+        var flashCardItemID = entity.Cards
+            .First(x => x.FrontDescription == data.FrontDescription && x.VerseDescription == data.VerseDescription)
+            .FlashCardItemID;
+
+        return flashCardItemID;
+    }
+
+    public async Task EditCardAsync(EditFlashCardItemDto data)
+    {
+        var entity = GetByIDWithCards(data.FlashCardCollectionID);
+
+        entity.EditCardItem(
+            flashCardItemID: data.FlashCardItemID,
+            frontDescription: data.FrontDescription,
+            verseDescription: data.VerseDescription);
+
+        await SaveChangesAsync();
+    }
+
     public async Task RemoveCardAsync(RemoveFlashCardItemDto data)
     {
-        var entity = _context.FlashCards
-            .Include(x => x.Cards)
-            .FirstOrDefault(x => x.ID == data.FlashCardCollectionID);
-
-        if (entity == null)
-            throw new Exception("Coleção de flash card não encontrada.");
+        var entity = GetByIDWithCards(data.FlashCardCollectionID);
 
         entity.RemoveCardItem(
             flashCardItemID: data.FlashCardItemID);
@@ -196,10 +168,46 @@ public class FlashCardService : IFlashCardService
         await SaveChangesAsync();
     }
 
-    private FlashCardCollection GetByID(int id)
+    public async Task AddRatingAsync(AddFlashCardRatingDto data)
+    {
+        var entity = GetByIDWithRatings(data.FlashCardCollectionID);
+
+        entity.AddRating(
+            userID: data.EvaluatorID,
+            rating: data.Rating,
+            comment: data.Comment);
+
+        await SaveChangesAsync();
+    }
+
+    private FlashCardCollection GetByIDWithTags(int id)
     {
         var entity = _context.FlashCards
             .Include(x => x.Tags)
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity != null)
+            return entity;
+
+        throw new Exception("Coleção de flash card não encontrada.");
+    }
+
+    private FlashCardCollection GetByIDWithCards(int id)
+    {
+        var entity = _context.FlashCards
+            .Include(x => x.Cards)
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity != null)
+            return entity;
+
+        throw new Exception("Coleção de flash card não encontrada.");
+    }
+
+    private FlashCardCollection GetByIDWithRatings(int id)
+    {
+        var entity = _context.FlashCards
+            .Include(x => x.Ratings)
             .FirstOrDefault(x => x.ID == id);
 
         if (entity != null)

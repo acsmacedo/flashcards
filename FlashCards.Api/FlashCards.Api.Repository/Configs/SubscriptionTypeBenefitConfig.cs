@@ -32,5 +32,53 @@ public class SubscriptionTypeBenefitConfig : IEntityTypeConfiguration<Subscripti
             .HasColumnType("varchar")
             .HasMaxLength(SubscriptionTypeBenefit.BenefitMaxLength)
             .IsRequired();
+
+        builder.HasData(GetSubscriptionTypeBenefits());
+    }
+
+    private SubscriptionTypeBenefit[] GetSubscriptionTypeBenefits()
+    {
+        var result = new List<SubscriptionTypeBenefit>();
+
+        var lastBenefitID = 0;
+        
+        result.AddRange(GenerateSubscriptionTypeBenefit(
+            lastBenefitID: ref lastBenefitID,
+            subscriptionTypeID: -1,
+            benefitCount: 3));
+
+        result.AddRange(GenerateSubscriptionTypeBenefit(
+            lastBenefitID: ref lastBenefitID,
+            subscriptionTypeID: -2,
+            benefitCount: 4));
+
+        result.AddRange(GenerateSubscriptionTypeBenefit(
+            lastBenefitID: ref lastBenefitID,
+            subscriptionTypeID: -3,
+            benefitCount: 6));
+
+        return result.ToArray();
+    }
+
+    private IEnumerable<SubscriptionTypeBenefit> GenerateSubscriptionTypeBenefit(
+        ref int lastBenefitID,
+        int subscriptionTypeID,
+        int benefitCount)
+    {
+        var result = new List<SubscriptionTypeBenefit>();
+
+        for (var i = 0; i < benefitCount; i++)
+        {
+            lastBenefitID -= 1;
+
+            var benefit = new SubscriptionTypeBenefit(
+                id: lastBenefitID,
+                subsriptionTypeID: subscriptionTypeID,
+                benefit: "Lorem ipsum is simply dummy");
+
+            result.Add(benefit);
+        }
+
+        return result;
     }
 }

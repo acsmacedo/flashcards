@@ -1,5 +1,4 @@
-﻿using FlashCards.Api.Core.Accounts;
-using FlashCards.Api.Service.DTO.Accounts;
+﻿using FlashCards.Api.Service.DTO.Accounts;
 
 namespace FlashCards.Api.Controllers
 {

@@ -140,13 +140,13 @@ public class UserService : IUserService
 
     public async Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data)
     {
-        var entity = GetByID(data.UserID);
-
         var subscriptionType = _context.SubscriptionTypes
             .FirstOrDefault(x => x.ID == data.SubscriptionTypeID);
 
         if (subscriptionType == null)
             throw new Exception("Tipo de assinatura não encontrado.");
+
+        var entity = GetByID(data.UserID);
 
         entity.ChangeSubscriptionType(data.SubscriptionTypeID);
 
@@ -157,13 +157,13 @@ public class UserService : IUserService
 
     public async Task AddOrEditNotificationSetting(AddOrEditNotificationSettingDto data)
     {
-        var entity = GetByIDWithNotificationSettings(data.UserID);
-
         var notificationSetting = _context.NotificationSettings
             .FirstOrDefault(x => x.ID == data.NotificationSettingID);
 
         if (notificationSetting == null)
             throw new Exception("Tipo de notificação não encontrada.");
+
+        var entity = GetByIDWithNotificationSettings(data.UserID);
 
         entity.AddOrEditNotificationSettings(data.NotificationSettingID, data.Status);
 

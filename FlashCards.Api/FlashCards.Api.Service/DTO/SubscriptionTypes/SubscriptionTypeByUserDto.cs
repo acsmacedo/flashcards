@@ -16,7 +16,9 @@ public class SubscriptionTypeByUserDto
     {
         SubscriptionTypeID = data.ID;
         UserID = user.ID;
-        IsSubscribed = user.SubscriptionTypeID == SubscriptionTypeID;
+        IsSubscribed = user.SubscriptionTypeID.HasValue 
+            ? user.SubscriptionTypeID == SubscriptionTypeID
+            : data.Price == null;
         Name = data.Name;
         Price = data.Price;
         Benefits = data.Benefits.Select(x => new SubscriptionTypeBenefitDto(x));
