@@ -25,6 +25,15 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{userID}/Relationship/{relationshipID}")]
+    public async Task<IActionResult> GetUserRelationshipByIDAsync(int userID, int relationshipID)
+    {
+        var result = await _userService.GetUserRelationshipByIDAsync(userID, relationshipID);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
     [Route("{userID}/Directories")]
     public async Task<IActionResult> GetDirectoryByUserIDAsync(int userID)
     {

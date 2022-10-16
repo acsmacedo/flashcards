@@ -32,6 +32,28 @@ public class UserService : IUserService
         return Task.FromResult(result);
     }
 
+    public Task<UserRelationshipDto> GetUserRelationshipByIDAsync(int userID, int relationshipID)
+    {
+        var entity = GetByIDWithRelationship(userID);
+
+        var data = _context.Users
+            .Include(x => x.Directories)
+                .ThenInclude(x => x.FlashCardCollections)
+                    .ThenInclude(x => x.Ratings)
+            .Include(x => x.Followers)
+                .ThenInclude(x => x.Follower)
+            .Include(x => x.Following)
+                .ThenInclude(x => x.Followed)
+            .FirstOrDefault(x => x.ID == relationshipID);
+
+        if (data == null)
+            throw new Exception("Usuário não encontrado.");
+
+        var result = new UserRelationshipDto(data, entity);
+
+        return Task.FromResult(result);
+    }
+
     public Task<IEnumerable<UserRelationshipDto>> GetAllAsync(int id)
     {
         var entity = GetByIDWithRelationship(id);

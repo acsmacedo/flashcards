@@ -11,6 +11,8 @@ public class FlashCardCollectionDto
     public string Description { get; private set; } = string.Empty;
     public int Stars { get; private set; }
     public int Available { get; private set; }
+    public int UserID { get; private set; }
+    public string UserName { get; private set; }
     public string UserInstagram { get; private set; }
     public IEnumerable<FlashcardItemDto> Items { get; private set; }
 
@@ -28,7 +30,9 @@ public class FlashCardCollectionDto
             Available = data.Ratings.Count;
         }
 
-        UserInstagram = data.UserDirectory?.User?.Name ?? string.Empty;
+        UserID = data.UserDirectory?.User?.ID ?? 0;
+        UserName = data.UserDirectory?.User?.Name ?? string.Empty;
+        UserInstagram = data.UserDirectory?.User?.Instagram ?? string.Empty;
         Items = data.Cards.Select(x => new FlashcardItemDto(x));
     }
 }
