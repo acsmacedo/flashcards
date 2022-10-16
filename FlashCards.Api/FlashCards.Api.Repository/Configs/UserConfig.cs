@@ -1,5 +1,4 @@
-﻿using FlashCards.Api.Core.Accounts;
-using FlashCards.Api.Core.Users;
+﻿using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Repository.Configs;
 
@@ -76,72 +75,50 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         result[0] = GenerateUser(
             id: -1,
-            name: "Anderson Macedo",
-            email: "anderson@flashcard.com.br",
-            password: "23011993");
+            name: "Anderson Macedo");
 
         result[1] = GenerateUser(
             id: -2,
-            name: "Maria Souza",
-            email: "maria@flashcard.com.br",
-            password: "23011993");
+            name: "Maria Souza");
 
         result[2] = GenerateUser(
             id: -3,
-            name: "Gustavo Oliveira",
-            email: "gustavo@flashcard.com.br",
-            password: "23011993");
+            name: "Gustavo Oliveira");
 
         result[3] = GenerateUser(
             id: -4,
-            name: "Paulo Pereira",
-            email: "paulo@flashcard.com.br",
-            password: "23011993");
+            name: "Paulo Pereira");
 
         result[4] = GenerateUser(
             id: -5,
-            name: "Ana Ferreira",
-            email: "ana@flashcard.com.br",
-            password: "23011993");
+            name: "Ana Ferreira");
 
         result[5] = GenerateUser(
             id: -6,
-            name: "Patrícia Castro",
-            email: "patricia@flashcard.com.br",
-            password: "23011993");
+            name: "Patrícia Castro");
 
         result[6] = GenerateUser(
             id: -7,
-            name: "Fernanda Albuquerque",
-            email: "fernanda@flashcard.com.br",
-            password: "23011993");
+            name: "Fernanda Albuquerque");
 
         result[7] = GenerateUser(
             id: -8,
-            name: "Otávio Santos",
-            email: "otavio@flashcard.com.br",
-            password: "23011993");
+            name: "Otávio Santos");
 
         result[8] = GenerateUser(
             id: -9,
-            name: "Bruno Gomes",
-            email: "bruno@flashcard.com.br",
-            password: "23011993");
+            name: "Bruno Gomes");
 
         result[9] = GenerateUser(
             id: -10,
-            name: "Usuário Teste",
-            email: "teste@flashcard.com.br",
-            password: "123456");
+            name: "Usuário Teste");
 
         return result;
     }
 
     private User GenerateUser(
         int id, 
-        string name,
-        string email,
-        string password)
+        string name)
     {
         var user = new User(
             id: id,

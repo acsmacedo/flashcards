@@ -1,5 +1,4 @@
 ﻿using FlashCards.Api.Core.Accounts;
-using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Repository.Configs;
 
@@ -43,52 +42,52 @@ public class AccountConfig : IEntityTypeConfiguration<Account>
 
         result[0] = GenerateAccount(
             id: -1,
-            email: "anderson@flashcard.com.br",
+            email: "anderson",
             password: "23011993");
 
         result[1] = GenerateAccount(
             id: -2,
-            email: "maria@flashcard.com.br",
+            email: "maria",
             password: "23011993");
 
         result[2] = GenerateAccount(
             id: -3,
-            email: "gustavo@flashcard.com.br",
+            email: "gustavo",
             password: "23011993");
 
         result[3] = GenerateAccount(
             id: -4,
-            email: "paulo@flashcard.com.br",
+            email: "paulo",
             password: "23011993");
 
         result[4] = GenerateAccount(
             id: -5,
-            email: "ana@flashcard.com.br",
+            email: "ana",
             password: "23011993");
 
         result[5] = GenerateAccount(
             id: -6,
-            email: "patricia@flashcard.com.br",
+            email: "patricia",
             password: "23011993");
 
         result[6] = GenerateAccount(
             id: -7,
-            email: "fernanda@flashcard.com.br",
+            email: "fernanda",
             password: "23011993");
 
         result[7] = GenerateAccount(
             id: -8,
-            email: "otavio@flashcard.com.br",
+            email: "otavio",
             password: "23011993");
 
         result[8] = GenerateAccount(
             id: -9,
-            email: "bruno@flashcard.com.br",
+            email: "bruno",
             password: "23011993");
 
         result[9] = GenerateAccount(
             id: -10,
-            email: "teste@flashcard.com.br",
+            email: "teste",
             password: "123456");
 
         return result;
