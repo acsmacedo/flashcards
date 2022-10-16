@@ -10,6 +10,8 @@ namespace FlashCards.App.ViewModels.Accounts
         private readonly IAccountService _service;
         public Command SignUpCommand { get; }
         public Command GoToTermsAndConditionsCommand { get; }
+        public Command ToggleVisibilityPasswordCommand { get; }
+        public Command ToggleVisibilityConfirmPasswordCommand { get; }
 
         public SignUpAccountViewModel(IAccountService service)
         {
@@ -17,6 +19,8 @@ namespace FlashCards.App.ViewModels.Accounts
 
             SignUpCommand = new Command(SignUp);
             GoToTermsAndConditionsCommand = new Command(GoToTermsAndConditions);
+            ToggleVisibilityPasswordCommand = new Command(ToggleVisibilityPassword);
+            ToggleVisibilityConfirmPasswordCommand = new Command(ToggleVisibilityConfirmPassword);
         }
 
         private string _name;
@@ -54,6 +58,20 @@ namespace FlashCards.App.ViewModels.Accounts
             set => SetProperty(ref _agreeTerms, value);
         }
 
+        private bool _hidePassword = true;
+        public bool HidePassword
+        {
+            get => _hidePassword;
+            set => SetProperty(ref _hidePassword, value);
+        }
+
+        private bool _hideConfirmPassword = true;
+        public bool HideConfirmPassword
+        {
+            get => _hideConfirmPassword;
+            set => SetProperty(ref _hideConfirmPassword, value);
+        }
+
         private bool _isInvalid =>
             string.IsNullOrEmpty(Name) ||
             string.IsNullOrEmpty(Email) ||
@@ -88,6 +106,16 @@ namespace FlashCards.App.ViewModels.Accounts
         private void GoToTermsAndConditions(object sender)
         {
             Navigation.PushAsync(new TermsAndConditionsPage());
+        }
+
+        private void ToggleVisibilityPassword()
+        {
+            HidePassword = !HidePassword;
+        }
+
+        private void ToggleVisibilityConfirmPassword()
+        {
+            HideConfirmPassword = !HideConfirmPassword;
         }
     }
 }

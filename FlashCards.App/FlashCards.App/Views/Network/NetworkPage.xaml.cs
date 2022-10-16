@@ -1,4 +1,5 @@
 ﻿using FlashCards.App.ViewModels.Network;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +9,7 @@ namespace FlashCards.App.Views.Network
     public partial class NetworkPage : ContentPage
     {
         private NetworkViewModel _viewModel;
+        private bool _isRoot;
 
         public NetworkPage()
         {
@@ -18,6 +20,7 @@ namespace FlashCards.App.Views.Network
             viewModel.SetInitialData(NetworkViewMode.All);
 
             BindingContext = _viewModel = viewModel;
+            _isRoot = true;
         }
 
         public NetworkPage(NetworkViewMode mode)
@@ -35,6 +38,21 @@ namespace FlashCards.App.Views.Network
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (!_isRoot)
+                return base.OnBackButtonPressed();
+
+            Device.BeginInvokeOnMainThread(async () => {
+                var result = await _viewModel.ConfirmExitApp();
+
+                if (result)
+                    Process.GetCurrentProcess().CloseMainWindow();
+            });
+
+            return true;
         }
     }
 }

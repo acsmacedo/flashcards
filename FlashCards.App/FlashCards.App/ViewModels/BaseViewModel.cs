@@ -99,5 +99,16 @@ namespace FlashCards.App.ViewModels
                 throw new Exception("Usuário não encontrado!");
             }
         }
+
+        public async Task<bool> ConfirmExitApp()
+        {
+            var action = await MainPage.DisplayAlert(
+                "Atenção", 
+                "Deseja realmente sair do aplicativo?", 
+                "Sim", 
+                "Não");
+
+            return action;
+        }
     }
 }

@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
              x:Class="FlashCards.App.Views.Account.LoginPage"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToVisibilityPasswordIconConverter x:Key="boolToVisibilityPasswordIconConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ScrollView BackgroundColor="{ StaticResource Primary }">
         <StackLayout VerticalOptions="CenterAndExpand" Style="{ StaticResource PagePrimary }">
             <Label Text="Olá, seja &#10;bem vindo!" Style="{ StaticResource TitleLight }" />
@@ -20,10 +27,21 @@
             <Label Text="Senha" Style="{ StaticResource LabelLight }" />
             <Frame Style="{ StaticResource FrameInputExternalLight }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Entry Text="{ Binding Password, Mode=TwoWay }" 
-                           IsPassword="true" 
-                           Placeholder="Digite sua senha" 
-                           ReturnType="Done" />
+                    <StackLayout Orientation="Horizontal">
+                        <Entry Text="{ Binding Password, Mode=TwoWay }" 
+                               IsPassword="{ Binding HidePassword }" 
+                               Placeholder="Digite sua senha" 
+                               ReturnType="Done"
+                               HorizontalOptions="FillAndExpand" />
+
+                        <Image Source="{ Binding HidePassword, Converter={ StaticResource boolToVisibilityPasswordIconConverter } }"
+                               WidthRequest="25" 
+                               HeightRequest="25">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{ Binding ToggleVisibilityPasswordCommand }" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
                 </Frame>
             </Frame>
 

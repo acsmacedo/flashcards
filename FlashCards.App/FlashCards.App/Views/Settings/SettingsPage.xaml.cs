@@ -1,4 +1,5 @@
 ﻿using FlashCards.App.ViewModels.Settings;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +20,18 @@ namespace FlashCards.App.Views.Settings
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Device.BeginInvokeOnMainThread(async () => {
+                var result = await _viewModel.ConfirmExitApp();
+
+                if (result)
+                    Process.GetCurrentProcess().CloseMainWindow();
+            });
+
+            return true;
         }
     }
 }

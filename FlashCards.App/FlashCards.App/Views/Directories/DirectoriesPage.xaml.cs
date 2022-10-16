@@ -1,5 +1,6 @@
 ﻿using FlashCards.App.ViewModels.Directories;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -48,6 +49,18 @@ namespace FlashCards.App.Views.Directories
         private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
         {
             SwipeViews.Add((SwipeView)sender);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Device.BeginInvokeOnMainThread(async () => {
+                var result = await _viewModel.ConfirmExitApp();
+
+                if (result)
+                    Process.GetCurrentProcess().CloseMainWindow();
+            });
+
+            return true;
         }
     }
 }

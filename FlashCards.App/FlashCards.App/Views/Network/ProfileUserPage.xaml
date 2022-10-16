@@ -46,7 +46,8 @@
                                HeightRequest="20" />
 
                         <Label Text="{ Binding Followers, Converter={ StaticResource followersQtyToStringConverter } }" 
-                               Style="{ StaticResource LegendDark }" 
+                               Style="{ StaticResource LegendDark }"
+                               FontAttributes="Bold"
                                Margin="5, 0, 0, 0" />
                     </FlexLayout>
 
@@ -58,6 +59,7 @@
 
                         <Label Text="{ Binding Following, Converter={ StaticResource followedsQtyToStringConverter } }" 
                                Style="{ StaticResource LegendDark }" 
+                               FontAttributes="Bold"
                                Margin="5, 0, 0, 0" />
                     </FlexLayout>
                 </StackLayout>

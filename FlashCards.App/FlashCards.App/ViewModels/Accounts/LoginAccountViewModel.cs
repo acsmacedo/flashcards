@@ -10,6 +10,7 @@ namespace FlashCards.App.ViewModels.Accounts
         private readonly IAccountService _service;
         public Command LoginCommand { get; }
         public Command GoToSignUpCommand { get; }
+        public Command ToggleVisibilityPasswordCommand { get; }
 
         public LoginAccountViewModel(IAccountService service)
         {
@@ -17,6 +18,7 @@ namespace FlashCards.App.ViewModels.Accounts
 
             LoginCommand = new Command(Login);
             GoToSignUpCommand = new Command(GoToSignUp);
+            ToggleVisibilityPasswordCommand = new Command(ToggleVisibilityPassword);
         }
 
         private string _email;
@@ -27,15 +29,21 @@ namespace FlashCards.App.ViewModels.Accounts
         }
 
         private string _password;
-
         public string Password
         {
             get => _password;
             set => SetProperty(ref _password, value);
         }
 
-        private bool _isInvalid => 
-            string.IsNullOrEmpty(Email) || 
+        private bool _hidePassword = true;
+        public bool HidePassword
+        {
+            get => _hidePassword;
+            set => SetProperty(ref _hidePassword, value);
+        }
+
+        private bool _isInvalid =>
+            string.IsNullOrEmpty(Email) ||
             string.IsNullOrEmpty(Password);
 
         private async void Login(object sender)
@@ -60,6 +68,11 @@ namespace FlashCards.App.ViewModels.Accounts
         private void GoToSignUp(object sender)
         {
             Navigation.PushAsync(new CreateAccountPage());
+        }
+
+        private void ToggleVisibilityPassword()
+        {
+            HidePassword = !HidePassword;
         }
     }
 }
