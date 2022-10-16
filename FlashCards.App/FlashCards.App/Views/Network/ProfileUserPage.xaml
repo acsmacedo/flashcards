@@ -12,6 +12,8 @@
             <converters:FourthStarToImageConverter x:Key="fourthStarToImageConverter" />
             <converters:FifthStarToImageConverter x:Key="fifthStarToImageConverter" />
             <converters:AvailablesQtyToStringConverter x:Key="availablesQtyToStringConverter" />
+            <converters:FollowersQtyToStringConverter x:Key="followersQtyToStringConverter" />
+            <converters:FollowedsQtyToStringConverter x:Key="followedsQtyToStringConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -31,31 +33,64 @@
                 </Frame>
             </RelativeLayout>
 
+            <StackLayout Padding="0, 10, 0, 10">
+                <Label Text="{ Binding Name }"
+                       HorizontalTextAlignment="Center"
+                       Style="{ StaticResource LabelBlack }"
+                       FontSize="21" />
+                
+                <StackLayout Orientation="Horizontal"  HorizontalOptions="FillAndExpand">
+                    <FlexLayout HorizontalOptions="FillAndExpand" JustifyContent="Center" AlignItems="Center">
+                        <Image Source="icon_people.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20" />
+
+                        <Label Text="{ Binding Followers, Converter={ StaticResource followersQtyToStringConverter } }" 
+                               Style="{ StaticResource LegendDark }" 
+                               Margin="5, 0, 0, 0" />
+                    </FlexLayout>
+
+                    <FlexLayout  HorizontalOptions="FillAndExpand" JustifyContent="Center" AlignItems="Center">
+                        <Image Source="icon_people.png" 
+                               WidthRequest="20" 
+                               HeightRequest="20"
+                               Margin="5, 0, 0, 0" />
+
+                        <Label Text="{ Binding Following, Converter={ StaticResource followedsQtyToStringConverter } }" 
+                               Style="{ StaticResource LegendDark }" 
+                               Margin="5, 0, 0, 0" />
+                    </FlexLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <BoxView Style="{ StaticResource Divider }" Margin="0, 5" />
+            
             <StackLayout Orientation="Horizontal" Padding="0, 10">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" Spacing="5">
                         <Image Source="{ Binding Stars, Converter={ StaticResource firstStarToImageConverter } }"
-                               WidthRequest="20" 
-                               HeightRequest="20" />
+                               WidthRequest="15" 
+                               HeightRequest="15" />
 
                         <Image Source="{ Binding Stars, Converter={ StaticResource secondStarToImageConverter } }"
-                               WidthRequest="20" 
-                               HeightRequest="20" />
+                               WidthRequest="15" 
+                               HeightRequest="15" />
 
                         <Image Source="{ Binding Stars, Converter={ StaticResource thirdStarToImageConverter } }"
-                               WidthRequest="20" 
-                               HeightRequest="20" />
+                               WidthRequest="15" 
+                               HeightRequest="15" />
 
                         <Image Source="{ Binding Stars, Converter={ StaticResource fourthStarToImageConverter } }"
-                               WidthRequest="20" 
-                               HeightRequest="20" />
+                               WidthRequest="15" 
+                               HeightRequest="15" />
 
                         <Image Source="{ Binding Stars, Converter={ StaticResource fifthStarToImageConverter } }"
-                               WidthRequest="20" 
-                               HeightRequest="20" />
+                               WidthRequest="15" 
+                               HeightRequest="15" />
                     </StackLayout>
 
-                    <Label Text="{ Binding Available, Converter={ StaticResource availablesQtyToStringConverter } }" />
+                    <Label Text="{ Binding Available, Converter={ StaticResource availablesQtyToStringConverter } }"
+                           Style="{ StaticResource LegendDark }" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Start" Spacing="0">
@@ -110,21 +145,14 @@
             </StackLayout>
             
             <StackLayout>
-                <Label Text="Nome" Style="{ StaticResource LabelDark }" />
-                <Frame Style="{ StaticResource FrameInputExternalDark }">
-                    <Frame Style="{ StaticResource FrameInputInternal }">
-                        <Entry Text="{ Binding Name }" IsReadOnly="true" />
-                    </Frame>
-                </Frame>
-
-                <Label Text="Instagram" Style="{ StaticResource LabelDark }" />
+                <Label Text="Instagram" Style="{ StaticResource LabelBlack }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
                         <Entry Text="{ Binding Instagram }" IsReadOnly="true" />
                     </Frame>
                 </Frame>
 
-                <Label Text="Interesses" Style="{ StaticResource LabelDark }" />
+                <Label Text="Interesses" Style="{ StaticResource LabelBlack }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
                         <Editor Text="{ Binding Interests }" IsReadOnly="true" />

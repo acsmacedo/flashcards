@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:flashcards="clr-namespace:FlashCards.App.Models.Flashcards"
              xmlns:local="clr-namespace:FlashCards.App.ViewModels.Flashcards" 
-             x:Class="FlashCards.App.Views.FlashCards.CreateOrEditFlashcardPage">
+             x:Class="FlashCards.App.Views.FlashCards.CreateOrEditFlashcardPage"
+             Title="Coleção de flashcards">
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout Style="{ StaticResource PageLight }"
@@ -13,8 +14,8 @@
                                 ItemsSource="{ Binding Items }"
                                 SelectionMode="None">
                     <CollectionView.Header>
-                        <StackLayout Margin="0, 0, 0, 20">
-                            <Label Text="Nome da coleção" Style="{ StaticResource LabelDark }" />
+                        <StackLayout>
+                            <Label Text="Nome da coleção" Style="{ StaticResource LabelBlack }" />
                             <Frame Style="{ StaticResource FrameInputExternalDark }">
                                 <Frame Style="{ StaticResource FrameInputInternal }">
                                     <Entry Text="{ Binding Name, Mode=TwoWay }" 
@@ -23,7 +24,7 @@
                                 </Frame>
                             </Frame>
 
-                            <Label Text="Descrição" Style="{ StaticResource LabelDark }" />
+                            <Label Text="Descrição" Style="{ StaticResource LabelBlack }" />
                             <Frame Style="{ StaticResource FrameInputExternalDark }">
                                 <Frame Style="{ StaticResource FrameInputInternal }">
                                     <Entry Text="{ Binding Description, Mode=TwoWay }" 
@@ -32,7 +33,7 @@
                                 </Frame>
                             </Frame>
 
-                            <Label Text="Categoria" Style="{ StaticResource LabelDark }" />
+                            <Label Text="Categoria" Style="{ StaticResource LabelBlack }" />
                             <Frame Style="{ StaticResource FrameInputExternalDark }">
                                 <Frame Style="{ StaticResource FrameInputInternal }">
                                     <Picker Title="Selecione uma categoria"
@@ -46,6 +47,10 @@
                             <Button Text="Salvar" 
                                     Command="{ Binding SaveFlashcardCollectionCommand }" 
                                     Style="{ StaticResource ButtonSecondary }" />
+                            
+                            <Label Text="Cards" Style="{ StaticResource LabelBlack }" 
+                                   Margin="0, 20, 0, 5"
+                                   IsVisible="{ Binding ShowAddCardItem }" />
                         </StackLayout>
                     </CollectionView.Header>
 
@@ -66,7 +71,7 @@
                                                            Margin="0" />
 
                                                     <Label Text="Apagar" 
-                                                           Style="{ StaticResource SubTitleBlack }" 
+                                                           Style="{ StaticResource LabelBlack }" 
                                                            FontSize="10"
                                                            FontAttributes="None"
                                                            Margin="0"
@@ -88,7 +93,7 @@
                                                            Margin="0"/>
 
                                                     <Label Text="Editar" 
-                                                           Style="{ StaticResource SubTitleBlack }" 
+                                                           Style="{ StaticResource LabelBlack }" 
                                                            FontSize="10"
                                                            FontAttributes="None"
                                                            Margin="0"
@@ -102,12 +107,17 @@
                                 <StackLayout x:DataType="flashcards:FlashcardItem" 
                                              BackgroundColor="{ StaticResource GrayLight }" 
                                              Spacing="0">
-                                    <StackLayout Margin="0, 5, 0, 0">
-                                        <Label Text="{ Binding FrontDescription }" Style="{ StaticResource LabelDark }" />
-                                        <Label Text="{ Binding VerseDescription }" Style="{ StaticResource LabelDark }" />
+                                    <StackLayout Margin="0, 5, 0, 0" Spacing="0">
+                                        <Label Text="{ Binding FrontDescription }" 
+                                               Style="{ StaticResource LabelBlack }" 
+                                               FontAttributes="None" />
+                                        
+                                        <Label Text="{ Binding VerseDescription }" 
+                                               Style="{ StaticResource LabelDark }" 
+                                               FontAttributes="None" />
                                     </StackLayout>
 
-                                    <BoxView Style="{ StaticResource Divider }" Margin="0, 5, 0, 0" />
+                                    <BoxView Style="{ StaticResource Divider }" Margin="0, 10, 0, 0" />
                                 </StackLayout>
                             </SwipeView>
                         </DataTemplate>

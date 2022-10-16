@@ -90,7 +90,7 @@
         {
             IsFollowed = true;
             NotIsFollowed = !IsFollowed;
-
+            Followers++;
             NotIsEnableNotification = IsFollowed && !IsEnableNotification;
         }
 
@@ -98,7 +98,7 @@
         {
             IsFollowed = false;
             NotIsFollowed = !IsFollowed;
-
+            Followers--;
             IsEnableNotification = false;
             NotIsEnableNotification = IsFollowed && !IsEnableNotification;
         }

@@ -144,7 +144,7 @@ namespace FlashCards.App.ViewModels.Users
 
         private void GoToFlashcardsPage(UserRelationship data)
         {
-            Navigation.PushAsync(new FlashCardsPage());
+            Navigation.PushAsync(new FlashCardsPage(data));
         }
 
         private void GoToDenunciationPage(UserRelationship user)

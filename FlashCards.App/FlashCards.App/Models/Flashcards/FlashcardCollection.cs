@@ -11,7 +11,9 @@ namespace FlashCards.App.Models.Flashcards
         public string Description { get; private set; }
         public int Stars { get; private set; }
         public int Available { get; private set; }
+        public int UserID { get; private set; }
         public string UserInstagram { get; private set; }
+        public string UserName { get; private set; }
         public IEnumerable<FlashcardItem> Items { get; private set; }
 
         public FlashcardCollection(
@@ -22,6 +24,8 @@ namespace FlashCards.App.Models.Flashcards
             string description, 
             int stars, 
             int available, 
+            int userID,
+            string userName,
             string userInstagram,
             IEnumerable<FlashcardItem> items)
         {
@@ -32,6 +36,8 @@ namespace FlashCards.App.Models.Flashcards
             Description = description;
             Stars = stars;
             Available = available;
+            UserID = userID;
+            UserName = userName;
             UserInstagram = userInstagram;
             Items = items;
         }

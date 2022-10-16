@@ -4,16 +4,9 @@
              x:Class="FlashCards.App.Views.Network.NetworkPage"
              xmlns:model="clr-namespace:FlashCards.App.Models.Users"
              xmlns:local="clr-namespace:FlashCards.App.ViewModels.Network" 
-             Title="Rede">
+             Title="{ Binding Title }">
     <ContentPage.Content>
         <StackLayout Style="{ StaticResource PageLight }">
-            <!-- TODO: Adicionar pesquisa (filtrar usuários) -->
-            <!--<Frame Style="{ StaticResource FrameInputExternalDark }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Entry x:Name="Pesquisar" Placeholder="Pesquisar" ReturnType="Done" />
-                </Frame>
-            </Frame>-->
-
             <CollectionView x:Name="ItemsListView"
                             ItemsSource="{ Binding Items }"
                             SelectionMode="None">
@@ -40,7 +33,7 @@
                                     </Frame>
 
                                     <StackLayout VerticalOptions="Center"  Margin="10, 0, 0, 0" Spacing="0">
-                                        <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }" />
+                                        <Label Text="{ Binding Name }" Style="{ StaticResource LabelBlack }" />
                                         <Label Text="{ Binding Instagram }" Style="{ StaticResource LegendDark }" />
                                     </StackLayout>
                                 </StackLayout>
@@ -62,28 +55,6 @@
                                            IsVisible="{ Binding NotIsFollowed }">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:NetworkViewModel }}, Path=FollowCommand }"		
-                                                                  CommandParameter="{ Binding . }" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
-
-                                    <Image Source="icon_alert_primary.png" 
-                                           WidthRequest="20" 
-                                           HeightRequest="20" 
-                                           Margin="5, 0, 0, 0"
-                                           IsVisible="{ Binding IsEnableNotification }">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:NetworkViewModel }}, Path=DisableNotificationCommand }"		
-                                                                  CommandParameter="{ Binding . }" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
-
-                                    <Image Source="icon_alert_outline.png" 
-                                           WidthRequest="20" 
-                                           HeightRequest="20" 
-                                           Margin="5, 0, 0, 0"
-                                           IsVisible="{ Binding NotIsEnableNotification }">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:NetworkViewModel }}, Path=EnableNotificationCommand }"		
                                                                   CommandParameter="{ Binding . }" />
                                         </Image.GestureRecognizers>
                                     </Image>

@@ -31,7 +31,7 @@
             </RelativeLayout>
 
             <StackLayout>
-                <Label Text="Nome" Style="{ StaticResource LabelDark }" />
+                <Label Text="Nome" Style="{ StaticResource LabelBlack }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
                         <Entry Text="{ Binding Name, Mode=TwoWay }"
@@ -40,7 +40,7 @@
                     </Frame>
                 </Frame>
 
-                <Label Text="Instagram" Style="{ StaticResource LabelDark }" />
+                <Label Text="Instagram" Style="{ StaticResource LabelBlack }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
                         <Entry Text="{ Binding Instagram, Mode=TwoWay }" 
@@ -49,7 +49,7 @@
                     </Frame>
                 </Frame>
 
-                <Label Text="Interesses" Style="{ StaticResource LabelDark }" />
+                <Label Text="Interesses" Style="{ StaticResource LabelBlack }" />
                 <Frame Style="{ StaticResource FrameInputExternalDark }">
                     <Frame Style="{ StaticResource FrameInputInternal }">
                         <Editor Text="{ Binding Interests, Mode=TwoWay }" 

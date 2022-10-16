@@ -97,17 +97,17 @@ namespace FlashCards.App.ViewModels.Settings
 
         private void GoToMyFollowersPage(object sender)
         {
-            Navigation.PushAsync(new MyFollowersPage());
+            Navigation.PushAsync(new NetworkPage(Network.NetworkViewMode.Followers));
         }
 
         private void GoToMyFollowedsPage(object sender)
         {
-            Navigation.PushAsync(new MyFollowedsPage());
+            Navigation.PushAsync(new NetworkPage(Network.NetworkViewMode.Followeds));
         }
 
         private async void Logout(object sender)
         {
-            bool answer = await MainPage.DisplayAlert("Desconectar?", "Deseja sair da sua conta?", "Sim", "Não");
+            bool answer = await MainPage.DisplayAlert("Desconectar", "Deseja sair da sua conta?", "Sim", "Não");
 
             if (answer)
                 await _accountService.Logout();

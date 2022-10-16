@@ -26,6 +26,18 @@ namespace FlashCards.App.Services
             return result;
         }
 
+        public async Task<UserRelationship> GetUserRelationshipByID(int userID, int relationshipID)
+        {
+            var url = AppSettings.URL + "Users/" + userID + "/Relationship/" + relationshipID;
+            var response = await GetAsync(url);
+
+            await HandlerErrorAsync(response);
+
+            var result = await ReadAsync<UserRelationship>(response);
+
+            return result;
+        }
+
         public async Task<IEnumerable<UserRelationship>> GetAllUsers(int userID)
         {
             var url = AppSettings.URL + "Users/All/" + userID;

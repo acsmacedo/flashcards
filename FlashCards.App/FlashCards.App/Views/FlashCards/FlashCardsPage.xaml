@@ -5,7 +5,7 @@
              xmlns:model="clr-namespace:FlashCards.App.Models.Flashcards"
              xmlns:local="clr-namespace:FlashCards.App.ViewModels.Flashcards" 
              xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
-             Title="Cards">
+             Title="{ Binding Title }">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:FirstStarToImageConverter x:Key="firstStarToImageConverter" />
@@ -19,58 +19,56 @@
     
     <ContentPage.Content>
         <StackLayout Style="{ StaticResource PageLight }">
-            <!-- TODO: Adicionar pesquisa (filtrar flashcards) -->
-            <!--<Frame Style="{ StaticResource FrameInputExternalDark }">
-                <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Entry x:Name="Pesquisar" Placeholder="Pesquisar" ReturnType="Done" />
-                </Frame>
-            </Frame>-->
-
             <CollectionView x:Name="ItemsListView"
                             ItemsSource="{ Binding Items }"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout x:DataType="model:FlashcardCollection">
+                        <StackLayout x:DataType="model:FlashcardCollection" Spacing="0">
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:FlashcardsViewModel }}, Path=GoToFlahcardPageCommand }"		
+                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:FlashcardsViewModel }}, Path=OpenFlashcardOptionsCommand }"		
                                                               CommandParameter="{ Binding . }" />
                                     </StackLayout.GestureRecognizers>
 
                                     <StackLayout VerticalOptions="Center" Spacing="0">
-                                        <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }"/>
-                                        <Label Text="{ Binding UserInstagram }" Style="{ StaticResource SubTitleDark }"/>
+                                        <Label Text="{ Binding Name }" Style="{ StaticResource LabelBlack }"/>
+                                        <Label Text="{ Binding UserInstagram }" Style="{ StaticResource LegendDark }" />
                                     </StackLayout>
                                 </StackLayout>
 
-
                                 <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type local:FlashcardsViewModel }}, Path=GoToFlahcardAvailablesCommand }"		
+                                                              CommandParameter="{ Binding . }" />
+                                    </StackLayout.GestureRecognizers>
+                                    
                                     <StackLayout Orientation="Horizontal" Spacing="5">
                                         <Image Source="{ Binding Stars, Converter={ StaticResource firstStarToImageConverter } }"
-                                               WidthRequest="20" 
-                                               HeightRequest="20" />
+                                               WidthRequest="15" 
+                                               HeightRequest="15" />
 
                                         <Image Source="{ Binding Stars, Converter={ StaticResource secondStarToImageConverter } }"
-                                               WidthRequest="20" 
-                                               HeightRequest="20" />
+                                               WidthRequest="15" 
+                                               HeightRequest="15" />
 
                                         <Image Source="{ Binding Stars, Converter={ StaticResource thirdStarToImageConverter } }"
-                                               WidthRequest="20" 
-                                               HeightRequest="20" />
+                                               WidthRequest="15" 
+                                               HeightRequest="15" />
 
                                         <Image Source="{ Binding Stars, Converter={ StaticResource fourthStarToImageConverter } }"
-                                               WidthRequest="20" 
-                                               HeightRequest="20" />
+                                               WidthRequest="15" 
+                                               HeightRequest="15" />
 
                                         <Image Source="{ Binding Stars, Converter={ StaticResource fifthStarToImageConverter } }"
-                                               WidthRequest="20" 
-                                               HeightRequest="20" />
+                                               WidthRequest="15" 
+                                               HeightRequest="15" />
                                     </StackLayout>
 
                                     <Label Text="{ Binding Available, Converter={ StaticResource availablesQtyToStringConverter } }" 
-                                           HorizontalOptions="End"/>
+                                           HorizontalOptions="End"
+                                           Style="{ StaticResource LegendDark }" />
                                 </StackLayout>
                             </StackLayout>
 

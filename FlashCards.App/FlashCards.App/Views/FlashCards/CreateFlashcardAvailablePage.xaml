@@ -19,44 +19,47 @@
         <StackLayout Style="{ StaticResource PageLight }">
             <Label Text="{ Binding FlashCardCollectionName }" 
                    HorizontalOptions="CenterAndExpand" 
-                   Style="{ StaticResource SubTitleBlack }" />
+                   Style="{ StaticResource LabelBlack }"
+                   FontSize="21" />
             
-            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand" >
+            <StackLayout Orientation="Horizontal" 
+                         Spacing="10" HorizontalOptions="CenterAndExpand"
+                         Margin="0, 0, 0, 10">
                 <Image Source="{ Binding Rating, Converter={ StaticResource firstStarToImageConverter } }" 
-                       WidthRequest="40" 
-                       HeightRequest="40">
+                       WidthRequest="25" 
+                       HeightRequest="25">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{ Binding ChangeRatingOneStarCommand }" />
                     </Image.GestureRecognizers>
                 </Image>
 
                 <Image Source="{ Binding Rating, Converter={ StaticResource secondStarToImageConverter } }" 
-                       WidthRequest="40" 
-                       HeightRequest="40">
+                       WidthRequest="25" 
+                       HeightRequest="25">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{ Binding ChangeRatingTwoStarCommand }" />
                     </Image.GestureRecognizers>
                 </Image>
 
                 <Image Source="{ Binding Rating, Converter={ StaticResource thirdStarToImageConverter } }" 
-                       WidthRequest="40" 
-                       HeightRequest="40">
+                       WidthRequest="25" 
+                       HeightRequest="25">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{ Binding ChangeRatingThreeStarCommand }" />
                     </Image.GestureRecognizers>
                 </Image>
 
                 <Image Source="{ Binding Rating, Converter={ StaticResource fourthStarToImageConverter } }" 
-                       WidthRequest="40" 
-                       HeightRequest="40">
+                       WidthRequest="25" 
+                       HeightRequest="25">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{ Binding ChangeRatingFourStarCommand }" />
                     </Image.GestureRecognizers>
                 </Image>
 
                 <Image Source="{ Binding Rating, Converter={ StaticResource fifthStarToImageConverter } }" 
-                       WidthRequest="40" 
-                       HeightRequest="40">
+                       WidthRequest="25" 
+                       HeightRequest="25">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{ Binding ChangeRatingFiveStarCommand }" />
                     </Image.GestureRecognizers>
@@ -65,9 +68,8 @@
 
             <Frame Style="{ StaticResource FrameInputExternalDark }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
-                    <Entry Text="{ Binding Comment, Mode=TwoWay }"
-                           Placeholder="Digite um comentário..."
-                           ReturnType="Done" />
+                    <Editor Text="{ Binding Comment, Mode=TwoWay }"
+                            Placeholder="Digite um comentário..." />
                 </Frame>
             </Frame>
 

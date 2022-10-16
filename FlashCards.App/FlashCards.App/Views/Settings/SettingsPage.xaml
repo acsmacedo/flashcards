@@ -21,7 +21,7 @@
                         <StackLayout VerticalOptions="End">
                             <Label Text="{ Binding Name }"
                                    HorizontalTextAlignment="Center"
-                                   Style="{ StaticResource SubTitleBlack }"
+                                   Style="{ StaticResource LabelBlack }"
                                    FontSize="21" />
 
                             <StackLayout Orientation="Horizontal" Padding="0, 0, 0, 10">
@@ -96,7 +96,7 @@
                                    HeightRequest="40" />
 
                             <Label Text="Privacidade e segurança" 
-                                   Style="{ StaticResource SubTitleDark }"
+                                   Style="{ StaticResource LabelDark }"
                                    Padding="20, 0, 0, 0"/>
                         </FlexLayout>
                     </Frame>
@@ -114,7 +114,7 @@
                                    HeightRequest="40" />
 
                             <Label Text="Notificações" 
-                                   Style="{ StaticResource SubTitleDark }"
+                                   Style="{ StaticResource LabelDark }"
                                    Padding="20, 0, 0, 0"/>
                         </FlexLayout>
                     </Frame>
@@ -132,7 +132,7 @@
                                    HeightRequest="40" />
 
                             <Label Text="Minha assinatura" 
-                                   Style="{ StaticResource SubTitleDark }"
+                                   Style="{ StaticResource LabelDark }"
                                    Padding="20, 0, 0, 0" />
                         </FlexLayout>
                     </Frame>
@@ -150,7 +150,7 @@
                                    HeightRequest="40" />
 
                             <Label Text="Sair" 
-                                   Style="{ StaticResource SubTitleDark }"
+                                   Style="{ StaticResource LabelDark }"
                                    Padding="20, 0, 0, 0"/>
                         </FlexLayout>
                     </Frame>

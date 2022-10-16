@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlashCards.App.Views.FlashCards.CreateOrEditFlashcardItemPage">
+             x:Class="FlashCards.App.Views.FlashCards.CreateOrEditFlashcardItemPage"
+             Title="Card">
     <ScrollView BackgroundColor="{ StaticResource GrayLight }">
         <StackLayout Style="{ StaticResource PageLight }">
-            <Label Text="Frente" Style="{ StaticResource LabelDark }" />
+            <Label Text="Frente" Style="{ StaticResource LabelBlack }" />
             <Frame Style="{ StaticResource FrameInputExternalDark }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
                     <Entry Text="{ Binding FrontDescription, Mode=TwoWay }"  
@@ -13,7 +14,7 @@
                 </Frame>
             </Frame>
 
-            <Label Text="Verso" Style="{ StaticResource LabelDark }" />
+            <Label Text="Verso" Style="{ StaticResource LabelBlack }" />
             <Frame Style="{ StaticResource FrameInputExternalDark }">
                 <Frame Style="{ StaticResource FrameInputInternal }">
                     <Entry Text="{ Binding VerseDescription, Mode=TwoWay }" 

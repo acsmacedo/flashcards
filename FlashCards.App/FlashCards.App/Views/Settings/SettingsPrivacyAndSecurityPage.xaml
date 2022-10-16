@@ -13,7 +13,7 @@
                             <xct:Expander>
                                 <xct:Expander.Header>
                                     <Grid>
-                                        <Label Text="Histórico de acessos" Style="{ StaticResource SubTitleBlack }" />
+                                        <Label Text="Histórico de acessos" Style="{ StaticResource LabelBlack }" />
                                         <Image Source="icon_arrow_up.png" 
                                                HorizontalOptions="End" 
                                                VerticalOptions="Center" 
@@ -51,7 +51,7 @@
                             <xct:Expander>
                                 <xct:Expander.Header>
                                     <Grid>
-                                        <Label Text="E-mails enviados" Style="{ StaticResource SubTitleBlack }" />
+                                        <Label Text="E-mails enviados" Style="{ StaticResource LabelBlack }" />
                                         <Image Source="icon_arrow_up.png" 
                                                HorizontalOptions="End" 
                                                VerticalOptions="Center" 
@@ -89,7 +89,7 @@
                             <xct:Expander>
                                 <xct:Expander.Header>
                                     <Grid>
-                                        <Label Text="Política de privacidade" Style="{ StaticResource SubTitleBlack }" />
+                                        <Label Text="Política de privacidade" Style="{ StaticResource LabelBlack }" />
                                         <Image Source="icon_arrow_up.png" 
                                                HorizontalOptions="End" 
                                                VerticalOptions="Center" 

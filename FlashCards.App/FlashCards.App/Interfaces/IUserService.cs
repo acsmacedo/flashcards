@@ -8,6 +8,7 @@ namespace FlashCards.App.Interfaces
     public interface IUserService
     {
         Task<User> GetUserByID(int userID);
+        Task<UserRelationship> GetUserRelationshipByID(int userID, int relationshipID);
         Task<IEnumerable<UserRelationship>> GetAllUsers(int userID);
         Task<IEnumerable<UserRelationship>> GetFollowers(int userID);
         Task<IEnumerable<UserRelationship>> GetFollowing(int userID);

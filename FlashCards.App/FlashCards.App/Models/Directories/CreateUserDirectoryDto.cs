@@ -6,7 +6,10 @@
         public int UserID { get; private set; }
         public string Name { get; private set; }
 
-        public CreateUserDirectoryDto(int? parentID, int userID, string name)
+        public CreateUserDirectoryDto(
+            int? parentID,
+            int userID,
+            string name)
         {
             ParentID = parentID;
             UserID = userID;

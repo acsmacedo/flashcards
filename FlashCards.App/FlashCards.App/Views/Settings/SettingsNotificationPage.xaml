@@ -34,7 +34,7 @@
                                                   IsChecked="{ Binding Status, Converter={ StaticResource converterToBool } }" />
 
                                         <StackLayout Padding="15, 0, 0, 0" Spacing="0">
-                                            <Label Text="{ Binding Name }" Style="{ StaticResource SubTitleBlack }" />
+                                            <Label Text="{ Binding Name }" Style="{ StaticResource LabelBlack }" />
                                             <Label Text="{ Binding Status, Converter={ StaticResource converterToString } }" Style="{ StaticResource LeadPrimary }" />
                                         </StackLayout>
                                     </FlexLayout>

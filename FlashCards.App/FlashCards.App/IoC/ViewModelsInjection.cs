@@ -29,8 +29,6 @@ namespace FlashCards.App.IoC
             services.AddTransient<ProfileDenounceViewModel>();
 
             services.AddTransient<NetworkViewModel>();
-            services.AddTransient<MyFollowersViewModel>();
-            services.AddTransient<MyFollowedsViewModel>();
 
             services.AddTransient<MyDirectoryViewModel>();
             services.AddTransient<FlashcardsViewModel>();
