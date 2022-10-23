@@ -2,6 +2,7 @@
 using FlashCards.App.Models.Categories;
 using FlashCards.App.Models.Flashcards;
 using FlashCards.App.Models.Users;
+using FlashCards.App.Services;
 using FlashCards.App.Views.FlashCards;
 using FlashCards.App.Views.Network;
 using System.Collections.ObjectModel;
@@ -100,16 +101,32 @@ namespace FlashCards.App.ViewModels.Flashcards
 
         private async void OpenFlashcardOptions(FlashcardCollection flashcardCollection)
         {
+            var data = await _flashcardService.GetByID(flashcardCollection.ID);
+
             string action = await DisplayActionSheet(
                 title: "O que você deseja fazer?",
                 cancel: "Cancelar",
-                buttons: new[] { "Digitar", "Escolher", "Ver usuário" });
+                buttons: new[] { "Conectar", "Digitar", "Escolher", "Lembrar", "Visualizar" });
 
-            // TODO: precisa terminar as opções
-            if (action == "Ver usuário")
+            if (action == "Conectar")
             {
-                var user = await _userService.GetUserRelationshipByID(UserID, flashcardCollection.UserID);
-                await Navigation.PushAsync(new ProfileUser(user));
+                await Navigation.PushModalAsync(new PlayFlashcardConnectModePage(data));
+            }
+            else if (action == "Digitar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardTypeModePage(data));
+            }
+            else if (action == "Escolher")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardChooseModePage(data));
+            }
+            else if (action == "Lembrar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardRememberModePage(data));
+            }
+            else if (action == "Visualizar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardViewModePage(data, 1));
             }
         }
     }

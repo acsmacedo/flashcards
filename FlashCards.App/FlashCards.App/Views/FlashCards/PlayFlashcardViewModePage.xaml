@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCards.App.Views.FlashCards.PlayFlashcardViewModePage"
+             Shell.NavBarIsVisible="False">
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout>
+            <StackLayout BackgroundColor="{ StaticResource Primary }"
+                         Padding="20, 10">
+                <Label Text="{ Binding FlashcardCollectionName }"
+                       TextColor="{ StaticResource White }"
+                       FontSize="19"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+        
+            <StackLayout Style="{ StaticResource PageLight }">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <StackLayout  HorizontalOptions="FillAndExpand" >
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{ Binding CurrentPage }" />
+                                    <Span Text=" / " />
+                                    <Span Text="{ Binding PageQty }" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <ProgressBar Progress="{ Binding PercentageCompletion }"
+                                     ProgressColor="{ StaticResource Primary }" />
+
+                        <Label Text="{ Binding PercentageCompletionLabel }" />
+                    </StackLayout>
+                </StackLayout>
+
+                <BoxView Style="{ StaticResource Divider }" />
+                
+                <StackLayout>
+                    <Label Text="Pergunta" Style="{ StaticResource LabelBlack }" />
+                    <Frame Style="{ StaticResource FrameInputExternalDark }">
+                        <Frame Style="{ StaticResource FrameInputInternal }">
+                            <Editor Text="{ Binding Ask }" IsReadOnly="true" />
+                        </Frame>
+                    </Frame>
+
+                    <Label Text="Resposta" Style="{ StaticResource LabelBlack }" />
+                    <Frame Style="{ StaticResource FrameInputExternalDark }">
+                        <Frame Style="{ StaticResource FrameInputInternal }">
+                            <Editor Text="{ Binding Answer }" IsReadOnly="true" />
+                        </Frame>
+                    </Frame>
+                </StackLayout>
+            
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button Text="Voltar" 
+                            Command="{ Binding GoToPreviousCardCommand }" 
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand" 
+                            IsVisible="{ Binding ShowPreviousCard }" />
+
+                    <Button Text="Próximo" 
+                            Command="{ Binding GoToNextCardCommand }"
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowNextCard }" />
+                
+                    <Button Text="Concluir" 
+                            Command="{ Binding FinishGameCommand }"
+                            Style="{ StaticResource ButtonPrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowFinishGame }" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+    

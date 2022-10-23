@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
+             x:Class="FlashCards.App.Views.FlashCards.PlayFlashcardTypeModePage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorSuccessConverter x:Key="boolToColorSuccessConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout>
+            <StackLayout BackgroundColor="{ StaticResource Primary }"
+                         Padding="20, 10">
+                <Label Text="{ Binding FlashcardCollectionName }"
+                       TextColor="{ StaticResource White}"
+                       FontSize="19"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+        
+            <StackLayout Style="{ StaticResource PageLight }">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <StackLayout  HorizontalOptions="FillAndExpand" >
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{ Binding CurrentPage }" />
+                                    <Span Text=" / " />
+                                    <Span Text="{ Binding PageQty }" />
+
+                                    <Span Text="  |  " />
+
+                                    <Span Text="{ Binding Hits }" />
+                                    <Span Text=" acertos"  />
+                                    <Span Text="  |  " />
+                                    <Span Text="{ Binding Mistakes }" />
+                                    <Span Text=" erros" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <ProgressBar Progress="{ Binding PercentageCompletion }"
+                                     ProgressColor="{ StaticResource Primary }" />
+
+                        <Label Text="{ Binding PercentageCompletionLabel }" />
+                    </StackLayout>
+                </StackLayout>
+
+                <BoxView Style="{ StaticResource Divider }" />
+                
+                <StackLayout>
+                    <Label Text="Pergunta" Style="{ StaticResource LabelBlack }" />
+                    <Frame Style="{ StaticResource FrameInputExternalDark }">
+                        <Frame Style="{ StaticResource FrameInputInternal }">
+                            <Editor Text="{ Binding Ask }" IsReadOnly="true" />
+                        </Frame>
+                    </Frame>
+
+                    <Label Text="Resposta" Style="{ StaticResource LabelBlack }" />
+                    <Frame Style="{ StaticResource FrameInputExternalDark }" 
+                           IsVisible="{ Binding CanNotAnswer }" 
+                           BackgroundColor="{ Binding IsSuccess, Converter={ StaticResource boolToColorSuccessConverter } }">
+                        <Frame Style="{ StaticResource FrameInputInternal }">
+                            <Editor Text="{ Binding Answer }" 
+                                    IsReadOnly="True" 
+                                    TextColor="{ Binding IsSuccess, Converter={ StaticResource boolToColorSuccessConverter } }" />
+                        </Frame>
+                    </Frame>
+
+                    <Frame Style="{ StaticResource FrameInputExternalDark }" IsVisible="{ Binding CanAnswer }">
+                        <Frame Style="{ StaticResource FrameInputInternal }">
+                            <Editor Text="{ Binding MyAnswer }" Placeholder="Digite sua resposta" />
+                        </Frame>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10" IsVisible="{ Binding CanAnswer }" Margin="0, 0, 0, 10">
+                    <Button Text="Desistir" 
+                            Command="{ Binding QuitAnswerCommand }" 
+                            Style="{ StaticResource ButtonPrimary }" 
+                            HorizontalOptions="FillAndExpand" />
+
+                    <Button Text="Responder" 
+                            Command="{ Binding SendAnswerCommand }"
+                            Style="{ StaticResource ButtonSecondary }" 
+                            HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button Text="Voltar" 
+                            Command="{ Binding GoToPreviousCardCommand }" 
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand" 
+                            IsVisible="{ Binding ShowPreviousCard }" />
+
+                    <Button Text="Próximo" 
+                            Command="{ Binding GoToNextCardCommand }"
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowNextCard }" />
+
+                    <Button Text="Concluir" 
+                            Command="{ Binding FinishGameCommand }"
+                            Style="{ StaticResource ButtonPrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowFinishGame }" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
+    

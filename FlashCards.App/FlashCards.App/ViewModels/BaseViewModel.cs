@@ -110,5 +110,16 @@ namespace FlashCards.App.ViewModels
 
             return action;
         }
+
+        public async Task<bool> ConfirmExitPage()
+        {
+            var action = await MainPage.DisplayAlert(
+                "Atenção",
+                "Deseja realmente sair dessa página? Todas as informações inseridas serão descartadas!",
+                "Sim",
+                "Não");
+
+            return action;
+        }
     }
 }

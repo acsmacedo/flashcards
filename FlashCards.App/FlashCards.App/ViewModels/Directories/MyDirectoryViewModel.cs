@@ -4,7 +4,6 @@ using FlashCards.App.Models.Flashcards;
 using FlashCards.App.Views.Directories;
 using FlashCards.App.Views.FlashCards;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -131,14 +130,32 @@ namespace FlashCards.App.ViewModels.Directories
 
         private async void PlayFlashcard(FlashcardCollection item)
         {
+            var data = await _flashcardCollectionService.GetByID(item.ID);
+
             string action = await DisplayActionSheet(
                 title: "O que você deseja fazer?",
                 cancel: "Cancelar",
-                buttons: new[] { "Digitar", "Escolher", "Avaliar" });
+                buttons: new[] { "Conectar", "Digitar", "Escolher", "Lembrar", "Visualizar" });
             
-            if (action == "Avaliar")
+            if (action == "Conectar")
             {
-                await Navigation.PushAsync(new CreateFlashcardAvailablePage(item));
+                await Navigation.PushModalAsync(new PlayFlashcardConnectModePage(data));
+            }
+            else if (action == "Digitar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardTypeModePage(data));
+            }
+            else if (action == "Escolher")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardChooseModePage(data));
+            }
+            else if (action == "Lembrar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardRememberModePage(data));
+            }
+            else if (action == "Visualizar")
+            {
+                await Navigation.PushModalAsync(new PlayFlashcardViewModePage(data, 1));
             }
         }
 

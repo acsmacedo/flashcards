@@ -11,7 +11,6 @@ namespace FlashCards.App.Views.FlashCards
     public partial class FlashCardsPage : ContentPage
     {
         private FlashcardsViewModel _viewModel;
-        private bool _isRoot;
 
         public FlashCardsPage()
         {
@@ -22,7 +21,6 @@ namespace FlashCards.App.Views.FlashCards
             viewModel.SetInitialData();
 
             BindingContext = _viewModel = viewModel;
-            _isRoot = true;
         }
 
         public FlashCardsPage(Category category)
@@ -55,7 +53,7 @@ namespace FlashCards.App.Views.FlashCards
 
         protected override bool OnBackButtonPressed()
         {
-            if (!_isRoot)
+            if (Navigation.NavigationStack.Count > 1)
                 return base.OnBackButtonPressed();
 
             Device.BeginInvokeOnMainThread(async () => {

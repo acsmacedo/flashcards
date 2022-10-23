@@ -36,6 +36,12 @@ namespace FlashCards.App.IoC
             services.AddTransient<CreateOrEditFlashcardViewModel>();
             services.AddTransient<CreateOrEditFlashcardItemViewModel>();
             services.AddTransient<CreateFlashcardAvailableViewModel>();
+
+            services.AddTransient<PlayFlashcardChooseModeViewModel>();
+            services.AddTransient<PlayFlashcardConnectModeViewModel>();
+            services.AddTransient<PlayFlashcardRememberModeViewModel>();
+            services.AddTransient<PlayFlashcardTypeModeViewModel>();
+            services.AddTransient<PlayFlashcardViewModeViewModel>();
         }
     }
 }

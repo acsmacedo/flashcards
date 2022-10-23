@@ -1,6 +1,7 @@
 ﻿using FlashCards.App.Interfaces;
 using FlashCards.App.Models.Flashcards;
 using System;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace FlashCards.App.ViewModels.Flashcards
@@ -63,11 +64,21 @@ namespace FlashCards.App.ViewModels.Flashcards
             set => SetProperty(ref _comment, value);
         }
 
-        public void SetInitialData(FlashcardCollection item)
+        public async void SetInitialData(FlashcardCollection item)
         {
+            var availables = await _service.GetAvailablesByFlashcardCollectiion(item.ID);
+
             FlashCardCollectionID = item.ID;
             FlashCardCollectionName = item.Name;
             EvaluatorID = UserID;
+
+            var currentAvailable = availables.FirstOrDefault(x => x.UserID == UserID);
+
+            if (currentAvailable != null)
+            {
+                Comment = currentAvailable.Comment;
+                Rating = currentAvailable.Stars;
+            }
         }
 
         private void ChangeRatingOneStar()
@@ -138,7 +149,7 @@ namespace FlashCards.App.ViewModels.Flashcards
 
                 await DisplaySuccess();
 
-                await Navigation.PopAsync();
+                await Navigation.PopToRootAsync();
             }
             catch (Exception ex)
             {

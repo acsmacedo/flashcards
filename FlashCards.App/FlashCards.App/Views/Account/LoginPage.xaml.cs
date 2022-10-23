@@ -19,6 +19,9 @@ namespace FlashCards.App.Views.Account
 
         protected override bool OnBackButtonPressed()
         {
+            if (Navigation.NavigationStack.Count > 1)
+                return base.OnBackButtonPressed();
+
             Device.BeginInvokeOnMainThread(async () => {
                 var result = await _viewModel.ConfirmExitApp();
 

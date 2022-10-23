@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:FlashCards.App.ViewModels.Flashcards"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
+             x:Class="FlashCards.App.Views.FlashCards.PlayFlashcardConnectModePage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FlashcardConnectGameItemStatusToColorConverter x:Key="flashcardConnectGameItemStatusToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView BackgroundColor="{ StaticResource GrayLight }">
+        <StackLayout>
+            <StackLayout BackgroundColor="{ StaticResource Primary }"
+                         Padding="20, 10">
+                <Label Text="{ Binding FlashcardCollectionName }"
+                       TextColor="{ StaticResource White}"
+                       FontSize="19"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+
+            <StackLayout Style="{ StaticResource PageLight }">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <StackLayout  HorizontalOptions="FillAndExpand" >
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{ Binding CurrentPage }" />
+                                    <Span Text=" / " />
+                                    <Span Text="{ Binding PageQty }" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <ProgressBar Progress="{ Binding PercentageCompletion }"
+                                     ProgressColor="{ StaticResource Primary }" />
+
+                        <Label Text="{ Binding PercentageCompletionLabel }" />
+                    </StackLayout>
+                </StackLayout>
+
+                <BoxView Style="{ StaticResource Divider }" />
+                
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout BindableLayout.ItemsSource="{ Binding Asks }"
+                                     Spacing="5"
+                                     HorizontalOptions="FillAndExpand">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{ StaticResource FrameInputExternalDark }"
+                                           Margin="0"
+                                           BackgroundColor="{ Binding Status, Converter={ StaticResource flashcardConnectGameItemStatusToColorConverter } }">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type model:PlayFlashcardConnectModeViewModel }}, Path=SendAnswerCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Frame.GestureRecognizers>
+                                        
+                                        <Frame Style="{ StaticResource FrameInputInternal }">
+                                            <Label Text="{ Binding Text }"
+                                                   TextColor="{ StaticResource Black }"
+                                                   FontSize="16" 
+                                                   Padding="4, 10" />
+                                        </Frame>
+                                    </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+
+                        <StackLayout BindableLayout.ItemsSource="{ Binding Answers }" 
+                                     Spacing="5"
+                                     HorizontalOptions="FillAndExpand">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{ StaticResource FrameInputExternalDark }"
+                                           Margin="0"
+                                           BackgroundColor="{ Binding Status, Converter={ StaticResource flashcardConnectGameItemStatusToColorConverter } }">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type model:PlayFlashcardConnectModeViewModel }}, Path=SendAnswerCommand }"		
+                                                                  CommandParameter="{ Binding . }" />
+                                        </Frame.GestureRecognizers>
+
+                                        <Frame Style="{ StaticResource FrameInputInternal }">
+                                            <Label Text="{ Binding Text }"
+                                                   TextColor="{ StaticResource Black }"
+                                                   FontSize="16" 
+                                                   Padding="4, 10" />
+                                        </Frame>
+                                    </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Spacing="10" Padding="0, 10, 0, 0">
+                    <Button Text="Voltar" 
+                            Command="{ Binding GoToPreviousCardCommand }" 
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand" 
+                            IsVisible="{ Binding ShowPreviousCard }" />
+
+                    <Button Text="Próximo" 
+                            Command="{ Binding GoToNextCardCommand }"
+                            Style="{ StaticResource ButtonOutlinePrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowNextCard }" />
+
+                    <Button Text="Concluir" 
+                            Command="{ Binding FinishGameCommand }"
+                            Style="{ StaticResource ButtonPrimary }" 
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{ Binding ShowFinishGame }" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

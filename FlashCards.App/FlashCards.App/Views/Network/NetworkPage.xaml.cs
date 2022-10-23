@@ -9,7 +9,6 @@ namespace FlashCards.App.Views.Network
     public partial class NetworkPage : ContentPage
     {
         private NetworkViewModel _viewModel;
-        private bool _isRoot;
 
         public NetworkPage()
         {
@@ -20,7 +19,6 @@ namespace FlashCards.App.Views.Network
             viewModel.SetInitialData(NetworkViewMode.All);
 
             BindingContext = _viewModel = viewModel;
-            _isRoot = true;
         }
 
         public NetworkPage(NetworkViewMode mode)
@@ -42,7 +40,7 @@ namespace FlashCards.App.Views.Network
 
         protected override bool OnBackButtonPressed()
         {
-            if (!_isRoot)
+            if (Navigation.NavigationStack.Count > 1)
                 return base.OnBackButtonPressed();
 
             Device.BeginInvokeOnMainThread(async () => {

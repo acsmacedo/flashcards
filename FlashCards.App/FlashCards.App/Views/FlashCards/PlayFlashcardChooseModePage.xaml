@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:FlashCards.App.Utils.Converters"
+             xmlns:model="clr-namespace:FlashCards.App.ViewModels.Flashcards"
+             x:Class="FlashCards.App.Views.FlashCards.PlayFlashcardChooseModePage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorSuccessConverter x:Key="boolToColorSuccessConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Style="{ StaticResource PageLight }" Padding="0">
+            <CollectionView x:Name="ItemsListView"
+                            ItemsSource="{ Binding Answers }"
+                            SelectionMode="None">
+                <CollectionView.Header>
+                    <StackLayout>
+                        <StackLayout BackgroundColor="{ StaticResource Primary }"
+                                     Padding="20, 10">
+                            <Label Text="{ Binding FlashcardCollectionName }"
+                                   TextColor="{ StaticResource White }"
+                                   FontSize="19"
+                                   FontAttributes="Bold"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Spacing="10" Padding="20, 20, 20, 0">
+                            <StackLayout  HorizontalOptions="FillAndExpand" >
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{ Binding CurrentPage }" />
+                                            <Span Text=" / " />
+                                            <Span Text="{ Binding PageQty }" />
+
+                                            <Span Text="  |  " />
+
+                                            <Span Text="{ Binding Hits }" />
+                                            <Span Text=" acertos"  />
+                                            <Span Text="  |  " />
+                                            <Span Text="{ Binding Mistakes }" />
+                                            <Span Text=" erros" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <ProgressBar Progress="{ Binding PercentageCompletion }"
+                                     ProgressColor="{ StaticResource Primary }" />
+
+                                <Label Text="{ Binding PercentageCompletionLabel }" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <BoxView Style="{ StaticResource Divider }" Margin="20, 10" />
+                        
+                        <StackLayout Padding="20, 0">
+                            <Label Text="Pergunta" Style="{ StaticResource LabelBlack }" />
+                            
+                            <Frame Style="{ StaticResource FrameInputExternalDark }">
+                                <Frame Style="{ StaticResource FrameInputInternal }">
+                                    <Editor Text="{ Binding Ask }" IsReadOnly="true" />
+                                </Frame>
+                            </Frame>
+
+                            <Label Text="Alternativas" 
+                                   Style="{ StaticResource LabelBlack }" 
+                                   Margin="0, 0, 0, 10" />
+                        </StackLayout>
+                    </StackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:FlashcardChooseGameItemResult" Padding="20, 0, 20, 5" Margin="0">
+                            <Frame Style="{ StaticResource FrameInputExternalDark }"
+                                   Margin="0"
+                                   IsVisible="{ Binding ShowAnswer }" 
+                                   BackgroundColor="{ Binding IsSuccess, Converter={ StaticResource boolToColorSuccessConverter } }">
+                                <Frame Style="{ StaticResource FrameInputInternal }">
+                                    <Editor Text="{ Binding Answer }" 
+                                            IsReadOnly="True" 
+                                            TextColor="{ Binding IsSuccess, Converter={ StaticResource boolToColorSuccessConverter } }" />
+                                </Frame>
+                            </Frame>
+
+                            <Frame Style="{ StaticResource FrameInputExternalDark }"
+                                   Margin="0"
+                                   IsVisible="{ Binding NotShowAnswer }">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{ Binding Source={ RelativeSource AncestorType={ x:Type model:PlayFlashcardChooseModeViewModel }}, Path=SendAnswerCommand }"		
+                                                          CommandParameter="{ Binding . }" />
+                                </Frame.GestureRecognizers>
+                                
+                                <Frame Style="{ StaticResource FrameInputInternal }">
+                                    <Label Text="{ Binding Answer }"
+                                           TextColor="{ StaticResource Black }"
+                                           FontSize="16" 
+                                           Padding="4, 10" />
+                                </Frame>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Footer>
+                    <StackLayout Orientation="Horizontal" Spacing="10" Padding="20, 20, 20, 0">
+                        <Button Text="Voltar" 
+                                Command="{ Binding GoToPreviousCardCommand }" 
+                                Style="{ StaticResource ButtonOutlinePrimary }" 
+                                HorizontalOptions="FillAndExpand" 
+                                IsVisible="{ Binding ShowPreviousCard }" />
+
+                        <Button Text="Próximo" 
+                                Command="{ Binding GoToNextCardCommand }"
+                                Style="{ StaticResource ButtonOutlinePrimary }" 
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="{ Binding ShowNextCard }" />
+
+                        <Button Text="Concluir" 
+                                Command="{ Binding FinishGameCommand }"
+                                Style="{ StaticResource ButtonPrimary }" 
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="{ Binding ShowFinishGame }" />
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
