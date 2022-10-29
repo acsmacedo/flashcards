@@ -91,7 +91,7 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         result[4] = GenerateUser(
             id: -5,
-            name: "Ana Ferreira");
+            name: "Aldo Ferreira");
 
         result[5] = GenerateUser(
             id: -6,
@@ -123,6 +123,8 @@ public class UserConfig : IEntityTypeConfiguration<User>
         var user = new User(
             id: id,
             name: name);
+
+        user.UpdatePhoto($@"http://acsmacedo.somee.com/images/photos/photo-{id}.jpg");
 
         return user;
     }

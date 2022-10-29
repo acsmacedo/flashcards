@@ -18,4 +18,6 @@ public interface IUserService
 
     Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data);
     Task AddOrEditNotificationSetting(AddOrEditNotificationSettingDto data);
+
+    Task UpdatePhoto(UpdateUserPhotoDto data);
 }

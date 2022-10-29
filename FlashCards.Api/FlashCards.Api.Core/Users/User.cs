@@ -11,7 +11,7 @@ public class User
     public const int InstagramMaxLength = 80;
     public const int InterestsMaxLength = 80;
     public const int PhotoMaxLength = 1000;
-
+    public const string PhotoDefault = @"http://acsmacedo.somee.com/images/photos/photo-0.jpg";
     public int ID { get; private set; }
     public int AccountID { get; private set; }
     public string Name { get; private set; } = string.Empty;
@@ -117,6 +117,11 @@ public class User
         {
             return NotificationSettingStatus.None;
         }
+    }
+
+    public void UpdatePhoto(string filePath)
+    {
+        Photo = filePath;
     }
     #endregion
 }

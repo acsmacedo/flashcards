@@ -194,6 +194,35 @@ public class UserService : IUserService
         await SaveChangesAsync();
     }
 
+    public async Task UpdatePhoto(UpdateUserPhotoDto data)
+    {
+        var file = data.File.First();
+        var fileDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\photos");
+        var fileName = "photo-" + data.UserID + "." + file.FileName.Split(".").Last();
+        var filePath = Path.Combine(fileDirectory, fileName);
+
+        if (!Directory.Exists(fileDirectory))
+            Directory.CreateDirectory(fileDirectory);
+
+        using var memoryStream = new MemoryStream();
+
+        await file.CopyToAsync(memoryStream);
+        var info = memoryStream.ToArray();
+
+        using FileStream fileStream = File.Open(filePath, FileMode.OpenOrCreate);
+
+        fileStream.Write(info, 0, info.Length);
+
+        var user = GetByID(data.UserID);
+        var fileUrl = data.BaseUrl + "/images/photos/" + fileName;
+
+        user.UpdatePhoto(fileUrl);
+
+        _context.Update(user);
+
+        await SaveChangesAsync();
+    }
+
     private User GetByID(int id)
     {
         var entity = _context.Users

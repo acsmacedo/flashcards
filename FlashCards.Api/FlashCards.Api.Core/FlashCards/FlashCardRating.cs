@@ -23,4 +23,10 @@ public class FlashCardRating
         Rating = rating;
         Comment = comment;
     }
+
+    public void Update(int rating, string comment)
+    {
+        Rating = rating;
+        Comment = comment;
+    }
 }

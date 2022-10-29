@@ -5,6 +5,7 @@ using FlashCards.App.ViewModels.Users;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace FlashCards.App.Services
 {
@@ -80,6 +81,25 @@ namespace FlashCards.App.Services
             var response = await PutAsync(url, data);
 
             await HandlerErrorAsync(response);
+        }
+
+        public async Task<bool> UpdatePhoto(int userID)
+        {
+            var file = await MediaPicker.PickPhotoAsync();
+
+            if (file == null)
+                return false;
+
+            var content = new MultipartFormDataContent();
+            content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
+
+            var url = AppSettings.URL + "Users/" + userID + "/Photo";
+
+            var response = await _httpClient.PostAsync(url, content);
+
+            await HandlerErrorAsync(response);
+
+            return true;
         }
 
         public async Task DenounceProfile(ProfileDenounceViewModel data)

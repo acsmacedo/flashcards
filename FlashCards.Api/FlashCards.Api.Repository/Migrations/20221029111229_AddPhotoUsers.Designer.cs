@@ -4,6 +4,7 @@ using FlashCards.Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCards.Api.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221029111229_AddPhotoUsers")]
+    partial class AddPhotoUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -717,70 +719,70 @@ namespace FlashCards.Api.Repository.Migrations
                             ID = -1,
                             AccountID = -1,
                             Name = "Anderson Macedo",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--1.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--1.png"
                         },
                         new
                         {
                             ID = -2,
                             AccountID = -2,
                             Name = "Maria Souza",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--2.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--2.png"
                         },
                         new
                         {
                             ID = -3,
                             AccountID = -3,
                             Name = "Gustavo Oliveira",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--3.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--3.png"
                         },
                         new
                         {
                             ID = -4,
                             AccountID = -4,
                             Name = "Paulo Pereira",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--4.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--4.png"
                         },
                         new
                         {
                             ID = -5,
                             AccountID = -5,
-                            Name = "Aldo Ferreira",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--5.jpg"
+                            Name = "Ana Ferreira",
+                            Photo = "http://acsmacedo.somee.com/photos/photo--5.png"
                         },
                         new
                         {
                             ID = -6,
                             AccountID = -6,
                             Name = "Patrícia Castro",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--6.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--6.png"
                         },
                         new
                         {
                             ID = -7,
                             AccountID = -7,
                             Name = "Fernanda Albuquerque",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--7.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--7.png"
                         },
                         new
                         {
                             ID = -8,
                             AccountID = -8,
                             Name = "Otávio Santos",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--8.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--8.png"
                         },
                         new
                         {
                             ID = -9,
                             AccountID = -9,
                             Name = "Bruno Gomes",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--9.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--9.png"
                         },
                         new
                         {
                             ID = -10,
                             AccountID = -10,
                             Name = "Usuário Teste",
-                            Photo = "http://acsmacedo.somee.com/images/photos/photo--10.jpg"
+                            Photo = "http://acsmacedo.somee.com/photos/photo--10.png"
                         });
                 });
 

@@ -20,7 +20,7 @@ public class UserDto
         Name = data.Name;
         Instagram = data.Instagram;
         Interests = data.Interests;
-        Photo = string.IsNullOrEmpty(data.Photo) ? @"https://cdn0.iconfinder.com/data/icons/people-57/24/user-square-512.png" : data.Photo;
+        Photo = string.IsNullOrEmpty(data.Photo) ? User.PhotoDefault : data.Photo;
         Following = data.Following.Select(x => new FollowedDto(x)).Count();
         Followers = data.Followers.Select(x => new FollowerDto(x, data)).Count();
 

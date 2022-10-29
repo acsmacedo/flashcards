@@ -2,6 +2,7 @@
 using FlashCards.App.Models.Users;
 using FlashCards.App.Views.Network;
 using FlashCards.App.Views.Settings;
+using System;
 using Xamarin.Forms;
 
 namespace FlashCards.App.ViewModels.Settings
@@ -70,7 +71,7 @@ namespace FlashCards.App.ViewModels.Settings
             User = await _userService.GetUserByID(UserID);
 
             Name = User.Name;
-            Photo = User.Photo;
+            Photo = User.Photo + "?&g=" + Guid.NewGuid();
             Followers = User.Followers;
             Following = User.Following;
         }

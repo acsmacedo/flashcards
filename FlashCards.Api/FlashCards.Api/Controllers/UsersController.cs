@@ -130,4 +130,28 @@ public class UsersController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost]
+    [Route("{userID}/Photo")]
+    public async Task<IActionResult> Post(int userID)
+    {
+        try
+        {
+            if (Request.Form.Files.Count <= 0)
+                return BadRequest();
+
+            var data = new UpdateUserPhotoDto(
+                userID: userID, 
+                file: Request.Form.Files, 
+                baseUrl: $"{Request.Scheme}://{Request.Host}{Request.PathBase}");
+
+            await _userService.UpdatePhoto(data);
+
+            return Ok();
+        }
+        catch
+        {
+            return new StatusCodeResult(500);
+        }  
+    }
 }

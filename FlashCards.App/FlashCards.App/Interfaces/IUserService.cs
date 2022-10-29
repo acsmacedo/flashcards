@@ -14,6 +14,7 @@ namespace FlashCards.App.Interfaces
         Task<IEnumerable<UserRelationship>> GetFollowing(int userID);
 
         Task EditProfile(MyProfileViewModel data);
+        Task<bool> UpdatePhoto(int userID);
 
         Task Follow(FollowUserDto data);
         Task Unfollow(UnfollowUserDto data);

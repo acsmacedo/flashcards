@@ -62,7 +62,7 @@ namespace FlashCards.App.ViewModels.Users
             Name = data.Name;
             Instagram = data.Instagram;
             Interests = data.Interests;
-            Photo = data.Photo;
+            Photo = data.Photo + "?&g=" + Guid.NewGuid();
         }
 
         private async void SubmitEditProfile(object sender)
@@ -85,9 +85,25 @@ namespace FlashCards.App.ViewModels.Users
             }
         }
 
-        private void EditPhoto(object sender)
+        private async void EditPhoto(object sender)
         {
-            //TODO
+            try
+            {
+                var success = await _service.UpdatePhoto(UserID);
+
+                if (success)
+                {
+                    await DisplaySuccess();
+
+                    var user = await _service.GetUserByID(UserID);
+
+                    SetInitialData(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayError(message: ex.Message);
+            }
         }
     }
 }

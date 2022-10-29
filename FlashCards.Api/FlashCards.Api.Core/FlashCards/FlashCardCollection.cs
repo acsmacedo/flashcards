@@ -94,9 +94,18 @@ public class FlashCardCollection
         int rating,
         string comment)
     {
-        _ratigns.Add(new FlashCardRating(
-            userID: userID, 
-            rating: rating, 
-            comment: comment));
+        var item = _ratigns.FirstOrDefault(x => x.UserID == userID);
+
+        if (item == null)
+        {
+            _ratigns.Add(new FlashCardRating(
+                userID: userID,
+                rating: rating,
+                comment: comment));
+        }
+        else
+        {
+            item.Update(rating, comment);
+        }
     }
 }

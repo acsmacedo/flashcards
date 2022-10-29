@@ -1,4 +1,5 @@
 ﻿using FlashCards.Api.Core.FlashCards;
+using FlashCards.Api.Core.Users;
 
 namespace FlashCards.Api.Service.DTO.FlashCards
 {
@@ -16,7 +17,7 @@ namespace FlashCards.Api.Service.DTO.FlashCards
             ID = data.FlashCardRatingID;
             UserID = data.UserID;
             UserName = data.User?.Name ?? string.Empty;
-            UserPhoto = string.IsNullOrEmpty(data.User?.Photo) ? @"https://cdn0.iconfinder.com/data/icons/people-57/24/user-square-512.png" : data.User.Photo;
+            UserPhoto = string.IsNullOrEmpty(data.User?.Photo) ? User.PhotoDefault : data.User.Photo;
             Stars = data.Rating;
             Comment = data.Comment;
         }
