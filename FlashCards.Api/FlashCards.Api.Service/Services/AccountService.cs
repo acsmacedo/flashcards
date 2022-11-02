@@ -21,6 +21,25 @@ public class AccountService : IAccountService
         return result;
     }
 
+    public Task<AccountDto> GetByIDAsync(int userID)
+    {
+        var account = _context.Accounts
+            .FirstOrDefault(x => x.ID == userID);
+
+        if (account == null)
+            throw new Exception("Usuário não encontrado.");
+
+        var user = _context.Users
+            .FirstOrDefault(x => x.AccountID == account.ID);
+
+        if (user == null)
+            throw new Exception("Usuário não encontrado.");
+
+        var result = new AccountDto(account, user);
+
+        return Task.FromResult(result);
+    }
+
     public async Task<AccountDto> CreateAsync(CreateAccountDto data)
     {
         var subscriptionType = await _context.SubscriptionTypes

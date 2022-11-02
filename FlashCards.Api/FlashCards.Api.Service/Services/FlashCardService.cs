@@ -137,6 +137,8 @@ public class FlashCardService : IFlashCardService
             frontDescription: data.FrontDescription,
             verseDescription: data.VerseDescription);
 
+        _context.Update(entity);
+
         await SaveChangesAsync();
 
         var flashCardItemID = entity.Cards
@@ -155,6 +157,8 @@ public class FlashCardService : IFlashCardService
             frontDescription: data.FrontDescription,
             verseDescription: data.VerseDescription);
 
+        _context.Update(entity);
+
         await SaveChangesAsync();
     }
 
@@ -162,8 +166,9 @@ public class FlashCardService : IFlashCardService
     {
         var entity = GetByIDWithCards(data.FlashCardCollectionID);
 
-        entity.RemoveCardItem(
-            flashCardItemID: data.FlashCardItemID);
+        entity.RemoveCardItem(flashCardItemID: data.FlashCardItemID);
+
+        _context.Update(entity);
 
         await SaveChangesAsync();
     }
@@ -176,6 +181,8 @@ public class FlashCardService : IFlashCardService
             userID: data.EvaluatorID,
             rating: data.Rating,
             comment: data.Comment);
+
+        _context.Update(entity);
 
         await SaveChangesAsync();
     }

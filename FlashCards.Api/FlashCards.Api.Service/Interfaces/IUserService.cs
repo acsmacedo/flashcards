@@ -16,8 +16,8 @@ public interface IUserService
     Task UnfollowAsync(UnfollowDto data);
     Task EditNotificationFollowedAsync(FollowNotificationDto data);
 
-    Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data);
-    Task AddOrEditNotificationSetting(AddOrEditNotificationSettingDto data);
+    Task ChangeSubscriptionTypeAsync(ChangeSubscriptionTypeDto data);
+    Task AddOrEditNotificationSettingAsync(AddOrEditNotificationSettingDto data);
 
-    Task UpdatePhoto(UpdateUserPhotoDto data);
+    Task UpdatePhotoAsync(UpdateUserPhotoDto data);
 }

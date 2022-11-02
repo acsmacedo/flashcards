@@ -5,6 +5,7 @@ namespace FlashCards.Api.Service.Interfaces;
 public interface IAccountService
 {
     Task<IEnumerable<AccountWithPasswordDto>> GetAllAsync();
+    Task<AccountDto> GetByIDAsync(int userID);
     Task<AccountDto> CreateAsync(CreateAccountDto data);
     Task ChangePasswordAsync(ChangeAccountPasswordDto data);
     Task<AccountDto> LoginAsync(LoginAccountDto data);

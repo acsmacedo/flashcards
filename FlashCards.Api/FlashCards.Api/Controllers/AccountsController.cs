@@ -23,7 +23,7 @@ namespace FlashCards.Api.Controllers
 
         [HttpPost]
         [Route("SignUp")]
-        public async Task<IActionResult> SignUpAsync(CreateAccountDto data)
+        public async Task<IActionResult> CreateAsync(CreateAccountDto data)
         {
             var result = await _service.CreateAsync(data);
 

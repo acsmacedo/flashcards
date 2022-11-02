@@ -31,13 +31,15 @@ public class CategoryService : ICategoryService
         return Task.FromResult(result);
     }
 
-    public async Task CreateAsync(CreateCategoryDto data)
+    public async Task<int> CreateAsync(CreateCategoryDto data)
     {
         var entity = new Category(data.Name, data.Image);
 
         _context.Add(entity);
 
         await SaveChangesAsync();
+
+        return entity.ID;
     }
 
     public async Task EditAsync(EditCategoryDto data)

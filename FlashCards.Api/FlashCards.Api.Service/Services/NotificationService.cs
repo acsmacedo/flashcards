@@ -1,4 +1,5 @@
 ﻿using FlashCards.Api.Core.Notifications;
+using FlashCards.Api.Service.DTO.Categories;
 using FlashCards.Api.Service.DTO.Notifications;
 
 namespace FlashCards.Api.Service.Services;
@@ -10,18 +11,6 @@ public class NotificationService : INotificationService
     public NotificationService(ApplicationDbContext context)
     {
         _context = context;
-    }
-
-    public async Task CreateAsync(CreateNotificationDto data)
-    {
-        var entity = new Notification(
-            userID: data.UserID, 
-            title: data.Title, 
-            message: data.Message);
-
-        _context.Add(entity);
-
-        await SaveChangesAsync();
     }
 
     public async Task<IEnumerable<NotificationDto>> GetAllByUserIDAsync(int userID)
@@ -36,6 +25,28 @@ public class NotificationService : INotificationService
         return result;
     }
 
+    public Task<NotificationDto> GetByIDAsync(int notificationID)
+    {
+        var notification = GetByID(notificationID);
+        var result = new NotificationDto(notification);
+
+        return Task.FromResult(result);
+    }
+
+    public async Task<int> CreateAsync(CreateNotificationDto data)
+    {
+        var entity = new Notification(
+            userID: data.UserID,
+            title: data.Title,
+            message: data.Message);
+
+        _context.Add(entity);
+
+        await SaveChangesAsync();
+
+        return entity.ID;
+    }
+
     public async Task ReadAsync(ReadNotificationDto data)
     {
         var entity = GetByID(data.ID);
@@ -43,6 +54,15 @@ public class NotificationService : INotificationService
         entity.Read();
 
         _context.Update(entity);
+
+        await SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(DeleteNotificationDto data)
+    {
+        var entity = GetByID(data.ID);
+
+        _context.Remove(entity);
 
         await SaveChangesAsync();
     }

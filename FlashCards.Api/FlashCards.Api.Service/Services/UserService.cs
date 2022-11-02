@@ -160,7 +160,7 @@ public class UserService : IUserService
         await SaveChangesAsync();
     }
 
-    public async Task ChangeSubscriptionType(ChangeSubscriptionTypeDto data)
+    public async Task ChangeSubscriptionTypeAsync(ChangeSubscriptionTypeDto data)
     {
         var subscriptionType = _context.SubscriptionTypes
             .FirstOrDefault(x => x.ID == data.SubscriptionTypeID);
@@ -177,7 +177,7 @@ public class UserService : IUserService
         await SaveChangesAsync();
     }
 
-    public async Task AddOrEditNotificationSetting(AddOrEditNotificationSettingDto data)
+    public async Task AddOrEditNotificationSettingAsync(AddOrEditNotificationSettingDto data)
     {
         var notificationSetting = _context.NotificationSettings
             .FirstOrDefault(x => x.ID == data.NotificationSettingID);
@@ -194,7 +194,7 @@ public class UserService : IUserService
         await SaveChangesAsync();
     }
 
-    public async Task UpdatePhoto(UpdateUserPhotoDto data)
+    public async Task UpdatePhotoAsync(UpdateUserPhotoDto data)
     {
         var file = data.File.First();
         var fileDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\photos");

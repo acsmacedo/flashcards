@@ -20,6 +20,14 @@ namespace FlashCards.Api.Service.Services
             return result;
         }
 
+        public Task<NotificationSettingDto> GetByIDAsync(int notificationSettingID)
+        {
+            var entity = GetByID(notificationSettingID);
+            var result = new NotificationSettingDto(entity);
+
+            return Task.FromResult(result);
+        }
+
         public async Task<IEnumerable<NotificationSettingByUserDto>> GetAllByUserAsync(int userID)
         {
             var user = _context.Users
@@ -38,13 +46,15 @@ namespace FlashCards.Api.Service.Services
             return result;
         }
 
-        public async Task CreateAsync(CreateNotificationSettingDto data)
+        public async Task<int> CreateAsync(CreateNotificationSettingDto data)
         {
             var entity = new NotificationSetting(data.Name, data.Description);
 
             _context.Add(entity);
 
             await SaveChangesAsync();
+
+            return entity.ID;
         }
 
         public async Task EditAsync(EditNotificationSettingDto data)

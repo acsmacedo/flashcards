@@ -6,8 +6,9 @@ public interface INotificationSettingService
 {
     Task<IEnumerable<NotificationSettingDto>> GetAllAsync();
     Task<IEnumerable<NotificationSettingByUserDto>> GetAllByUserAsync(int id);
+    Task<NotificationSettingDto> GetByIDAsync(int id);
 
-    Task CreateAsync(CreateNotificationSettingDto data);
+    Task<int> CreateAsync(CreateNotificationSettingDto data);
     Task EditAsync(EditNotificationSettingDto data);
     Task DeleteAsync(DeleteNotificationSettingDto data);
 }

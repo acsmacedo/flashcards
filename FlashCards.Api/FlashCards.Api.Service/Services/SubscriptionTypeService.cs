@@ -41,13 +41,24 @@ public class SubscriptionTypeService : ISubscriptionTypeService
         return result;
     }
 
-    public async Task CreateAsync(CreateSubscriptionTypeDto data)
+    public Task<SubscriptionTypeDto> GetByIDAsync(int subscriptionTypeID)
+    {
+        var entity = GetByIDWithBenefits(subscriptionTypeID);
+
+        var result = new SubscriptionTypeDto(entity);
+
+        return Task.FromResult(result);
+    }
+
+    public async Task<int> CreateAsync(CreateSubscriptionTypeDto data)
     {
         var entity = new SubscriptionType(data.Name, data.Price);
 
         _context.Add(entity);
 
         await SaveChangesAsync();
+
+        return entity.ID;
     }
 
     public async Task EditAsync(EditSubscriptionTypeDto data)
@@ -70,7 +81,7 @@ public class SubscriptionTypeService : ISubscriptionTypeService
         await SaveChangesAsync();
     }
 
-    public async Task AddBenefitAsync(AddSubscriptionTypeBenefitDto data)
+    public async Task<int> AddBenefitAsync(AddSubscriptionTypeBenefitDto data)
     {
         var entity = GetByIDWithBenefits(data.SubscriptionTypeID);
 
@@ -79,6 +90,8 @@ public class SubscriptionTypeService : ISubscriptionTypeService
         _context.Update(entity);
 
         await SaveChangesAsync();
+
+        return entity.Benefits.First(x => x.Benefit == data.Benefit).ID;
     }
 
     public async Task EditBenefitAsync(EditSubscriptionTypeBenefitDto data)

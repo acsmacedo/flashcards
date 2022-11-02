@@ -5,5 +5,7 @@ namespace FlashCards.Api.Service.Interfaces;
 public interface IDenunciationService
 {
     Task<IEnumerable<DenunciationDto>> GetAllAsync();
-    Task CreateAsync(CreateDenunciationDto data);
+    Task<DenunciationDto> GetByIDAsync(int id);
+    Task<int> CreateAsync(CreateDenunciationDto data);
+    Task DeleteAsync(DeleteDenunciationDto data);
 }

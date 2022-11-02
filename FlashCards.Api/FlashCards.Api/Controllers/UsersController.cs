@@ -9,9 +9,9 @@ public class UsersController : ControllerBase
     private readonly IUserService _userService;
     private readonly IDirectoryService _directoryService;
 
-    public UsersController(IUserService service, IDirectoryService directoryService)
+    public UsersController(IUserService userService, IDirectoryService directoryService)
     {
-        _userService = service;
+        _userService = userService;
         _directoryService = directoryService;
     }
 
@@ -117,7 +117,7 @@ public class UsersController : ControllerBase
     [Route("ChangeSubscription")]
     public async Task<IActionResult> ChangeSubscriptionAsync(ChangeSubscriptionTypeDto data)
     {
-        await _userService.ChangeSubscriptionType(data);
+        await _userService.ChangeSubscriptionTypeAsync(data);
 
         return Ok();
     }
@@ -126,14 +126,14 @@ public class UsersController : ControllerBase
     [Route("AddOrEditNotificationSetting")]
     public async Task<IActionResult> AddOrEditNotificationSettingAsync(AddOrEditNotificationSettingDto data)
     {
-        await _userService.AddOrEditNotificationSetting(data);
+        await _userService.AddOrEditNotificationSettingAsync(data);
 
         return Ok();
     }
 
     [HttpPost]
     [Route("{userID}/Photo")]
-    public async Task<IActionResult> Post(int userID)
+    public async Task<IActionResult> UpdatePhotoAsync(int userID)
     {
         try
         {
@@ -145,7 +145,7 @@ public class UsersController : ControllerBase
                 file: Request.Form.Files, 
                 baseUrl: $"{Request.Scheme}://{Request.Host}{Request.PathBase}");
 
-            await _userService.UpdatePhoto(data);
+            await _userService.UpdatePhotoAsync(data);
 
             return Ok();
         }

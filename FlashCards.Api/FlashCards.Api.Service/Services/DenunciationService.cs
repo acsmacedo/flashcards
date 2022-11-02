@@ -12,7 +12,23 @@ public class DenunciationService : IDenunciationService
         _context = context;
     }
 
-    public async Task CreateAsync(CreateDenunciationDto data)
+    public async Task<IEnumerable<DenunciationDto>> GetAllAsync()
+    {
+        var denunciations = await _context.Denunciations.ToListAsync();
+        var result = denunciations.Select(x => new DenunciationDto(x));
+
+        return result;
+    }
+
+    public Task<DenunciationDto> GetByIDAsync(int categoryID)
+    {
+        var denunciation = GetByID(categoryID);
+        var result = new DenunciationDto(denunciation);
+
+        return Task.FromResult(result);
+    }
+
+    public async Task<int> CreateAsync(CreateDenunciationDto data)
     {
         var entity = new Denunciation(
             accuserID: data.AccuserID,
@@ -23,14 +39,28 @@ public class DenunciationService : IDenunciationService
         _context.Add(entity);
 
         await SaveChangesAsync();
+
+        return entity.ID;
     }
 
-    public async Task<IEnumerable<DenunciationDto>> GetAllAsync()
+    public async Task DeleteAsync(DeleteDenunciationDto data)
     {
-        var categories = await _context.Denunciations.ToListAsync();
-        var result = categories.Select(x => new DenunciationDto(x));
+        var entity = GetByID(data.ID);
 
-        return result;
+        _context.Remove(entity);
+
+        await SaveChangesAsync();
+    }
+
+    private Denunciation GetByID(int id)
+    {
+        var entity = _context.Denunciations
+            .FirstOrDefault(x => x.ID == id);
+
+        if (entity != null)
+            return entity;
+
+        throw new Exception("Denúncia não encontrada.");
     }
 
     private async Task SaveChangesAsync()
