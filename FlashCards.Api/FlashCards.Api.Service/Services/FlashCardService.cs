@@ -12,18 +12,21 @@ public class FlashCardService : IFlashCardService
         _context = context;
     }
 
-    public async Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID)
+    public Task<FlashCardCollectionDto> GetByIDAsync(int flashcardCollectionID)
     {
-        var flashcard = await _context.FlashCards
+        var flashcard = _context.FlashCards
             .Include(x => x.Cards)
             .Include(x => x.Ratings)
             .Include(x => x.UserDirectory)
                 .ThenInclude(x => x.User)
-            .FirstAsync(x => x.ID == flashcardCollectionID);
+            .FirstOrDefault(x => x.ID == flashcardCollectionID);
+
+        if (flashcard == null)
+            throw new Exception("Coleção de flash card não encontrada.");
 
         var result = new FlashCardCollectionDto(flashcard);
 
-        return result;
+        return Task.FromResult(result);
     }
 
     public async Task<IEnumerable<FlashCardCollectionDto>> GetAllAsync()
@@ -173,7 +176,7 @@ public class FlashCardService : IFlashCardService
         await SaveChangesAsync();
     }
 
-    public async Task AddRatingAsync(AddFlashCardRatingDto data)
+    public async Task<int> AddRatingAsync(AddFlashCardRatingDto data)
     {
         var entity = GetByIDWithRatings(data.FlashCardCollectionID);
 
@@ -185,6 +188,8 @@ public class FlashCardService : IFlashCardService
         _context.Update(entity);
 
         await SaveChangesAsync();
+
+        return entity.Ratings.First(x => x.UserID == data.EvaluatorID).FlashCardRatingID;
     }
 
     private FlashCardCollection GetByIDWithTags(int id)

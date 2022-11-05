@@ -18,5 +18,5 @@ public interface IFlashCardService
     Task RemoveCardAsync(RemoveFlashCardItemDto data);
 
     Task<IEnumerable<FlashCardRatingDto>> GetCardRatingByIDAsync(int flashcardCollectionID);
-    Task AddRatingAsync(AddFlashCardRatingDto data);
+    Task<int> AddRatingAsync(AddFlashCardRatingDto data);
 }

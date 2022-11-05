@@ -35,12 +35,12 @@ public class UserRelationshipConfig : IEntityTypeConfiguration<UserRelationship>
             .HasOne(x => x.Follower)
             .WithMany(x => x.Following)
             .HasForeignKey(x => x.FollowerID)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .HasOne(x => x.Followed)
             .WithMany(x => x.Followers)
             .HasForeignKey(x => x.FollowedID)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
