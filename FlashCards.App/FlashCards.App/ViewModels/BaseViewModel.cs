@@ -102,22 +102,25 @@ namespace FlashCards.App.ViewModels
 
         public async Task<bool> ConfirmExitApp()
         {
-            var action = await MainPage.DisplayAlert(
-                "Atenção", 
-                "Deseja realmente sair do aplicativo?", 
-                "Sim", 
-                "Não");
+            var action = await ConfirmAction(
+                title: "Atenção", 
+                message: "Deseja realmente sair do aplicativo?");
+
+            return action;
+        }
+
+        public async Task<bool> ConfirmAction(string title, string message)
+        {
+            var action = await MainPage.DisplayAlert(title, message, "Sim", "Não");
 
             return action;
         }
 
         public async Task<bool> ConfirmExitPage()
         {
-            var action = await MainPage.DisplayAlert(
-                "Atenção",
-                "Deseja realmente sair dessa página? Todas as informações inseridas serão descartadas!",
-                "Sim",
-                "Não");
+            var action = await ConfirmAction(
+                title: "Atenção",
+                message: "Deseja realmente sair dessa página? Todas as informações inseridas serão descartadas!");
 
             return action;
         }

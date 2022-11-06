@@ -62,7 +62,7 @@ namespace FlashCards.App.ViewModels.Users
             Name = data.Name;
             Instagram = data.Instagram;
             Interests = data.Interests;
-            Photo = data.Photo + "?&g=" + Guid.NewGuid();
+            Photo = data.Photo+ "?&g=" + Guid.NewGuid();
         }
 
         private async void SubmitEditProfile(object sender)

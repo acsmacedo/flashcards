@@ -149,7 +149,8 @@ namespace FlashCards.App.ViewModels.Flashcards
 
                 await DisplaySuccess();
 
-                await Navigation.PopToRootAsync();
+                await Navigation.PopModalAsync();
+                await Navigation.PopModalAsync();
             }
             catch (Exception ex)
             {

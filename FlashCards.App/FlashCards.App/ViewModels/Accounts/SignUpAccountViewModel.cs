@@ -94,8 +94,10 @@ namespace FlashCards.App.ViewModels.Accounts
                     return;
                 }
 
-                await _service.SignUp(this);
-                Application.Current.MainPage = new AppShell();
+                //await _service.SignUp(this);
+                //Application.Current.MainPage = new AppShell();
+
+                DisplayError(message: "Não é possível criar uma conta no momento!");
             }
             catch (Exception ex)
             {

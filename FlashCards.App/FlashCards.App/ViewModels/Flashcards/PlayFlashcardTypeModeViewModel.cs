@@ -230,21 +230,21 @@ namespace FlashCards.App.ViewModels.Flashcards
             UpdateResult();
         }
 
-        private void GoToNextCard()
+        private async void GoToNextCard()
         {
-            Navigation.PopModalAsync();
-            Navigation.PushModalAsync(new PlayFlashcardTypeModePage(this, CurrentPage + 1));
+            await Navigation.PopModalAsync();
+            await Navigation.PushModalAsync(new PlayFlashcardTypeModePage(this, CurrentPage + 1));
         }
 
-        private void GoToPreviousCard()
+        private async void GoToPreviousCard()
         {
-            Navigation.PopModalAsync();
-            Navigation.PushModalAsync(new PlayFlashcardTypeModePage(this, CurrentPage - 1));
+            await Navigation.PopModalAsync();
+            await Navigation.PushModalAsync(new PlayFlashcardTypeModePage(this, CurrentPage - 1));
         }
 
-        private void FinishGame()
+        private async void FinishGame()
         {
-            Navigation.PushAsync(new CreateFlashcardAvailablePage(Data));
+            await Navigation.PushAsync(new CreateFlashcardAvailablePage(Data));
         }
     }
 }

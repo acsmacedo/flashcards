@@ -166,6 +166,13 @@ namespace FlashCards.App.ViewModels.Directories
 
         private async void DeleteFlashcard(FlashcardCollection flashcard)
         {
+            var confirm = await ConfirmAction(
+                title: "Confirmar exclusão",
+                message: string.Format("Tem certeza que deseja excluir o flashcard: {0}", flashcard.Name));
+
+            if (!confirm)
+                return;
+
             await _flashcardCollectionService.DeleteFlashcardCollection(flashcard.ID);
 
             var item = Cards.Single(x => x.ID == flashcard.ID);
@@ -191,6 +198,13 @@ namespace FlashCards.App.ViewModels.Directories
 
         private async void DeleteDirectory(UserDirectoryItem directory)
         {
+            var confirm = await ConfirmAction(
+                title: "Confirmar exclusão", 
+                message: string.Format("Tem certeza que deseja excluir o diretório: {0}", directory.Name));
+
+            if (!confirm)
+                return;
+
             var data = new DeleteUserDirectoryDto(id: directory.ID);
 
             await _directoryService.DeleteDirectory(data);

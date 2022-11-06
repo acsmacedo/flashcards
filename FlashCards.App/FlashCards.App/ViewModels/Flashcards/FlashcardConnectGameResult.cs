@@ -87,6 +87,9 @@ namespace FlashCards.App.ViewModels.Flashcards
                 if (ask.Status == FlashcardConnectGameItemStatus.Success)
                     return;
 
+                if (Asks.Any(x => x.Status == FlashcardConnectGameItemStatus.Selected))
+                    return;
+
                 var answer = Answers.FirstOrDefault(x => x.Status == FlashcardConnectGameItemStatus.Selected);
 
                 if (answer != null)
@@ -112,6 +115,9 @@ namespace FlashCards.App.ViewModels.Flashcards
                 var answer = Answers.First(x => x.FlashcardItemID == item.FlashcardItemID);
 
                 if (answer.Status == FlashcardConnectGameItemStatus.Success)
+                    return;
+
+                if (Answers.Any(x => x.Status == FlashcardConnectGameItemStatus.Selected))
                     return;
 
                 var ask = Asks.FirstOrDefault(x => x.Status == FlashcardConnectGameItemStatus.Selected);
