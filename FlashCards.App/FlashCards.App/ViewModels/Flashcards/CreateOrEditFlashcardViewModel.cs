@@ -191,6 +191,13 @@ namespace FlashCards.App.ViewModels.Flashcards
 
         private async void DeleteFlashcarditem(FlashcardItem card)
         {
+            var confirm = await ConfirmAction(
+                title: "Confirmar exclusão",
+                message: string.Format("Tem certeza que deseja excluir o card: {0}", card.FrontDescription));
+
+            if (!confirm)
+                return;
+
             var data = new DeleteFlashcardItemDto(
                 flashcardCollectionID: card.FlashCardCollectionID,
                 flashcardItemID: card.FlashCardItemID);

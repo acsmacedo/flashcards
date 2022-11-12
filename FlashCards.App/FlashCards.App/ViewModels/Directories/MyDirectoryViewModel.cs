@@ -132,6 +132,12 @@ namespace FlashCards.App.ViewModels.Directories
         {
             var data = await _flashcardCollectionService.GetByID(item.ID);
 
+            if (!data.Items.Any())
+            {
+                DisplayError("Erro", "Esta coleção não possui itens!");
+                return;
+            }
+
             string action = await DisplayActionSheet(
                 title: "O que você deseja fazer?",
                 cancel: "Cancelar",

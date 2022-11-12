@@ -102,6 +102,11 @@ namespace FlashCards.App.ViewModels.Flashcards
         private async void OpenFlashcardOptions(FlashcardCollection flashcardCollection)
         {
             var data = await _flashcardService.GetByID(flashcardCollection.ID);
+            if (!data.Items.Any())
+            {
+                DisplayError("Erro", "Esta coleção não possui itens!");
+                return;
+            }
 
             string action = await DisplayActionSheet(
                 title: "O que você deseja fazer?",
